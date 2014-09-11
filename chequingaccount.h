@@ -12,7 +12,7 @@ public:
         ChequingAccount::balance = balance;
     }
 
-    ChequingAccount(double balance) : Account(){
+    ChequingAccount() : Account(){
         ChequingAccount::balance = 0;
     }
 
@@ -20,7 +20,7 @@ public:
 
 
 private:
-    void get_input(double amount);
+    int get_input(double amount);
 
 };
 

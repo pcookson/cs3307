@@ -1,8 +1,8 @@
 
 all: bank
 
-bank: account.o savingsaccount.o dispatchloop.o user.o main.o
-	g++ dispatchloop.o user.o main.o -o bank
+bank: account.o savingsaccount.o chequingaccount.o dispatchloop.o user.o main.o
+	g++ account.o savingsaccount.o chequingaccount.o dispatchloop.o user.o main.o -o bank
 
 main.o: main.cc
 	g++ -c main.cc
@@ -12,6 +12,9 @@ user.o: user.cc
 
 dispatchloop.o: dispatchloop.cc
 	g++ -c dispatchloop.cc
+
+chequingaccount.o: chequingaccount.cpp
+	g++ -c chequingaccount.cpp
 
 savingsaccount.o: savingsaccount.cpp
 	g++ -c savingsaccount.cpp

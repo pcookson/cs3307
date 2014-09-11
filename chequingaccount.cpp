@@ -39,7 +39,7 @@ int ChequingAccount::get_input(double amount){
 
     if(decision.size() != 1){
         cout << "y or n only" << endl << endl;
-        continue;
+        return 1;
     }
 
     switch(decision[0])
