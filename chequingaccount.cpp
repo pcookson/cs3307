@@ -1,32 +1,40 @@
 #include "chequingaccount.h"
 #include <iostream>
-#define CURSOR = ">"
 using namespace std;
 
 int ChequingAccount::Withdrawl(double amount){
     int inputContinue;
 
-    if((balance > 1000.00) && (balance - amount < 1000)){
-        cout << "WARNING: This transaction will cause balance to drop below $1000.00.\n"
-             << "This transaction, and every subsequent transaction will be subject to\n"
-             <<"a $2.00 service fee.\n"
-            <<"Do you wish to continue with transaction? (y/n)";
+    if((balance > 1000.00) && (balance - amount < 1000) && (balance - amount > 0)){
+        cout << "WARNING: This transaction will cause balance to drop below $1000.00." << endl
+             << "This transaction, and every subsequent transaction will be subject to" << endl
+             <<"a $2.00 service fee." << endl
+            << "Current balance: " << balance << endl
+            <<"Do you wish to continue with transaction? (y/n)" << endl;
 
         do{
             inputContinue = get_input(amount);
         }while(inputContinue);
+        return inputContinue;
 
 
-    }else if(balance < 1000.00){
-        cout << "WARNING: Balance is below $1000.00. This transaction will be subject to\n"
-             << "a $2.00 service fee.\n"
-             <<"Do you wish to continue with transaction? (y/n)";
+    }else if((balance < 1000.00) && (balance - amount > 0)){
+        cout << "WARNING: Balance is below $1000.00. This transaction will be subject to" << endl
+             << "a $2.00 service fee." << endl
+             << "Current balance: " << balance << endl
+             <<"Do you wish to continue with transaction? (y/n)" << endl;
 
         do{
             inputContinue = get_input(amount);
         }while(inputContinue);
+        return inputContinue;
 
-
+    }else if(balance - amount < 0){
+        cout << "WARNING: Insufficient funds. Cannot continue with transaction"
+             << "Current balance: " << balance << endl;
+        return 0;
+    }else{
+        balance = balance - amount;
     }
 
 }

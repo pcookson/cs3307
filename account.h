@@ -25,8 +25,6 @@ public:
 
     double Get_Balance();
 
-
-
 private:
 
 

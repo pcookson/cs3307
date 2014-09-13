@@ -4,6 +4,9 @@ all: bank
 bank: account.o savingsaccount.o chequingaccount.o dispatchloop.o user.o main.o
 	g++ account.o savingsaccount.o chequingaccount.o dispatchloop.o user.o main.o -o bank
 
+testAccounts: account.o savingsaccount.o chequingaccount.o dispatchloop.o user.o testAccounts.o
+		g++ account.o savingsaccount.o chequingaccount.o dispatchloop.o user.o testAccounts.o -o testAccounts
+
 main.o: main.cc
 	g++ -c main.cc
 
@@ -22,5 +25,8 @@ savingsaccount.o: savingsaccount.cpp
 account.o: account.cpp
 	g++ -c account.cpp
 
+testAccounts.o: testAccounts.cpp
+	g++ -c testAccounts.cpp 
+
 clean:
-	rm *.o bank
+	rm *.o bank testAccounts

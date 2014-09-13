@@ -1,12 +1,17 @@
 #include "savingsaccount.h"
+#include <iostream>
 
 using namespace std;
 
-int SavingsAccount::Withdraw(double amount){
+int SavingsAccount::Withdrawl(double amount){
     if(balance < amount){
-        return 1;
+        cout << "WARNING: Insufficient funds. Cannot continue with transaction" << endl
+             << "Current balance: " << balance << endl;
+    }else{
+        balance = balance - amount;
+        cout << "Current balance: " << balance << endl;
     }
-    balance = balance - amount;
-    return 0;
+
+
 
 }
