@@ -38,7 +38,7 @@ int ChequingAccount::Withdrawl(double amount){
     }
 
 }
-
+//private method
 int ChequingAccount::get_input(double amount){
     string decision;
 
