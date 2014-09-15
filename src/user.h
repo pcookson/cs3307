@@ -6,16 +6,17 @@
 #define AUTHENTICATION_FAILURE 0x0
 #define AUTHENTICATION_SUCCESS 0x1
 
-using namespace std;
-
 class User
 {
 public:
-    string username;
-    string password;
+	User() {
+	}
+
+    std::string username;
+    std::string password;
     
-    User(string username);
-    long Authenticate(string password);
+    User(std::string username);
+    long Authenticate(std::string password);
 
 
 private:
