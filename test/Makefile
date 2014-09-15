@@ -16,4 +16,4 @@ libgtest.a: gtest-all.o
 
 
 clean:
-	rm *.o bank testAccounts
+	rm *.o *.exe *.a
