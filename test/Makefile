@@ -4,7 +4,7 @@
 
 
 user: libgtest.a
-	g++ -isystem ${GTEST_DIR}/include ${GTEST_DIR}/src/gtest_main.cc ../src/user.cc user_unittest.cc libgtest.a -o user
+	g++ -pthread -isystem ${GTEST_DIR}/include ${GTEST_DIR}/src/gtest_main.cc ../src/user.cc user_unittest.cc libgtest.a -o user
 
 
 
