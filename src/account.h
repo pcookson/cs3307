@@ -1,6 +1,9 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 
+#define INSUFFICIENT_FUNDS 0x5
+
+
 using namespace std;
 
 class Account
@@ -17,13 +20,13 @@ public:
         balance = starting_balance;
     }
 
-    int Close();
+    int close();
 
-    int Deposit(double amount);
+    long deposit(double amount);
 
-    virtual int Withdrawl(double amount);
+    virtual long withdrawl(double amount);
 
-    double Get_Balance();
+    double getBalance();
 
 private:
 

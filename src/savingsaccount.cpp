@@ -3,10 +3,9 @@
 
 using namespace std;
 
-int SavingsAccount::Withdrawl(double amount){
+long SavingsAccount::withdrawl(double amount){
     if(balance < amount){
-        cout << "WARNING: Insufficient funds. Cannot continue with transaction" << endl
-             << "Current balance: " << balance << endl;
+        throw INSUFFICIENT_FUNDS;
     }else{
         balance = balance - amount;
         cout << "Current balance: " << balance << endl;

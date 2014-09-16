@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-int ChequingAccount::Withdrawl(double amount){
+long ChequingAccount::withdrawl(double amount){
     int inputContinue;
 
     if((balance > 1000.00) && (balance - amount < 1000) && (balance - amount > 0)){
@@ -30,9 +30,8 @@ int ChequingAccount::Withdrawl(double amount){
         return inputContinue;
 
     }else if(balance - amount < 0){
-        cout << "WARNING: Insufficient funds. Cannot continue with transaction"
-             << "Current balance: " << balance << endl;
-        return 0;
+        throw INSUFFICIENT_FUNDS;
+
     }else{
         balance = balance - amount;
     }

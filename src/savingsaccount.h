@@ -15,7 +15,7 @@ public:
         SavingsAccount::balance = 0;
     }
 
-    virtual int Withdrawl(double amount);
+    virtual long withdrawl(double amount);
 
 private:
 

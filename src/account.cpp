@@ -5,20 +5,20 @@ using namespace std;
 
 
 
-int Account::Close(){
+int Account::close(){
     //not yet implemented
     return 0;
 }
 
-int Account::Deposit(double amount){
+long Account::deposit(double amount){
     balance = balance + amount;
     return 0;
 }
 
-int Account::Withdrawl(double amount){
+long Account::withdrawl(double amount){
     return 0;
 }
 
-double Account::Get_Balance(){
+double Account::getBalance(){
     return balance;
 }

@@ -1,18 +1,15 @@
 #include "chequingaccount.h"
 #include "savingsaccount.h"
+#include "fundmovementvalidation.h"
 #include <iostream>
 
 using namespace std;
 
 
 
-void transfer_funds(ChequingAccount &cAccount, SavingsAccount &sAccount, double amount){
-    cAccount.Deposit(amount);
-    sAccount.Withdrawl(amount);
-
-}
 
 int main(){
+    FundMovementValidation validator = FundMovementValidation();
     ChequingAccount cAccount = ChequingAccount(1200);
     SavingsAccount sAccount = SavingsAccount(1200);
 
@@ -20,30 +17,30 @@ int main(){
          << "****************************************************" << endl;
 
     cout << "Initial balance of chequing account:" << endl;
-    cout << "balance: " << cAccount.Get_Balance() << endl << endl;
+    cout << "balance: " << cAccount.getBalance() << endl << endl;
 
-    cout << "Deposit 300.00 into chequing account:" << endl;
-    cAccount.Deposit(300.00);
-    cout << "balance: " << cAccount.Get_Balance() << endl << endl;
+    cout << "deposit 300.00 into chequing account:" << endl;
+    cAccount.deposit(300.00);
+    cout << "balance: " << cAccount.getBalance() << endl << endl;
 
     cout << "Withdraw an amount that goes below 600.00:" << endl;
-    cAccount.Withdrawl(600.00);
-    cout << "balance: " << cAccount.Get_Balance() << endl << endl;
+    cAccount.withdrawl(600.00);
+    cout << "balance: " << cAccount.getBalance() << endl << endl;
 
     cout << "Withdraw an amount that is greater than balance:" << endl;
-    cAccount.Withdrawl(2000.00);
-    cout << "balance: " << cAccount.Get_Balance() << endl << endl;
+    cAccount.withdrawl(2000.00);
+    cout << "balance: " << cAccount.getBalance() << endl << endl;
 
     cout << "Withdraw an acceptable amount:" << endl;
-    cAccount.Withdrawl(5.00);
-    cout << "balance: " << cAccount.Get_Balance() << endl << endl;
+    cAccount.withdrawl(5.00);
+    cout << "balance: " << cAccount.getBalance() << endl << endl;
 
     cout << "Transfer funds from savings to chequing" << endl;
-    cout << "chequing balance: " << cAccount.Get_Balance()  << endl;
-    cout << "savings balance: " << sAccount.Get_Balance() << endl;
-    transfer_funds(cAccount,sAccount, 200.00);
-    cout << "chequing balance: " << cAccount.Get_Balance()  << endl;
-    cout << "savings balance: " << sAccount.Get_Balance() << endl;
+    cout << "chequing balance: " << cAccount.getBalance()  << endl;
+    cout << "savings balance: " << sAccount.getBalance() << endl;
+    validator.transferFunds(cAccount,sAccount, 200.00);
+    cout << "chequing balance: " << cAccount.getBalance()  << endl;
+    cout << "savings balance: " << sAccount.getBalance() << endl;
 
 
     cout << "****************************************************" << endl;
@@ -54,23 +51,28 @@ int main(){
          << "**************************************************" << endl;
 
     cout << "Initial balance of savings account:" << endl;
-    cout << "balance: " << sAccount.Get_Balance() << endl << endl;
+    cout << "balance: " << sAccount.getBalance() << endl << endl;
 
-    cout << "Deposit 300.00 into savings account:" << endl;
-    sAccount.Deposit(300.00);
-    cout << "balance: " << sAccount.Get_Balance() << endl << endl;
+    cout << "deposit 300.00 into savings account:" << endl;
+    sAccount.deposit(300.00);
+    cout << "balance: " << sAccount.getBalance() << endl << endl;
 
     cout << "Withdraw an amount that goes below 600.00:" << endl;
-    sAccount.Withdrawl(600.00);
-    cout << "balance: " << sAccount.Get_Balance() << endl << endl;
+    sAccount.withdrawl(600.00);
+    cout << "balance: " << sAccount.getBalance() << endl << endl;
 
     cout << "Withdraw an amount that is greater than balance:" << endl;
-    sAccount.Withdrawl(2000.00);
-    cout << "balance: " << sAccount.Get_Balance() << endl << endl;
+    try{
+        sAccount.withdrawl(2000.00);
+    }catch(int e){
+        if(e == INSUFFICIENT_FUNDS)
+            cout << "Insuffcient Funds" << endl;
+            cout << "balance: " << sAccount.getBalance() << endl << endl;
+    }
 
     cout << "Withdraw an acceptable amount:" << endl;
-    sAccount.Withdrawl(5.00);
-    cout << "balance: " << sAccount.Get_Balance() << endl << endl;
+    sAccount.withdrawl(5.00);
+    cout << "balance: " << sAccount.getBalance() << endl << endl;
 
 
 }
