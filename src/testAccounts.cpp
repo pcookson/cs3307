@@ -81,8 +81,8 @@ int main(){
     cout << "chequing balance: " << cAccount.getBalance()  << endl;
     cout << "savings balance: " << sAccount.getBalance() << endl;
     validator.transferFunds(cAccount,sAccount, 200.00);
-    cout << "chequing balance: " << cAccount.getBalance()  << endl;
-    cout << "savings balance: " << sAccount.getBalance() << endl;
+    cout << "new chequing balance: " << cAccount.getBalance()  << endl;
+    cout << "new savings balance: " << sAccount.getBalance() << endl;
 
 
     cout << "****************************************************" << endl;
