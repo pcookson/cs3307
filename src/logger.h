@@ -44,8 +44,8 @@ public:
 
     static void setLoggingOnOff(int on);
 
-    static void log(int logInt, string &userName, double amount, string &accountType,
-                string &fromAccount, string &toAccount);
+    static void log(int logInt, string &userName, double amount, const string &accountType,
+                const string &fromAccount, const string &toAccount);
 
     static void log(int logInt, string& userName, double amount, const string& accountType);
 

@@ -27,12 +27,12 @@ void Logger::printToFile(const string& message, const string& logLevel){
 
 }
 
-void Logger::log(int logInt, string& userName, double amnt, string &accountType, string& fromAccount, string &toAccount){
+void Logger::log(int logInt, string& userName, double amnt, const string &accountType, const string& fromAccount, const string &toAccount){
     string amount = dblToString(amnt);
 
     switch(logInt){
     case ACCEPTS_FEE:
-        Logger::info(userName + " accepted fee for withdrawl");
+        Logger::info(userName + " accepted fee for withdrawl. Successfully withdrew " + amount + " from " + accountType);
         break;
     case DECLINES_FEE:
         Logger::warning(userName + " declined fee for withdrawl");
@@ -53,7 +53,7 @@ void Logger::log(int logInt, string& userName, double amnt, string &accountType,
         Logger::info(userName+ " transferred " + amount + " from " + fromAccount + " to " + toAccount);
         break;
     case INSUFFICIENT_FUNDS_TO_WITHDRAW:
-        Logger::info(userName + " attempted to withdraw funds. Insufficient funds to process transaction");
+        Logger::info(userName + " attempted to withdraw funds " + accountType+ ". Insufficient funds to process transaction");
         break;
     default:
         Logger::info("No logging for this situation");
@@ -64,7 +64,7 @@ void Logger::log(int logInt, string& userName, double amnt, const string& accoun
     string amount = dblToString(amnt);
     switch(logInt){
     case ACCEPTS_FEE:
-        Logger::info(userName + " accepted fee for withdrawl");
+        Logger::info(userName + " accepted fee for withdrawl. Successfully withdrew " + amount + " from " + accountType);
         break;
     case DECLINES_FEE:
         Logger::warning(userName + " declined fee for withdrawl");
@@ -83,7 +83,7 @@ void Logger::log(int logInt, string& userName, double amnt, const string& accoun
         Logger::info(userName +" successfully deposited " + amount+ " into " + accountType);
         break;
     case INSUFFICIENT_FUNDS_TO_WITHDRAW:
-        Logger::info(userName + " attempted to withdraw funds. Insufficient funds to process transaction");
+        Logger::info(userName + " attempted to withdraw funds from " + accountType+ ". Insufficient funds to process transaction");
         break;
     default:
         Logger::info("No logging for this situation");
@@ -104,6 +104,9 @@ void Logger::log(int logInt, string& userName){
 
     case DEPOSIT_FAILURE:
         Logger::info(userName + " failed to deposit money");
+        break;
+    case INSUFFICIENT_FUNDS_TO_WITHDRAW:
+        Logger::info(userName + " attempted to withdraw funds. Insufficient funds to process transaction");
         break;
     default:
         Logger::info("No logging for this situation");
