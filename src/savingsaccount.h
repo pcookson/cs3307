@@ -1,5 +1,4 @@
 #include "account.h"
-#include "htmllogger.h"
 #ifndef SAVINGSACCOUNT_H
 #define SAVINGSACCOUNT_H
 
@@ -16,7 +15,7 @@ public:
         SavingsAccount::balance = 0;
     }
 
-    virtual long withdrawl(double amount);
+    virtual int withdrawl(double amount);
 
 private:
 

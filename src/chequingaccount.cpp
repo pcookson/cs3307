@@ -1,8 +1,9 @@
 #include "chequingaccount.h"
 #include <iostream>
+
 using namespace std;
 
-long ChequingAccount::withdrawl(double amount){
+int ChequingAccount::withdrawl(double amount){
     int inputContinue;
 
     if((balance > 1000.00) && (balance - amount < 1000) && (balance - amount > 0)){
@@ -14,7 +15,7 @@ long ChequingAccount::withdrawl(double amount){
 
         do{
             inputContinue = get_input(amount);
-        }while(inputContinue);
+        }while(inputContinue == 1);
         return inputContinue;
 
 
@@ -26,14 +27,15 @@ long ChequingAccount::withdrawl(double amount){
 
         do{
             inputContinue = get_input(amount);
-        }while(inputContinue);
-        return inputContinue;
+        }while(inputContinue == 1);
+        return inputContinue;//returns either ACCEPTS_FEE or DECLINES_FEE
 
     }else if(balance - amount < 0){
         throw INSUFFICIENT_FUNDS;
 
     }else{
         balance = balance - amount;
+        return WITHDRAW_SUCCESSFUL;
     }
 
 }
@@ -52,12 +54,12 @@ int ChequingAccount::get_input(double amount){
     switch(decision[0])
     {
     case 'n':
-        return 0;
+        return DECLINES_FEE;
         break;
 
     case 'y':
         balance = balance - amount - 2.00;
-        return 0;
+        return ACCEPTS_FEE;
         break;
 
     default:

@@ -10,12 +10,12 @@ int Account::close(){
     return 0;
 }
 
-long Account::deposit(double amount){
+int Account::deposit(double amount){
     balance = balance + amount;
-    return 0;
+    return DEPOSIT_SUCCESS;
 }
 
-long Account::withdrawl(double amount){
+int Account::withdrawl(double amount){
     return 0;
 }
 

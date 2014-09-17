@@ -3,7 +3,7 @@
 
 #include "savingsaccount.h"
 #include "chequingaccount.h"
-#include "htmllogger.h"
+#include "logger.h"
 
 class FundMovementValidation
 {

@@ -1,16 +1,46 @@
 #include "chequingaccount.h"
 #include "savingsaccount.h"
 #include "fundmovementvalidation.h"
-#include "htmllogger.h"
+#include "user.h"
 #include <iostream>
 
+
 using namespace std;
+
+
+void logger(int logInt){
+    string username = "patrick";
+    User user = User(username);
+    switch(logInt){
+    case ACCEPTS_FEE:
+        Logger::info(user.username + " accepted fee for withdrawl");
+        break;
+    case DECLINES_FEE:
+        Logger::warning(user.username + " declines fee for withdrawl");
+    case WITHDRAW_SUCCESSFUL:
+        Logger::info("successfully withdrew money from account");
+        break;
+    case WITHDRAW_FAILURE:
+        Logger::info("failed to withdraw money");
+        break;
+
+    case DEPOSIT_FAILURE:
+        Logger::info("failed to deposit money");
+        break;
+    case DEPOSIT_SUCCESS:
+        Logger::info("successfully deposited money");
+        break;
+    default:
+        Logger::info("No logging for this situation");
+    }
+}
 
 int main(){
     FundMovementValidation validator = FundMovementValidation();
 
     ChequingAccount cAccount = ChequingAccount(1200);
     SavingsAccount sAccount = SavingsAccount(1200);
+    int chequingCheck;
 
     cout << "Tests for Chequing Account" << endl
          << "****************************************************" << endl;
@@ -20,11 +50,14 @@ int main(){
     cout << "balance: " << cAccount.getBalance() << endl << endl;
 
     cout << "deposit 300.00 into chequing account:" << endl;
-    cAccount.deposit(300.00);
+    chequingCheck = cAccount.deposit(300.00);
+    logger(chequingCheck);
     cout << "balance: " << cAccount.getBalance() << endl << endl;
 
     cout << "Withdraw an amount that goes below 600.00:" << endl;
-    cAccount.withdrawl(600.00);
+    chequingCheck = cAccount.withdrawl(600.00);
+    logger(chequingCheck);
+
     cout << "balance: " << cAccount.getBalance() << endl << endl;
 
     cout << "Withdraw an amount that is greater than balance:" << endl;
@@ -40,7 +73,8 @@ int main(){
     cout << "balance: " << cAccount.getBalance() << endl << endl;
 
     cout << "Withdraw an acceptable amount:" << endl;
-    cAccount.withdrawl(5.00);
+    chequingCheck = cAccount.withdrawl(5.00);
+    logger(chequingCheck);
     cout << "balance: " << cAccount.getBalance() << endl << endl;
 
     cout << "Transfer funds from savings to chequing" << endl;
@@ -69,7 +103,7 @@ int main(){
     cout << "Withdraw an amount that goes below 600.00:" << endl;
     sAccount.withdrawl(600.00);
     cout << "balance: " << sAccount.getBalance() << endl << endl;
-    HtmlLogger::setLoggingOnOff(0);
+    Logger::setLoggingOnOff(0);
     cout << "Withdraw an amount that is greater than balance:" << endl;
     try{
         sAccount.withdrawl(2000.00);
@@ -80,11 +114,9 @@ int main(){
     }
 
     cout << "Withdraw an acceptable amount:" << endl;
-    HtmlLogger::setLoggingOnOff(1);
+    Logger::setLoggingOnOff(1);
     sAccount.withdrawl(5.00);
     cout << "balance: " << sAccount.getBalance() << endl << endl;
 
 
 }
-
-

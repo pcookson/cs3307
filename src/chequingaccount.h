@@ -2,7 +2,6 @@
 #define CHEQUINGACCOUNT_H
 
 #include "account.h"
-#include "htmllogger.h"
 
 using namespace std;
 
@@ -17,7 +16,7 @@ public:
         ChequingAccount::balance = 0;
     }
 
-    virtual long withdrawl(double amount);
+    virtual int withdrawl(double amount);
 
 
 private:
