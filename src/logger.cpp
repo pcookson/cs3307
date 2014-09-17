@@ -27,6 +27,95 @@ void Logger::printToFile(const string& message, const string& logLevel){
 
 }
 
+void Logger::log(int logInt, string& userName, double amnt, string &accountType, string& fromAccount, string &toAccount){
+    string amount = dblToString(amnt);
+
+    switch(logInt){
+    case ACCEPTS_FEE:
+        Logger::info(userName + " accepted fee for withdrawl");
+        break;
+    case DECLINES_FEE:
+        Logger::warning(userName + " declined fee for withdrawl");
+    case WITHDRAW_SUCCESSFUL:
+        Logger::info(userName + " successfully withdrew "+ amount+" from " + accountType);
+        break;
+    case WITHDRAW_FAILURE:
+        Logger::info(userName + " failed to withdraw money");
+        break;
+
+    case DEPOSIT_FAILURE:
+        Logger::info(userName + " failed to deposit money");
+        break;
+    case DEPOSIT_SUCCESS:
+        Logger::info(userName +" successfully deposited " + amount+ " into " + accountType);
+        break;
+    case TRANSFER_FUNDS:
+        Logger::info(userName+ " transferred " + amount + " from " + fromAccount + " to " + toAccount);
+        break;
+    case INSUFFICIENT_FUNDS_TO_WITHDRAW:
+        Logger::info(userName + " attempted to withdraw funds. Insufficient funds to process transaction");
+        break;
+    default:
+        Logger::info("No logging for this situation");
+    }
+}
+
+void Logger::log(int logInt, string& userName, double amnt, const string& accountType){
+    string amount = dblToString(amnt);
+    switch(logInt){
+    case ACCEPTS_FEE:
+        Logger::info(userName + " accepted fee for withdrawl");
+        break;
+    case DECLINES_FEE:
+        Logger::warning(userName + " declined fee for withdrawl");
+
+    case WITHDRAW_SUCCESSFUL:
+        Logger::info(userName + " successfully withdrew "+ amount+" from " + accountType);
+        break;
+    case WITHDRAW_FAILURE:
+        Logger::info(userName + " failed to withdraw money");
+        break;
+
+    case DEPOSIT_FAILURE:
+        Logger::info(userName + " failed to deposit money");
+        break;
+    case DEPOSIT_SUCCESS:
+        Logger::info(userName +" successfully deposited " + amount+ " into " + accountType);
+        break;
+    case INSUFFICIENT_FUNDS_TO_WITHDRAW:
+        Logger::info(userName + " attempted to withdraw funds. Insufficient funds to process transaction");
+        break;
+    default:
+        Logger::info("No logging for this situation");
+    }
+}
+
+void Logger::log(int logInt, string& userName){
+    switch(logInt){
+    case ACCEPTS_FEE:
+        Logger::info(userName + " accepted fee for withdrawl");
+        break;
+    case DECLINES_FEE:
+        Logger::warning(userName + " declined fee for withdrawl");
+        break;
+    case WITHDRAW_FAILURE:
+        Logger::info(userName + " failed to withdraw money");
+        break;
+
+    case DEPOSIT_FAILURE:
+        Logger::info(userName + " failed to deposit money");
+        break;
+    default:
+        Logger::info("No logging for this situation");
+    }
+}
+
+string Logger::dblToString(double amount){
+    ostringstream strs;
+    strs << amount;
+    string str = strs.str();
+    return str;
+}
 void Logger::setLoggingOnOff(int on){
     logginOnOff = on;
 }

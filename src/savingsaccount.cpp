@@ -13,6 +13,7 @@ int SavingsAccount::withdrawl(double amount){
 
         balance = balance - amount;
         cout << "Current balance: " << balance << endl;
+        return WITHDRAW_SUCCESSFUL;
     }
 
 
