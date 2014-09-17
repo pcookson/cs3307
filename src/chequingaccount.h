@@ -2,6 +2,7 @@
 #define CHEQUINGACCOUNT_H
 
 #include "account.h"
+#include "htmllogger.h"
 
 using namespace std;
 

@@ -1,4 +1,5 @@
 #include "account.h"
+#include "htmllogger.h"
 #ifndef SAVINGSACCOUNT_H
 #define SAVINGSACCOUNT_H
 

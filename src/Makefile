@@ -4,8 +4,8 @@ all: bank
 bank: account.o savingsaccount.o chequingaccount.o dispatchloop.o user.o main.o
 	g++ account.o savingsaccount.o chequingaccount.o dispatchloop.o user.o main.o -o bank
 
-testAccounts: account.o savingsaccount.o chequingaccount.o dispatchloop.o user.o testAccounts.o fundmovementvalidation.o
-		g++ account.o savingsaccount.o chequingaccount.o dispatchloop.o user.o testAccounts.o fundmovementvalidation.o -o testAccounts 
+testAccounts: account.o savingsaccount.o chequingaccount.o dispatchloop.o user.o testAccounts.o fundmovementvalidation.o htmllogger.o
+	g++ account.o savingsaccount.o chequingaccount.o dispatchloop.o user.o testAccounts.o fundmovementvalidation.o htmllogger.o -o testAccounts
 
 main.o: main.cc
 	g++ -c main.cc
@@ -31,5 +31,8 @@ testAccounts.o: testAccounts.cpp
 fundmovementvalidation.o: fundmovementvalidation.cpp
 	g++ -c fundmovementvalidation.cpp
 
+htmllogger.o: htmllogger.cpp
+	g++ -c htmllogger.cpp
+
 clean:
-	rm *.o bank testAccounts
+	rm *.o bank testAccounts report.txt

@@ -2,7 +2,7 @@
 #define ACCOUNT_H
 
 #define INSUFFICIENT_FUNDS 0x5
-
+#include "htmllogger.h"
 
 using namespace std;
 

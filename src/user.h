@@ -1,4 +1,5 @@
 #include <iostream>
+#include "htmllogger.h"
 
 #ifndef USER_H_
 #define USER_H_
