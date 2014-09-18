@@ -9,6 +9,7 @@
 // The following #define is required with MyODBC 5.1 and higher
 #define OTL_ODBC_SELECT_STM_EXECUTE_BEFORE_DESCRIBE
 #define OTL_UNICODE // Compile OTL with Unicode
+#define OTL_STL
 
 #include <iostream>
 #include <vector>
@@ -16,6 +17,8 @@ using namespace std;
 
 #include "otlv4.h"
 #include "db.h"
+
+otl_connect Db::con_;
 
 Db::Db() {
 	 otl_connect::otl_initialize(); // initialize OCI environment
@@ -26,6 +29,7 @@ Db::~Db() {
 }
 
 void Db::Connect() {
+
 	Db::con_.rlogon("DSN=mysql");
 }
 
@@ -40,9 +44,7 @@ vector<string> Db::Select(string sql_statement, vector<string> values) {
 
 	for(vector<string>::iterator it = elements.begin(); it != elements.end(); ++it)
 	{
-		char tmp[255];
-		tmp[254] = 0;
-		i << tmp;
+		i << *it;
 	}
 
 	while (!i.eof())

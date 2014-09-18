@@ -20,15 +20,15 @@
 #include "otlv4.h" // include the OTL 4.0 header file
 
 
-
 #include "otlv4.h"
 
 class Db {
 private:
-	//Use the connection as a singleton
-	otl_connect con_;
 
 public:
+	//Use the connection as a singleton
+	static otl_connect con_;
+
 	//Implementing Connect function will prevent duplicate connections
 	void Connect();
 
