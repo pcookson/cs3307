@@ -14,8 +14,8 @@ main.o: main.cpp
 user.o: User/user.cpp
 	g++ -c User/user.cpp
 
-dispatchloop.o: dispatchloop.cpp
-	g++ -c dispatchloop.cpp
+dispatchloop.o: dispatchloop.cc
+	g++ -c dispatchloop.cc
 
 chequingaccount.o: chequingaccount.cpp
 	g++ -c chequingaccount.cpp

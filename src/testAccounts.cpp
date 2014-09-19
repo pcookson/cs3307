@@ -1,7 +1,7 @@
 #include "chequingaccount.h"
 #include "savingsaccount.h"
 #include "fundmovementvalidation.h"
-#include "user.h"
+#include "User/user.h"
 
 #include <iostream>
 
