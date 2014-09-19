@@ -49,6 +49,7 @@ public:
     double getBalance();
 
 private:
+    int get_input(double amount);
 
 
 };

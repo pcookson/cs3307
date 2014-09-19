@@ -22,3 +22,7 @@ int Account::withdrawl(double amount){
 double Account::getBalance(){
     return balance;
 }
+
+int Account::get_input(double amount){
+    return 0;
+}

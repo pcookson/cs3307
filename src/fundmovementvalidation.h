@@ -3,6 +3,8 @@
 
 #include "savingsaccount.h"
 #include "chequingaccount.h"
+#include "account.h"
+#include "user.h"
 #include "logger.h"
 
 class FundMovementValidation
@@ -12,17 +14,12 @@ public:
 
     }
 
-    long transferFunds(ChequingAccount &fromAccount, SavingsAccount &toAccount, double amount);
-
-    long transferFunds(ChequingAccount &fromAccount, ChequingAccount &toAccount, double amount);
-
-    long transferFunds(SavingsAccount &fromAccount, ChequingAccount &toAccount, double amount);
-
-    long transferFunds(SavingsAccount &fromAccount, SavingsAccount &toAccount, double amount);
-
-    long withdrawPaymentFromAccount(Account &fromAccount, double amount);
+    int transferFunds(Account &fromAccount, Account &toAccount, double amount);
 
 private:
+    SavingsAccount castToSavings(Account &sAccount);
+
+    ChequingAccount castToChequing (Account &cAccount);
 
 
 };

@@ -27,6 +27,10 @@ void Logger::printToFile(const string& message, const string& logLevel){
 
 }
 
+/*
+ * Overloaded log methods allows for varying levels of information
+ *
+ */
 void Logger::log(int logInt, string& userName, double amnt, const string &accountType, const string& fromAccount, const string &toAccount){
     string amount = dblToString(amnt);
 

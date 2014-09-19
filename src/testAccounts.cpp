@@ -65,7 +65,7 @@ int main(){
     cout << "Transfer funds from savings to chequing" << endl;
     cout << "chequing balance: " << cAccount.getBalance()  << endl;
     cout << "savings balance: " << sAccount.getBalance() << endl;
-    validator.transferFunds(cAccount,sAccount, 200.00);
+    validator.transferFunds(sAccount,cAccount, 200.00);
     cout << "new chequing balance: " << cAccount.getBalance()  << endl;
     cout << "new savings balance: " << sAccount.getBalance() << endl;
 
@@ -91,7 +91,7 @@ int main(){
 
 
     cout << "Withdraw an amount that goes below 600.00:" << endl;
-    chequingCheck= sAccount.withdrawl(600.00);
+    chequingCheck= sAccount.withdrawl(800.00);
 
     Logger::log(chequingCheck, userName, 600.00, "savings account");
     cout << "balance: " << sAccount.getBalance() << endl << endl;
