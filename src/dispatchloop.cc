@@ -1,6 +1,35 @@
 #include <iostream>
+#include "User/user.h"
+#include <stdlib.h>
 
 using namespace std;
+
+void clearScreen(){
+    {
+        cout << "\033[2J\033[1;1H";
+        //see http://stackoverflow.com/questions/4062045/clearing-terminal-in-linux-with-c-code
+
+    }
+}
+
+/*
+ * Login function for users
+ */
+
+void login(){
+    while (true){
+        //Command prompt character
+        cout << "Username > ";
+        string username;
+        cin >> username;
+
+        clearScreen();
+        return;
+    }
+    //authenticate user
+}
+
+
 
 /*
  * Prints a list of available commands
@@ -8,6 +37,7 @@ using namespace std;
 void CommandList() {
     cout << "Enter a command: " << endl;
     cout << "\tq.  Exit" << endl << endl;
+    cout << "\tl.  Login" << endl << endl;
 
     //Command prompt character
     cout << "> ";
@@ -31,16 +61,26 @@ void DispatchLoop() {
             continue;
         }
 
-	switch(command[0])
+        switch(command[0])
         {
-            case 'q':
-                return;
 
-            default:
-                cout << "Unknown command" << endl << endl;
+        case 'l':
+            clearScreen();
+            login();
+            break;
+
+        case 'q':
+            return;
+            break;
+
+
+
+
+        default:
+            cout << "Unknown command" << endl << endl;
         }
 
-	
+
 
     }
 
