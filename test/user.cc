@@ -1,10 +1,12 @@
-#include "../src/user.h"
+#include "../src/User/user.h"
 //#include <../contrib/gtest/gtest.h>
 #include <gtest/gtest.h>
 
+using namespace User;
+
 TEST(User, Authenticate)
 {
-    User user;
+    User::User user;
     user.password = "correct";
 
     EXPECT_ANY_THROW(user.Authenticate("incorrect"));

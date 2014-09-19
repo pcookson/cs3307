@@ -17,10 +17,9 @@
 #include <iostream>
 #include <vector>
 
-#include "otlv4.h" // include the OTL 4.0 header file
+#include "../otlv4.h"
 
-
-#include "otlv4.h"
+namespace Db {
 
 class Db {
 private:
@@ -39,5 +38,7 @@ public:
 
 
 };
+
+} /* namespace Db */
 
 #endif /* DB_H_ */

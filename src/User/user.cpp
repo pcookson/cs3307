@@ -3,6 +3,9 @@
 
 using namespace std;
 
+namespace User {
+
+
 User::User(string username) {
     User::username = username;
 }
@@ -14,3 +17,5 @@ long User::Authenticate(string password) {
 
     return AUTHENTICATION_SUCCESS;
 }
+
+} /* namespace User */
