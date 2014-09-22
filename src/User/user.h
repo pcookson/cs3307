@@ -4,23 +4,26 @@
 #ifndef USER_H_
 #define USER_H_
 
-#define AUTHENTICATION_FAILURE 0x0
-#define AUTHENTICATION_SUCCESS 0x1
+
+#define USER_PERMISSION_USER 0X0
+#define USER_PERMISSION_MAINTENANCE 0X1
+#define USER_PERMISSION_ADMIN 0X2
 
 namespace User {
+
 
 class User
 {
 public:
-	User() {
-	}
+	User();
 
     std::string username;
-    std::string password;
+    long permissions;
     
     User(std::string username);
-    long Authenticate(std::string password);
     void logger(int logInt);
+
+    int id;
 
 private:
 

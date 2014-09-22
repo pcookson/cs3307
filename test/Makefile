@@ -7,7 +7,7 @@ user: $(DEPS) libgtest.a
 
 
 db: $(DEPS) libgtest.a
-	g++ -pthread -isystem ${GTEST_DIR}/include ${GTEST_DIR}/src/gtest_main.cc ../src/Db/db.cpp ../src/User/*.cpp db.cc Objects/libgtest.a -lodbc -g -o Debug/db
+	g++ -Wall -pthread -isystem ${GTEST_DIR}/include ${GTEST_DIR}/src/gtest_main.cc ../src/Db/db.cpp ../src/User/*.cpp db.cc Objects/libgtest.a -lmysqlclient -lodbc -g -o Debug/db
 
 gtest-all.o: 
 	g++ -isystem ${GTEST_DIR}/include -I${GTEST_DIR} -pthread -c ${GTEST_DIR}/src/gtest-all.cc -o Objects/gtest-all.o

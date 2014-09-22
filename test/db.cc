@@ -2,31 +2,83 @@
 #include <gtest/gtest.h>
 #include "../src/User/user.h"
 #include "../src/User/usertable.h"
+#include <mysql/mysql.h>
+#include <iostream>
+#include <string>
+#include "../src/Utilities.h"
+
+//Settings
+#define SQL_PRINT_DEBUG
+#define SQL_PRINT_ERRORS
+
+#define MYSQL_USERNAME "root"
+#define MYSQL_PASSWORD "chepstow"
+#define MYSQL_SERVER "localhost"
+#define MYSQL_DATABASE "cs3307"
+#define MYSQL_REMOTE_PORT 3309
 
 using namespace Db;
+using namespace std;
 
-unsigned int my_trace_level=
-   0x1 | // 1st level of tracing
-   0x2 | // 2nd level of tracing
-   0x4 | // 3rd level of tracing
-   0x8 | // 4th level of tracing
-   0x10; // 5th level of tracing
-
-#define OTL_TRACE_LEVEL my_trace_level
-#define OTL_TRACE_STREAM cerr
-
-TEST(Db, Connect)
+TEST(DbTest, CreateUser)
 {
-	Db::Db db_;
+	Db::Db::Connect();
 
-	EXPECT_NO_THROW(db_.Connect());
+	User::User user;
 
+	EXPECT_NO_THROW(User::UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, user));
+	EXPECT_NO_THROW(User::UserTable::DeleteUser("notauser"));
 
+	Db::Db::Disconnect();
 }
 
-TEST(Db, NewUser)
+TEST(DbTest, DeleteNonExistentUser)
 {
-	User::UserTable::Authenticate("bluebaron", "chepstow");
+	Db::Db::Connect();
+	int status;
+	try {
+		status = User::UserTable::DeleteUser("notauser");
+	}
+	catch(int e)
+	{
+		status = e;
+	}
 
-
+	EXPECT_EQ(DELETE_USER_FAILURE, status);
+	Db::Db::Disconnect();
 }
+
+TEST(DbTest, Authenticate)
+{
+	Db::Db::Connect();
+	User::User user;
+
+	EXPECT_NO_THROW(User::UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, user));
+	EXPECT_NO_THROW(User::UserTable::Authenticate("notauser", "notapassword", user));
+	EXPECT_NO_THROW(User::UserTable::DeleteUser("notauser"));
+
+	EXPECT_GT(user.id, 0);
+	Db::Db::Disconnect();
+}
+
+TEST(DbTest, AuthenticateFail)
+{
+	Db::Db::Connect();
+
+	User::User user;
+
+	EXPECT_NO_THROW(User::UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, user));
+
+	try {
+		User::UserTable::Authenticate("notauser", "notacorrectpassword", user);
+	}
+	catch(int e)
+	{
+		EXPECT_EQ(AUTHENTICATION_FAILURE, e);
+	}
+
+	EXPECT_NO_THROW(User::UserTable::DeleteUser("notauser"));
+
+	Db::Db::Disconnect();
+}
+
