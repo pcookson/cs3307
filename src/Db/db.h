@@ -23,6 +23,7 @@
 #include <vector>
 #include <string>
 #include <mysql/mysql.h>
+#include "../config.h"
 
 #define SUCCESS 0x0
 

@@ -6,16 +6,7 @@
 #include <iostream>
 #include <string>
 #include "../src/Utilities.h"
-
-//Settings
-#define SQL_PRINT_DEBUG
-#define SQL_PRINT_ERRORS
-
-#define MYSQL_USERNAME "root"
-#define MYSQL_PASSWORD "chepstow"
-#define MYSQL_SERVER "localhost"
-#define MYSQL_DATABASE "cs3307"
-#define MYSQL_REMOTE_PORT 3309
+#include "../src/config.h"
 
 using namespace Db;
 using namespace std;
