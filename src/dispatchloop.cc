@@ -1,5 +1,7 @@
 #include <iostream>
 #include "User/user.h"
+#include "User/usertable.h"
+#include "logger.h"
 #include <stdlib.h>
 
 using namespace std;
@@ -12,6 +14,8 @@ void clearScreen(){
     }
 }
 
+
+
 /*
  * Login function for users
  */
@@ -23,10 +27,26 @@ void login(){
         string username;
         cin >> username;
 
-        clearScreen();
+        cout << "Password > ";
+        string password;
+        cin >> password;
+
+        //authenticate user
+        User user = User::User();
+        try{
+            User::UserTable::Authenticate(username, password, user);
+        }catch(int e){
+            if(e == AUTHENTICATION_FAILURE){
+                Logger::warning(username + " attempted to log in. Wrong password or username");
+                cout << "Username or Password incorrect. Please try again.";
+            }else{
+                cout << "An exception has occurred. Please contact the admin.";
+            }
+        }
+        //case user to correct usertype and call correct method for that user
         return;
     }
-    //authenticate user
+
 }
 
 
