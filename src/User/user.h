@@ -1,5 +1,7 @@
 #include <iostream>
-//#include "logger.h"
+#include "../logger.h"
+#include "../chequingaccount.h"
+#include "../savingsaccount.h"
 
 #ifndef USER_H_
 #define USER_H_
@@ -25,8 +27,22 @@ public:
 
     int id;
 
-private:
+    ChequingAccount cAccount;
+    SavingsAccount sAccount;
 
+    int cAccountExists;
+    int sAccountExists;
+
+    void createSavingsAccount();
+    void createChequingAccount();
+    void deleteSavingsAccount();
+    void deleteChequingAccount();
+
+
+
+
+
+private:
 
 
 

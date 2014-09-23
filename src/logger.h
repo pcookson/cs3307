@@ -4,8 +4,8 @@
 #include <sstream>
 #include <fstream>
 
-#define AUTHENTICATION_FAILURE 0x0
-#define AUTHENTICATION_SUCCESS 0x1
+#define AUTHENTICATION_FAILURE 0x1
+#define AUTHENTICATION_SUCCESS 0x0
 
 #define ACCEPTS_FEE 10
 #define DECLINES_FEE 11
@@ -45,14 +45,14 @@ public:
     static void setLoggingOnOff(int on);
 
     static void log(int logInt, string &userName, double amount, const string &accountType,
-                const string &fromAccount, const string &toAccount);
+                    const string &fromAccount, const string &toAccount);
 
     static void log(int logInt, string& userName, double amount, const string& accountType);
 
     static void log(int logInt, string &userName);
 
 private:
-   static string dblToString(double amount);
+    static string dblToString(double amount);
     static int logginOnOff;
 
     static void printToFile(const string& message, const string& logLevel);

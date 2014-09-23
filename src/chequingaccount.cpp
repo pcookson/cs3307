@@ -4,6 +4,7 @@
 using namespace std;
 
 int ChequingAccount::withdrawl(double amount){
+    cout << "in chequing withdrawl" << endl;
     int inputContinue;
 
     if((balance > 1000.00) && (balance - amount < 1000) && (balance - amount > 0)){

@@ -14,12 +14,16 @@ public:
 
     }
 
-    int transferFunds(Account &fromAccount, Account &toAccount, double amount);
+    static int transferFunds(Account &fromAccount, Account &toAccount, double amount);
+
+    static int withdraw(Account &fromAccount, double amount);
+
+    static int deposit(Account &toAccount, double amount);
 
 private:
-    SavingsAccount castToSavings(Account &sAccount);
+    static SavingsAccount castToSavings(Account &sAccount);
 
-    ChequingAccount castToChequing (Account &cAccount);
+    static ChequingAccount castToChequing (Account &cAccount);
 
 
 };

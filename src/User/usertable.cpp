@@ -95,8 +95,33 @@ long UserTable::CreateUser(string const& username, string const& password, long 
 	return SUCCESS;
 }
 
+long UserTable::GetUser(const std::string &username, User& user){
+    db_rows rows;
+
+
+    vector<string> values;
+    values.reserve(2);
+
+    values.push_back(username);
+
+
+    //Authentication is successful if at least one row is returned by selecting
+    //a user by username and password
+    UserTable::Db.Select(
+            Db::Db::ParamertizedQuery("SELECT * FROM user WHERE username=?", values),
+            rows);
+
+
+    //Load the User object
+    ImbueUser(rows.column_names, rows.rows[0], user);
+
+    return SUCCESS;
+
+}
+
 long UserTable::Authenticate(std::string const& username, std::string const& password, User& user) {
 	db_rows rows;
+
 
 	vector<string> values;
 	values.reserve(2);

@@ -1,7 +1,9 @@
 #include <iostream>
+#include "dispatchloop.h"
 #include "User/user.h"
 #include "User/usertable.h"
 #include "logger.h"
+#include "usermethods.h"
 #include <stdlib.h>
 
 using namespace std;
@@ -21,8 +23,10 @@ void clearScreen(){
  */
 
 void login(){
+    Db::Db::Connect();
+    User::User user;
     while (true){
-        //Command prompt character
+
         cout << "Username > ";
         string username;
         cin >> username;
@@ -31,19 +35,34 @@ void login(){
         string password;
         cin >> password;
 
+
         //authenticate user
-        User user = User::User();
+
         try{
             User::UserTable::Authenticate(username, password, user);
         }catch(int e){
             if(e == AUTHENTICATION_FAILURE){
                 Logger::warning(username + " attempted to log in. Wrong password or username");
-                cout << "Username or Password incorrect. Please try again.";
+                cout << "Username or Password incorrect." << endl;
+                return;
             }else{
-                cout << "An exception has occurred. Please contact the admin.";
+                cout << "An exception has occurred. Please contact the admin." <<endl;
+                return;
             }
         }
-        //case user to correct usertype and call correct method for that user
+        Db::Db::Disconnect();
+
+        //see permissions and call correct method for that user
+        if(user.permissions == USER_PERMISSION_USER){
+            UserMethods::userCommandSelect(user);
+        }else if(user.permissions == USER_PERMISSION_ADMIN){
+            //call static user_admin methods
+        }else if(user.permissions == USER_PERMISSION_MAINTENANCE){
+            //call static user_maint methods
+        }else{
+            //throw no permissions error here
+        }
+
         return;
     }
 

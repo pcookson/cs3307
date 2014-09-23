@@ -45,6 +45,8 @@ public:
 	 */
     static long ImbueUser(std::vector<std::string> const& column_names, std::vector<std::string> row, User& user);
 
+    static long GetUser(std::string const& username, User& user);
+
     /** @brief Creates a user and adds it to the database
      *
      * \throws int CREATE_USER_FAILURE or CREATE_USER_FAILURE_USER_EXISTS

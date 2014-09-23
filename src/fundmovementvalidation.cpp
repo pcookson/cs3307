@@ -1,5 +1,5 @@
 #include "fundmovementvalidation.h"
-#include "iostream"
+#include <iostream>
 #include <typeinfo>
 
 using namespace std;
@@ -7,8 +7,20 @@ using namespace std;
 
 int FundMovementValidation::transferFunds(Account &fromAccount, Account &toAccount, double amount){
 
+    withdraw(fromAccount, amount);
+
+    deposit(toAccount, amount);
+
+    return 0;
+}
+
+int FundMovementValidation::withdraw(Account &fromAccount, double amount){
+
     try{
+        cout << "in withdraw fund" << endl;
         ChequingAccount &fAccount = dynamic_cast<ChequingAccount&> (fromAccount);
+        cout << "cast" << endl;
+        cout << amount << endl;
         fAccount.withdrawl(amount);
 
     }catch(bad_cast& bc1)
@@ -17,6 +29,9 @@ int FundMovementValidation::transferFunds(Account &fromAccount, Account &toAccou
         fAccount.withdrawl(amount);
     }
 
+}
+
+int FundMovementValidation::deposit(Account &toAccount, double amount){
     try{
 
         SavingsAccount &tAccount = dynamic_cast<SavingsAccount&> (toAccount);
@@ -26,7 +41,4 @@ int FundMovementValidation::transferFunds(Account &fromAccount, Account &toAccou
         ChequingAccount &tAccount = dynamic_cast<ChequingAccount&> (toAccount);
         tAccount.deposit(amount);
     }
-
-
-    return 0;
 }
