@@ -57,6 +57,8 @@ void UserMethods::deposit(User::User &user){
             cout << "Warning: Savings account does not exist. Request account from manager" << endl;
             pressEnter();
             return;
+        }else if(accountDeposit == "q"){
+            return;
         }
     }
     cout << "How much to deposit?" << endl;
@@ -101,6 +103,8 @@ void UserMethods::withdraw(User::User &user){
         if(user.sAccountExists == 0){
             cout << "Warning: Savings account does not exist. Request account from manager" << endl;
             pressEnter();
+            return;
+        }else if(accountWithdraw == "q"){
             return;
         }
     }
@@ -162,6 +166,8 @@ void UserMethods::transferFunds(User::User &user){
             cout << "Warning: Savings account does not exist. Request account from manager" << endl;
             pressEnter();
             return;
+        }else if(accountTransfer == "q"){
+            return;
         }
     }
     cout << "How much to transfer?" << endl;
@@ -180,7 +186,7 @@ void UserMethods::transferFunds(User::User &user){
         pressEnter();
         return;
     }
-
+    Db::Db::Disconnect();
     cout << "Account to transfer to?" << endl;
     cout << "> ";
     cin >> otherAccount;

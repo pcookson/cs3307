@@ -2,6 +2,7 @@
 #define USERMETHODS_H
 #include "User/user.h"
 
+
 class UserMethods{
 public:
     UserMethods(){}

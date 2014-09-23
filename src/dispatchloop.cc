@@ -4,6 +4,7 @@
 #include "User/usertable.h"
 #include "logger.h"
 #include "usermethods.h"
+#include "managermethods.h"
 #include <stdlib.h>
 
 using namespace std;
@@ -56,7 +57,7 @@ void login(){
         if(user.permissions == USER_PERMISSION_USER){
             UserMethods::userCommandSelect(user);
         }else if(user.permissions == USER_PERMISSION_ADMIN){
-            //call static user_admin methods
+            ManagerMethods::managerCommandSelect(user);
         }else if(user.permissions == USER_PERMISSION_MAINTENANCE){
             //call static user_maint methods
         }else{
