@@ -69,7 +69,18 @@ void ManagerMethods::deleteUser(){
 }
 
 void ManagerMethods::openAccount(){
+
     string username;
+    User::User user;
+    cout << "Username: ";
+    cin >> username;
+    cout << endl;
+
+    Db::Db::Connect();
+    User::UserTable::GetUser(username, user);
+    Db::Db::Disconnect();
+
+    cout << "Create chequing or savings account? (c or s): ";
 
 
 }
@@ -88,6 +99,7 @@ void ManagerMethods::getUserDetails(){
 
     Db::Db::Connect();
     User::UserTable::GetUser(username, user);
+    Db::Db::Disconnect();
 
     cout << "user id: " ;
     cout << user.id << endl;
