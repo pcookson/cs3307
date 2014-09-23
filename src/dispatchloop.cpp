@@ -3,8 +3,8 @@
 #include "User/user.h"
 #include "User/usertable.h"
 #include "logger.h"
-#include "usermethods.h"
-#include "managermethods.h"
+#include "User/usermethods.h"
+#include "User/managermethods.h"
 #include <stdlib.h>
 
 using namespace std;

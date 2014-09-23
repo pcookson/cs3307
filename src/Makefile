@@ -8,29 +8,29 @@ bank:  account.o savingsaccount.o chequingaccount.o user.o usermethods.o manager
 testAccounts: account.o savingsaccount.o chequingaccount.o user.o usermethods.o dispatchloop.o testAccounts.o fundmovementvalidation.o logger.o db.o usertable.o
 	g++ account.o savingsaccount.o chequingaccount.o usermethods.o dispatchloop.o user.o testAccounts.o fundmovementvalidation.o logger.o db.o usertable.o -lmysqlclient -o testAccounts
 
-main.o: main.cc
-	g++ -c main.cc
+main.o: main.cpp
+	g++ -c main.cpp
 
 user.o: User/user.cpp
 	g++ -c User/user.cpp
 
-dispatchloop.o: dispatchloop.cc
-	g++ -c dispatchloop.cc
+dispatchloop.o: dispatchloop.cpp
+	g++ -c dispatchloop.cpp
 
-chequingaccount.o: chequingaccount.cpp
-	g++ -c chequingaccount.cpp
+chequingaccount.o: Account/chequingaccount.cpp
+	g++ -c Account/chequingaccount.cpp
 
-savingsaccount.o: savingsaccount.cpp
-	g++ -c savingsaccount.cpp
+savingsaccount.o: Account/savingsaccount.cpp
+	g++ -c Account/savingsaccount.cpp
 
-account.o: account.cpp
-	g++ -c account.cpp
+account.o: Account/account.cpp
+	g++ -c Account/account.cpp
 
 testAccounts.o: testAccounts.cpp
 	g++ -c testAccounts.cpp 
 
-fundmovementvalidation.o: fundmovementvalidation.cpp
-	g++ -c fundmovementvalidation.cpp
+fundmovementvalidation.o: Account/fundmovementvalidation.cpp
+	g++ -c Account/fundmovementvalidation.cpp
 
 logger.o: logger.cpp
 	g++ -c logger.cpp
@@ -41,11 +41,11 @@ usertable.o: User/usertable.cpp
 db.o: Db/db.cpp
 	g++ -c Db/db.cpp
 
-usermethods.o: usermethods.cpp
-	g++ -c usermethods.cpp
+usermethods.o:User/usermethods.cpp
+	g++ -c User/usermethods.cpp
 
-managermethods.o: managermethods.cpp
-	g++ -c managermethods.cpp
+managermethods.o: User/managermethods.cpp
+	g++ -c User/managermethods.cpp
 
 clean:
 	rm *.o bank testAccounts report.txt

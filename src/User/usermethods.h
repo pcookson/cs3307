@@ -1,6 +1,6 @@
 #ifndef USERMETHODS_H
 #define USERMETHODS_H
-#include "User/user.h"
+#include "user.h"
 
 
 class UserMethods{

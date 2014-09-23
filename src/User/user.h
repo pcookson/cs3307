@@ -1,7 +1,7 @@
 #include <iostream>
 #include "../logger.h"
-#include "../chequingaccount.h"
-#include "../savingsaccount.h"
+#include "../Account/chequingaccount.h"
+#include "../Account/savingsaccount.h"
 
 #ifndef USER_H_
 #define USER_H_

@@ -1,9 +1,9 @@
 #include <iostream>
-#include "chequingaccount.h"
-#include "savingsaccount.h"
+#include "../Account/chequingaccount.h"
+#include "../Account/savingsaccount.h"
 #include "usermethods.h"
-#include "fundmovementvalidation.h"
-#include "User/usertable.h"
+#include "../Account/fundmovementvalidation.h"
+#include "usertable.h"
 #include <stdlib.h>
 
 

@@ -4,8 +4,8 @@
 #include "savingsaccount.h"
 #include "chequingaccount.h"
 #include "account.h"
-#include "User/user.h"
-#include "logger.h"
+#include "../User/user.h"
+#include "../logger.h"
 
 class FundMovementValidation
 {
