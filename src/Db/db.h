@@ -50,6 +50,10 @@ struct db_rows {
 	std::vector<std::vector<std::string> > rows;
 };
 
+/** @brief c++ class wrapper for a handful of static methods for accessing databases
+ *
+ * Currently the only implemented database system is MySQL
+ */
 class Db {
 private:
 	static MYSQL* conn_;
