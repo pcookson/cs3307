@@ -46,7 +46,7 @@ void ManagerMethods::createUser(){
     case 'u':
         permissions = USER_PERMISSION_USER;
         break;
-    case 'm':
+    case 'a':
         permissions = USER_PERMISSION_ADMIN;
         break;
     case 'j':
@@ -59,6 +59,8 @@ void ManagerMethods::createUser(){
     Db::Db::Connect();
     User::UserTable::CreateUser(username, password, permissions, user);
     Db::Db::Disconnect();
+
+    pressEnter();
 
 }
 
@@ -90,17 +92,26 @@ void ManagerMethods::getUserDetails(){
     cout << "user id: " ;
     cout << user.id << endl;
     cout << "username: " + user.username << endl;
-    if(user.cAccountExists){
-        cout << "Chequing Balance: ";
-        cout<< user.cAccount.balance << endl;
+
+    if(user.permissions == USER_PERMISSION_USER){
+        if(user.cAccountExists){
+            cout << "Chequing Balance: ";
+            cout<< user.cAccount.balance << endl;
+        }else{
+            cout << "No Chequing Account" << endl;
+        }
+        if(user.sAccountExists){
+            cout << "Savings Balance: ";
+            cout << user.sAccount.balance << endl;
+        }else{
+            cout << "No Savings Account" << endl;
+        }
+    }else if(user.permissions == USER_PERMISSION_ADMIN){
+        cout << "Bank Manager" << endl;
+    }else if(user.permissions == USER_PERMISSION_MAINTENANCE){
+        cout << "Bank Maintenance" << endl;
     }else{
-        cout << "No Chequing Account" << endl;
-    }
-    if(user.sAccountExists){
-        cout << "Savings Balance: ";
-        cout << user.sAccount.balance << endl;
-    }else{
-        cout << "No Savings Account" << endl;
+        cout << "No Permissions Set" << endl;
     }
 
     pressEnter();

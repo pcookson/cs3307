@@ -60,7 +60,7 @@ long UserTable::CreateUser(string const& username, string const& password, long 
 		err = Db::Db::Select(query, rows);
 
 		//At least one row should've been returned to represent the user
-		if (rows.rows.size() > 0) throw CREATE_USER_FAILURE_USER_EXISTS;
+        if (rows.rows.size() > 0) throw CREATE_USER_FAILURE_USER_EXISTS;
 	} catch(int)
 	{
 		throw CREATE_USER_FAILURE;
