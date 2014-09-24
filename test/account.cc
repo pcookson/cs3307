@@ -33,6 +33,25 @@ TEST(Account, Create)
 
 }
 
+TEST(Account, DepositWithdrawl)
+{
+	Db::Db::Connect();
+
+	User::User user;
+
+	EXPECT_NO_THROW(UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, user));
+
+	EXPECT_EQ(SUCCESS, AccountTable::CreateAccount(user, SAVINGS_ACCOUNT));
+
+	EXPECT_EQ(SUCCESS, AccountTable::Deposit(user.sAccount, 425.2));
+	EXPECT_EQ((double)425.2, user.sAccount.balance);
+	EXPECT_EQ(SUCCESS, AccountTable::Withdraw(user.sAccount, 56.42));
+	EXPECT_EQ((double)368.78, user.sAccount.balance);
+
+	AccountTable::DeleteAccount(user.sAccount);
+
+}
+
 TEST(Account, SelectAll)
 {
 	Db::Db::Connect();

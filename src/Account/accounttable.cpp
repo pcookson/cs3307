@@ -37,8 +37,35 @@ long AccountTable::ImbueAccount(std::vector<std::string> const& column_names, st
 	return SUCCESS;
 }
 
-long AccountTable::Deposit(Account& account, int& amount)
-{
+
+long AccountTable::Withdraw(Account& account, double amount) {
+	double new_balance = account.balance - amount;
+	int rows_affected;
+
+	string new_balance_string = Utilities::double_to_string(new_balance);
+
+	Db::Db::ExecuteNonQuery("UPDATE account SET balance=" + new_balance_string, rows_affected);
+
+	if (rows_affected != 1)
+		throw WITHDRAW_ERROR;
+
+	return SUCCESS;
+}
+
+long AccountTable::Deposit(Account& account, double amount) {
+	double new_balance = account.balance + amount;
+	int rows_affected;
+
+	string new_balance_string = Utilities::double_to_string(new_balance);
+
+	Db::Db::ExecuteNonQuery(
+			"UPDATE account SET balance=" + new_balance_string + " WHERE id=" + Utilities::long_to_string(account.id),
+			rows_affected);
+
+	if (rows_affected != 1)
+		throw WITHDRAW_ERROR;
+
+	account.balance = new_balance;
 
 	return SUCCESS;
 }

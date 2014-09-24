@@ -14,6 +14,8 @@
 
 #define DELETE_ACCOUNT_FAILURE 0X4
 #define INVALID_ACCOUNT_ID 0X8
+#define WITHDRAW_ERROR 0X1
+#define DEPOSIT_ERROR 0X1
 
 
 #include "../User/user.h"
@@ -33,7 +35,9 @@ public:
 	 */
 	static long CreateAccount(User::User& user, long const& account_type);
 
-	static long Deposit(Account& account, int& amount);
+    static long Withdraw(Account& account, double amount);
+
+    static long Deposit(Account& account, double amount);
 
 	static long GetAccount(Account& account, int& id);
 
