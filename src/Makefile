@@ -45,7 +45,7 @@ usermethods.o:User/usermethods.cpp
 	g++ -c User/usermethods.cpp -o Objects/usermethods.o
 
 managermethods.o: User/managermethods.cpp
-	g++ -c User/managermethods.cpp -o Object/managermethods.o
+	g++ -c User/managermethods.cpp -o Objects/managermethods.o
 
 clean:
 	rm Objects/*.o Debug/bank Debug/testAccounts report.txt
