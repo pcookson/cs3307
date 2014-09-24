@@ -350,13 +350,40 @@ void ManagerMethods::getUserDetails(){
 
 void ManagerMethods::getAllUserDetails(){
     vector<User::User> users;
-
+    Db::Db::Connect();
     User::UserTable::GetAllUsers(users);
+    Db::Db::Disconnect();
 
-    cout << "username \t id \t role \t chequing balance \t savings balance" << endl;
 
     for(vector<User::User>::iterator it = users.begin(); it != users.end(); ++it){
-        cout << (*it).id << "\t " +(*it).permissions;
+        string role;
+        if ((*it).permissions == USER_PERMISSION_USER){
+            role = "bank customer";
+        }else if ((*it).permissions == USER_PERMISSION_ADMIN){
+            role = "Bank Manager";
+        }else if((*it).permissions == USER_PERMISSION_MAINTENANCE){
+            role = "Maintenance";
+        }else{
+            role = "undefined";
+        }
+
+
+        cout << "**************************************************" << endl;
+        cout << "username: " << (*it).username << endl;
+        cout << "user id: " << (*it).id << endl;
+        cout << "role: " << role <<endl;
+        if (!(*it).cAccount.id){
+            cout << "Chequing Balance: No chequing account" << endl;
+        }else{
+            cout << "Chequing Balance: " << (*it).cAccount.balance << endl;
+        }
+
+        if (!(*it).sAccount.id){
+            cout << "Savings Balance: No savings account" << endl;
+        }else{
+            cout << "Savings Balance: " << (*it).sAccount.balance << endl;
+        }
+
     }
 
     pressEnter();

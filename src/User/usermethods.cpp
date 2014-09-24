@@ -34,8 +34,8 @@ void UserMethods::balance(User::User &user){
     }
 
     if(user.sAccount.id){
-    cout << "Savings Balance: ";
-    cout << user.sAccount.balance << endl << endl;
+        cout << "Savings Balance: ";
+        cout << user.sAccount.balance << endl << endl;
     }else{
         cout << "No savings account" << endl;
     }
@@ -149,7 +149,11 @@ void UserMethods::withdraw(User::User &user){
         try{
         FundMovementValidation::withdraw(user.cAccount, amount);
     }catch (int e){
-            Logger::log(WITHDRAW_FAILURE, user.username, amount, "chequing");
+            if(e == INSUFFICIENT_FUNDS){
+                cout << "Insufficient funds" <<endl;
+                pressEnter();
+                Logger::log(WITHDRAW_FAILURE, user.username, amount, "chequing");
+            }
         }
 
         Logger::log(WITHDRAW_SUCCESSFUL, user.username, amount, "chequing");
@@ -160,7 +164,11 @@ void UserMethods::withdraw(User::User &user){
         try{
         FundMovementValidation::withdraw(user.sAccount, amount);
     }catch (int e){
-            Logger::log(WITHDRAW_FAILURE, user.username, amount, "savings");
+            if(e == INSUFFICIENT_FUNDS){
+                cout << "Insufficient funds" <<endl;
+                pressEnter();
+                Logger::log(WITHDRAW_FAILURE, user.username, amount, "savings");
+            }
         }
         Logger::log(WITHDRAW_SUCCESSFUL, user.username, amount, "savings");
         return;
