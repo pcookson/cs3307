@@ -35,27 +35,45 @@ public:
     int id;
 
 
-
+    /** @brief Empty account constructor.
+     * Sets balance and id to 0
+     */
     Account(){
         balance = 0;
         id=0;
     }
 
+    /** @brief constructor that sets a starting balance
+     *
+     * @param starting_balance the amount of money to start with in an account
+     */
     Account(double starting_balance){
-        balance = starting_balance;
+        id=0;
+    	balance = starting_balance;
     }
 
-    int close();
-
+    /** @brief deposits money into the particular class
+     *
+     * @param amount the amount to deposit
+     * @return integer for success or failure
+     */
     int deposit(double amount);
 
+    /** @brief virtual withdrawl method.
+     * Accounts that inherit from Account must implement withdrawl
+     * @param amount to withdraw
+     * @return int for success or failure
+     */
     virtual int withdrawl(double amount);
 
+    /** @brief gets balance of the account
+     *
+     * @return int
+     */
     double getBalance();
 
 private:
     int get_input(double amount);
-
 
 };
 

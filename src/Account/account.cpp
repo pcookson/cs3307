@@ -5,10 +5,6 @@ using namespace std;
 
 
 
-int Account::close(){
-    //not yet implemented
-    return 0;
-}
 
 int Account::deposit(double amount){
 

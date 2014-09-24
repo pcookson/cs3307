@@ -25,20 +25,13 @@ public:
     long permissions;
     
     User(std::string username);
-    void logger(int logInt);
+
 
     int id;
 
     ChequingAccount cAccount;
     SavingsAccount sAccount;
 
-    int cAccountExists;
-    int sAccountExists;
-
-    void createSavingsAccount();
-    void createChequingAccount();
-    void deleteSavingsAccount();
-    void deleteChequingAccount();
 
 
 
