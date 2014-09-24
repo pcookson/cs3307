@@ -32,7 +32,7 @@ class Account
 {
 public:
     double balance;
-    int account_id;
+    int id;
 
 
 

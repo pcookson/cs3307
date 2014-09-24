@@ -10,6 +10,7 @@
 
 #define CREATE_ACCOUNT_FAILURE 0X1
 #define CREATE_ACOCUNT_FAILURE_INVALID_USER 0X2
+#define DELETE_ACCOUNT_FAILURE 0X4
 
 #include "../User/user.h"
 #include "account.h"
@@ -21,6 +22,20 @@ public:
 	virtual ~AccountTable();
 
 	static long CreateAccount(User::User& user, Account& account);
+
+	/** @brief Fills a the fields of an Account object from a row representing the account
+	 *
+	 * @param column_names a list of the column names, ordered respectively, for the rows container
+	 * @param row a row containing the account fields selected from the database
+	 * @param account an out parameter to represent the user
+	 */
+    static long ImbueAccount(std::vector<std::string> const& column_names, std::vector<std::string> row, Account& account);
+
+    /** @brief Deletes an account from the database
+     *
+     * @param account the account to delete
+     */
+    static long DeleteAccount(Account& account);
 };
 
 

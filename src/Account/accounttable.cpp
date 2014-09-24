@@ -26,7 +26,33 @@ AccountTable::~AccountTable() {
 	// TODO Auto-generated destructor stub
 }
 
-long AccountTable::CreateAccount(User::User& user, Account& account) {
+
+long AccountTable::ImbueAccount(std::vector<std::string> const& column_names, std::vector<std::string> row, Account& account)
+{
+	//Load the properties needed into the account object
+	account.id = atoi(Db::Db::GetElementByName("id", column_names, row).c_str());
+	account.balance = atoi(Db::Db::GetElementByName("balance", column_names, row).c_str());
+
+	return SUCCESS;
+}
+
+long AccountTable::DeleteAccount(Account& account) {
+
+	vector<string> values;
+	values.push_back(Utilities::long_to_string(account.id));
+
+	int rows_affected = 0;
+
+	Db::Db::ExecuteNonQuery(Db::Db::ParamertizedQuery("DELETE FROM account WHERE id=?", values), rows_affected);
+
+	if (rows_affected != 1)
+		throw DELETE_ACCOUNT_FAILURE;
+
+	return SUCCESS;
+}
+
+long AccountTable::CreateAccount(User& user, Account& account) {
+
 
     if (!user.id)
 		throw USER_NOT_EXIST;
@@ -51,7 +77,6 @@ long AccountTable::CreateAccount(User::User& user, Account& account) {
     int rows_affected;
 
     Db::Db::ExecuteNonQuery(Db::Db::ParamertizedQuery("INSERT INTO account(user_id,account_type) VALUES (?,?)", values), rows_affected);
-
 
     if(rows_affected == 0)
     	throw CREATE_ACCOUNT_FAILURE;
