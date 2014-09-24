@@ -1,9 +1,6 @@
 #ifndef MANAGERMETHODS_H
 #define MANAGERMETHODS_H
 
-#define CHEQUING_ACCOUNT = 1
-#define SAVINGS_ACCOUNT = 2
-
 #include "../User/user.h"
 #include <iostream>
 #include "../Account/chequingaccount.h"
