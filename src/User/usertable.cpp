@@ -65,7 +65,7 @@ long UserTable::GetAllUsers(vector<User>& users)
 	users.clear();
 	db_rows rows;
 
-	Db::Db::Select("SELECT * FROM users", rows);
+	Db::Db::Select("SELECT * FROM user", rows);
 
 	for(vector<vector<string> >::iterator it = rows.rows.begin(); it != rows.rows.end(); ++it)
 	{
