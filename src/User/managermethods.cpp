@@ -221,6 +221,12 @@ void ManagerMethods::closeAccount(){
         }
     }
 
+    if (user.permissions != USER_PERMISSION_USER){
+        cout << "This user is not a customer and has no accounts" << endl;
+        pressEnter();
+        return;
+    }
+
     if(user.id == 0){
         cout << "User does not exist" << endl;
         pressEnter();
