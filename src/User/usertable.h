@@ -28,8 +28,6 @@ public:
 	virtual ~UserTable();
 
 
-	static Db::Db Db;
-
 	/** @brief Compares a users credentials against the database and returns a User object if successful and throws an error otherwise.
 	 *
 	 * \throws int AUTHENTICATION_FAILURE

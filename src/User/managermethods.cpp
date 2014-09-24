@@ -153,7 +153,7 @@ void ManagerMethods::openAccount(){
 
         Db::Db::Connect();
         try{
-            AccountTable::CreateAccount(user, user.cAccount);
+            AccountTable::CreateAccount(user, CHEQUING_ACCOUNT);
         }catch(int e){
             cout << "An error occurred ";
             cout << e;
@@ -172,7 +172,7 @@ void ManagerMethods::openAccount(){
 
         Db::Db::Connect();
         try{
-            AccountTable::CreateAccount(user, user.sAccount);
+            AccountTable::CreateAccount(user, SAVINGS_ACCOUNT);
         }catch(int e){
             cout << "An error occurred ";
             cout << e;

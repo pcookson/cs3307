@@ -9,8 +9,12 @@
 #define ACCOUNTTABLE_H_
 
 #define CREATE_ACCOUNT_FAILURE 0X1
-#define CREATE_ACOCUNT_FAILURE_INVALID_USER 0X2
+#define CREATE_ACCOUNT_FAILURE_INVALID_USER 0X2
+#define CREATE_ACCOUNT_FAILURE_EXISTS 0X4
+
 #define DELETE_ACCOUNT_FAILURE 0X4
+#define INVALID_ACCOUNT_ID 0X8
+
 
 #include "../User/user.h"
 #include "account.h"
@@ -22,7 +26,17 @@ public:
 	AccountTable();
 	virtual ~AccountTable();
 
-	static long CreateAccount(User::User& user, Account& account);
+	/** @brief Creates a savings or chequing account for a user
+	 *
+	 * @param user the user for whom to open the account
+	 * @param account out parameter for the account
+	 */
+	static long CreateAccount(User::User& user, long const& account_type);
+
+	static long Deposit(Account& account, int& amount);
+
+	static long GetAccount(Account& account, int& id);
+
 
 	/** @brief Fills a the fields of an Account object from a row representing the account
 	 *

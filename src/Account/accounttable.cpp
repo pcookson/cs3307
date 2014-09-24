@@ -37,6 +37,28 @@ long AccountTable::ImbueAccount(std::vector<std::string> const& column_names, st
 	return SUCCESS;
 }
 
+long AccountTable::Deposit(Account& account, int& amount)
+{
+
+	return SUCCESS;
+}
+
+long AccountTable::GetAccount(Account& account, int& id)
+{
+	vector<string> values;
+	values.push_back(Utilities::long_to_string(id));
+	Db::db_rows rows;
+
+	Db::Db::Select(Db::Db::ParamertizedQuery("SELECT * FROM account WHERE id=?", values), rows);
+
+	if (rows.rows.size() != 0)
+		throw INVALID_ACCOUNT_ID;
+
+	ImbueAccount(rows.column_names, rows.rows[0], account);
+
+	return SUCCESS;
+}
+
 long AccountTable::DeleteAccount(Account& account) {
 
 	vector<string> values;
@@ -52,35 +74,34 @@ long AccountTable::DeleteAccount(Account& account) {
 	return SUCCESS;
 }
 
-long AccountTable::CreateAccount(User::User& user, Account& account) {
-
+long AccountTable::CreateAccount(User::User& user, long const& account_type) {
 
     if (!user.id)
 		throw USER_NOT_EXIST;
 
-	long account_type = 0;
-
-	//Determine the account type
-    try{
-        ChequingAccount &fAccount = dynamic_cast<ChequingAccount&> (account);
-        account_type = CHEQUING_ACCOUNT;
-
-    }catch(bad_cast& e)
-    {
-        SavingsAccount &fAccount = dynamic_cast<SavingsAccount&> (account);
-        account_type = SAVINGS_ACCOUNT;
-    }
+    if ((account_type == SAVINGS_ACCOUNT && user.sAccount.id != 0)
+    		|| (account_type == CHEQUING_ACCOUNT && user.cAccount.id != 0))
+    	throw CREATE_ACCOUNT_FAILURE_EXISTS;
 
     vector<string> values;
     values.push_back(Utilities::long_to_string(user.id));
     values.push_back(Utilities::long_to_string(account_type));
 
-    int rows_affected;
+    int rows_affected, id;
 
-    Db::Db::ExecuteNonQuery(Db::Db::ParamertizedQuery("INSERT INTO account(user_id,account_type) VALUES (?,?)", values), rows_affected);
+    Db::Db::Insert(Db::Db::ParamertizedQuery("INSERT INTO account(user_id,account_type) VALUES (?,?)", values), rows_affected);
 
-    if(rows_affected == 0)
+    if(rows_affected == 0 || id < 1)
     	throw CREATE_ACCOUNT_FAILURE;
+
+    if (account_type == SAVINGS_ACCOUNT)
+    {
+        GetAccount(user.sAccount, id);
+    }
+    else if (account_type == CHEQUING_ACCOUNT)
+    {
+    	GetAccount(user.cAccount, id);
+    }
 
     return SUCCESS;
 }

@@ -14,7 +14,7 @@
 #include <sstream>
 #include <stdlib.h>
 #include "../Utilities.h"
-
+#include "../Account/accounttable.h"
 
 using namespace std;
 using namespace Db;
@@ -71,7 +71,7 @@ long UserTable::CreateUser(string const& username, string const& password, long 
 			values);
 
 	try {
-		err = UserTable::Db.Insert(query, id);
+		err = Db::Db::Insert(query, id);
 	} catch(int)
 	{
 		throw CREATE_USER_FAILURE;
@@ -107,16 +107,35 @@ long UserTable::GetUser(const std::string &username, User& user){
 
     //Authentication is successful if at least one row is returned by selecting
     //a user by username and password
-    UserTable::Db.Select(
+    Db::Db::Select(
             Db::Db::ParamertizedQuery("SELECT * FROM user WHERE username=?", values),
             rows);
-
 
     //Load the User object
     ImbueUser(rows.column_names, rows.rows[0], user);
 
-    return SUCCESS;
+    if (user.id < 0)
+    	throw USER_NOT_EXIST;
 
+    values.clear();
+    values.push_back(Utilities::long_to_string(user.id));
+
+    Db::Db::Select(Db::Db::ParamertizedQuery("SELECT * FROM account WHERE user_id=?", values), rows);
+
+    for(vector<vector<string> >::iterator it = rows.rows.begin(); it != rows.rows.end(); ++it)
+    {
+    	long account_type = atol(Db::Db::GetElementByName("account_type", rows.column_names, *it).c_str());
+    	if(account_type == CHEQUING_ACCOUNT)
+    	{
+    		AccountTable::ImbueAccount(rows.column_names, *it, user.cAccount);
+    	}
+    	else if (account_type == SAVINGS_ACCOUNT)
+    	{
+    		AccountTable::ImbueAccount(rows.column_names, *it, user.sAccount);
+    	}
+    }
+
+    return SUCCESS;
 }
 
 long UserTable::Authenticate(std::string const& username, std::string const& password, User& user) {
@@ -131,7 +150,7 @@ long UserTable::Authenticate(std::string const& username, std::string const& pas
 
 	//Authentication is successful if at least one row is returned by selecting
 	//a user by username and password
-	UserTable::Db.Select(
+	Db::Db::Select(
 			Db::Db::ParamertizedQuery("SELECT * FROM user WHERE username=? AND password=password(?)", values),
 			rows);
 
