@@ -67,5 +67,6 @@ int ChequingAccount::get_input(double amount){
 
     default:
         cout << "Unknown Command" << endl << endl;
+        throw 0;
     }
 }

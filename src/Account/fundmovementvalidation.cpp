@@ -17,10 +17,7 @@ int FundMovementValidation::transferFunds(Account &fromAccount, Account &toAccou
 int FundMovementValidation::withdraw(Account &fromAccount, double amount){
 
     try{
-        cout << "in withdraw fund" << endl;
         ChequingAccount &fAccount = dynamic_cast<ChequingAccount&> (fromAccount);
-        cout << "cast" << endl;
-        cout << amount << endl;
         fAccount.withdrawl(amount);
 
     }catch(bad_cast& bc1)
