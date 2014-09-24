@@ -49,6 +49,7 @@ long AccountTable::Withdraw(Account& account, double amount) {
 	if (rows_affected != 1)
 		throw WITHDRAW_ERROR;
 
+    account.balance = new_balance;
 	return SUCCESS;
 }
 

@@ -1,4 +1,7 @@
 #include "fundmovementvalidation.h"
+#include "../Db/db.h"
+#include "../User/usertable.h"
+#include "../Account/accounttable.h"
 #include <iostream>
 #include <typeinfo>
 
@@ -16,16 +19,47 @@ int FundMovementValidation::transferFunds(Account &fromAccount, Account &toAccou
 
 int FundMovementValidation::withdraw(Account &fromAccount, double amount){
 
+    int callback;
     try{
         ChequingAccount &fAccount = dynamic_cast<ChequingAccount&> (fromAccount);
-        fAccount.withdrawl(amount);
-        //pass account to DB
+        try{
+            callback= fAccount.withdrawl(amount);
+        }catch (int e){
+            if (e == INSUFFICIENT_FUNDS){
+                throw INSUFFICIENT_FUNDS;
+            }
+        }
+
+        if (callback == ACCEPTS_FEE){
+            Db::Db::Connect();
+            amount = amount + 2.00;
+            AccountTable::Withdraw(fAccount,amount);
+            Db::Db::Disconnect();
+
+        }else if(callback == DECLINES_FEE){
+            //do nothing... those cheap bas****
+        }else if(callback == WITHDRAW_SUCCESSFUL){
+            Db::Db::Connect();
+            AccountTable::Withdraw(fAccount,amount);
+            Db::Db::Disconnect();
+        }
 
     }catch(bad_cast& bc1)
     {
+
         SavingsAccount &fAccount = dynamic_cast<SavingsAccount&> (fromAccount);
-        fAccount.withdrawl(amount);
-        //pass account to DB
+        try{
+            fAccount.withdrawl(amount);
+        }catch(int e){
+            if (e == INSUFFICIENT_FUNDS){
+                throw INSUFFICIENT_FUNDS;
+            }
+        }
+        Db::Db::Connect();
+        AccountTable::Withdraw(fAccount, amount);
+        Db::Db::Disconnect();
+
+
     }
 
     return 0;
@@ -37,12 +71,16 @@ int FundMovementValidation::deposit(Account &toAccount, double amount){
 
         SavingsAccount &tAccount = dynamic_cast<SavingsAccount&> (toAccount);
         tAccount.deposit(amount);
-        //pass account to DB
+        Db::Db::Connect();
+        AccountTable::Deposit(tAccount,amount);
+        Db::Db::Disconnect();
     }catch(bad_cast& bc)
     {
         ChequingAccount &tAccount = dynamic_cast<ChequingAccount&> (toAccount);
         tAccount.deposit(amount);
-        //pass account to DB
+        Db::Db::Connect();
+        AccountTable::Deposit(tAccount, amount);
+        Db::Db::Disconnect();
     }
 
     return 0;

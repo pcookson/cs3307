@@ -37,7 +37,7 @@ int ChequingAccount::withdrawl(double amount){
         throw INSUFFICIENT_FUNDS;
 
     }else{
-        balance = balance - amount;
+
         return WITHDRAW_SUCCESSFUL;
     }
 
@@ -61,7 +61,7 @@ int ChequingAccount::get_input(double amount){
         break;
 
     case 'y':
-        balance = balance - amount - 2.00;
+
         return ACCEPTS_FEE;
         break;
 

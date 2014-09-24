@@ -11,7 +11,7 @@ int Account::close(){
 }
 
 int Account::deposit(double amount){
-    balance = balance + amount;
+
     return DEPOSIT_SUCCESS;
 }
 

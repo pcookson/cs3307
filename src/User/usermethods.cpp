@@ -144,7 +144,7 @@ void UserMethods::withdraw(User::User &user){
 
     switch(accountWithdraw[0]){
     case 'c':
-        amountString = Utilities::double_to_string(amount);
+       // amountString = Utilities::double_to_string(amount);
 
         try{
         FundMovementValidation::withdraw(user.cAccount, amount);
@@ -200,13 +200,13 @@ void UserMethods::transferFunds(User::User &user){
     }while(accountTransfer!= "c" && accountTransfer!= "s");
 
     if(accountTransfer == "c"){
-        if (user.cAccountExists == 0){
+        if (!user.cAccount.id){
             cout << "Warning: Chequing account does not exist. Request account from a manager" << endl;
             pressEnter();
             return;
         }
     }else if(accountTransfer == "s"){
-        if(user.sAccountExists == 0){
+        if(!user.sAccount.id){
             cout << "Warning: Savings account does not exist. Request account from manager" << endl;
             pressEnter();
             return;
@@ -231,9 +231,23 @@ void UserMethods::transferFunds(User::User &user){
         return;
     }
     Db::Db::Disconnect();
-    cout << "Account to transfer to?" << endl;
+    cout << "Account to transfer to? (c or s)" << endl;
     cout << "> ";
     cin >> otherAccount;
+
+    if(otherAccount == "c"){
+        if(!otherUser.cAccount.id){
+            cout << otherUser.username << " does not have a chequing account" << endl;
+            pressEnter();
+            return;
+        }
+    }else{
+        if(!otherUser.sAccount.id){
+            cout << otherUser.username << " does not have a savings account:" << endl;
+            pressEnter();
+            return;
+        }
+    }
 
 
 
