@@ -62,6 +62,7 @@ long UserTable::ImbueUser(std::vector<std::string> const& column_names, std::vec
 
 long UserTable::GetAllUsers(vector<User>& users)
 {
+	users.clear();
 	db_rows rows;
 
 	Db::Db::Select("SELECT * FROM users", rows);
