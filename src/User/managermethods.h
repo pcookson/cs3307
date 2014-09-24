@@ -8,6 +8,7 @@
 #include "usermethods.h"
 #include "../Account/fundmovementvalidation.h"
 #include "usertable.h"
+#include "../Account/accounttable.h"
 #include <stdlib.h>
 
 class ManagerMethods

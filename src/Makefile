@@ -2,7 +2,7 @@ SOURCE_DEPS=* User/* Db
 
 all: bank
 
-bank:  account.o savingsaccount.o chequingaccount.o user.o usermethods.o managermethods.o dispatchloop.o fundmovementvalidation.o logger.o db.o usertable.o main.o
+bank: account.o savingsaccount.o chequingaccount.o user.o usermethods.o managermethods.o dispatchloop.o fundmovementvalidation.o logger.o db.o usertable.o main.o
 	g++ Objects/account.o Objects/savingsaccount.o Objects/chequingaccount.o Objects/usermethods.o Objects/managermethods.o Objects/dispatchloop.o Objects/user.o Objects/fundmovementvalidation.o Objects/logger.o Objects/db.o Objects/usertable.o Objects/main.o -lmysqlclient -o Debug/bank
 
 testAccounts: account.o savingsaccount.o chequingaccount.o user.o usermethods.o dispatchloop.o testAccounts.o fundmovementvalidation.o logger.o db.o usertable.o
@@ -30,7 +30,7 @@ testAccounts.o: testAccounts.cpp
 	g++ -c testAccounts.cpp -o Objects/testaccounts.o
 
 fundmovementvalidation.o: Account/fundmovementvalidation.cpp
-	g++ -c Account/fundmovementvalidation.cpp -o fundmovementvalidation.o
+	g++ -c Account/fundmovementvalidation.cpp -o Objects/fundmovementvalidation.o
 
 logger.o: logger.cpp
 	g++ -c logger.cpp -o Objects/logger.o
