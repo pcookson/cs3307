@@ -65,27 +65,117 @@ void ManagerMethods::createUser(){
 }
 
 void ManagerMethods::deleteUser(){
+    string username;
+    User::User user;
+
+    cout << "Username to delete";
+    cin >> username;
+
+    //db stuff here
+
+    cout << username + " has been deleted" << endl;
+    pressEnter();
+    return;
 
 }
 
 void ManagerMethods::openAccount(){
 
     string username;
+    string accountType;
     User::User user;
     cout << "Username: ";
     cin >> username;
     cout << endl;
 
     Db::Db::Connect();
-    User::UserTable::GetUser(username, user);
+    try{
+        User::UserTable::GetUser(username, user);
+    }catch(int e){
+        if(e == USER_NOT_EXIST){
+            cout << "User does not exist" << endl;
+            pressEnter();
+            return;
+        }
+    }
+
     Db::Db::Disconnect();
 
     cout << "Create chequing or savings account? (c or s): ";
+    cin >> accountType;
+    cout << endl;
+
+    if(accountType == "c"){
+        user.cAccountExists=1;
+        //db stuff here
+    }else if(accountType == "s"){
+        user.sAccountExists == 1;
+        //db stuff here
+    }else {
+        cout << "Improper input" << endl;
+        return;
+    }
 
 
 }
 
 void ManagerMethods::closeAccount(){
+    string username;
+    string accountType;
+    User::User user;
+
+    cout << "Username: ";
+    cin >> username;
+    cout << endl;
+
+    Db::Db::Connect();
+    try{
+        User::UserTable::GetUser(username, user);
+    }catch (int e){
+        if(e == USER_NOT_EXIST){
+            cout << "User does not exist" << endl;
+            pressEnter();
+            return;
+        }
+    }
+
+    Db::Db::Disconnect();
+
+    cout << "Close chequing or savings account? (c or s): ";
+    cin >> accountType;
+    cout << endl;
+
+    if(accountType == "c"){
+        if(user.cAccountExists == 0){
+            cout << "Chequing account does not exist" << endl;
+            pressEnter();
+            return;
+        }else{
+            user.cAccountExists = 0;
+            //db stuff here;
+            cout << "Chequing account closed" << endl;
+            pressEnter();
+            return;
+        }
+    }else if(accountType == "s"){
+        if(user.sAccountExists == 0){
+            cout << "Savings account does not exist" << endl;
+            pressEnter();
+            return;
+        }else{
+            user.sAccountExists = 0;
+            //db stuff here;
+            cout << "Savings account closed" << endl;
+            pressEnter();
+            return;
+        }
+    }else{
+        cout << "Improper input" << endl;
+        pressEnter();
+        return;
+    }
+
+    return;
 
 }
 
@@ -98,7 +188,16 @@ void ManagerMethods::getUserDetails(){
     cout << endl;
 
     Db::Db::Connect();
-    User::UserTable::GetUser(username, user);
+    try{
+        User::UserTable::GetUser(username, user);
+    }catch (int e){
+        if (e == USER_NOT_EXIST){
+            cout << "User does not exist" << endl;
+            pressEnter();
+            return;
+        }
+    }
+
     Db::Db::Disconnect();
 
     cout << "user id: " ;

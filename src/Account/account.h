@@ -23,13 +23,14 @@
 #define TURNED_ON_LOGGING 30
 #define TURNED_OFF_LOGGING 31
 
-
 using namespace std;
 
 class Account
 {
 public:
     double balance;
+    int account_id;
+
 
 
     Account(){

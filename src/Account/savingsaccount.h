@@ -1,6 +1,7 @@
-#include "account.h"
 #ifndef SAVINGSACCOUNT_H
 #define SAVINGSACCOUNT_H
+
+#include "account.h"
 
 using namespace std;
 

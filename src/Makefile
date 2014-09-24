@@ -2,8 +2,8 @@ SOURCE_DEPS=* User/* Db
 
 all: bank
 
-bank:  account.o savingsaccount.o chequingaccount.o user.o usermethods.o managermethods.o dispatchloop.o fundmovementvalidation.o logger.o db.o usertable.o main.o
-	g++ account.o savingsaccount.o chequingaccount.o usermethods.o managermethods.o dispatchloop.o user.o fundmovementvalidation.o logger.o db.o usertable.o main.o -lmysqlclient  -o bank
+bank:  account.o savingsaccount.o chequingaccount.o user.o maintenancemethods.o usermethods.o managermethods.o dispatchloop.o fundmovementvalidation.o logger.o db.o usertable.o main.o
+	g++ account.o savingsaccount.o chequingaccount.o maintenancemethods.o usermethods.o managermethods.o dispatchloop.o user.o fundmovementvalidation.o logger.o db.o usertable.o main.o -lmysqlclient  -o bank
 
 testAccounts: account.o savingsaccount.o chequingaccount.o user.o usermethods.o dispatchloop.o testAccounts.o fundmovementvalidation.o logger.o db.o usertable.o
 	g++ account.o savingsaccount.o chequingaccount.o usermethods.o dispatchloop.o user.o testAccounts.o fundmovementvalidation.o logger.o db.o usertable.o -lmysqlclient -o testAccounts
@@ -46,6 +46,9 @@ usermethods.o:User/usermethods.cpp
 
 managermethods.o: User/managermethods.cpp
 	g++ -c User/managermethods.cpp
+
+maintenancemethods.o: User/maintenancemethods.cpp
+	g++ -c User/maintenancemethods.cpp
 
 clean:
 	rm *.o bank testAccounts report.txt

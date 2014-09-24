@@ -5,6 +5,7 @@
 #include "logger.h"
 #include "User/usermethods.h"
 #include "User/managermethods.h"
+#include "User/maintenancemethods.h"
 #include <stdlib.h>
 
 using namespace std;
@@ -59,7 +60,7 @@ void login(){
         }else if(user.permissions == USER_PERMISSION_ADMIN){
             ManagerMethods::managerCommandSelect(user);
         }else if(user.permissions == USER_PERMISSION_MAINTENANCE){
-            //call static user_maint methods
+            MaintenanceMethods::maintenanceCommandSelect(user);
         }else{
             //throw no permissions error here
         }
