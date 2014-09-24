@@ -134,11 +134,19 @@ void ManagerMethods::openAccount(){
             cout << "User does not exist" << endl;
             pressEnter();
             return;
+        }else{
+            //do nothing all is well
         }
     }
 
     if(user.id == 0){
         cout << "User does not exist" << endl;
+        pressEnter();
+        return;
+    }
+
+    if(user.permissions == USER_PERMISSION_USER){
+        cout << "This user is not a customer" << endl;
         pressEnter();
         return;
     }
