@@ -11,7 +11,8 @@
 #define CREATE_ACCOUNT_FAILURE 0X1
 #define CREATE_ACOCUNT_FAILURE_INVALID_USER 0X2
 
-
+#include "../User/user.h"
+#include "account.h"
 
 
 class AccountTable {
@@ -19,7 +20,7 @@ public:
 	AccountTable();
 	virtual ~AccountTable();
 
-	static long CreateAccount(User& user, Account& account);
+	static long CreateAccount(User::User& user, Account& account);
 };
 
 

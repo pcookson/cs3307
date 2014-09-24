@@ -23,6 +23,9 @@
 #define TURNED_ON_LOGGING 30
 #define TURNED_OFF_LOGGING 31
 
+#define SAVINGS_ACCOUNT 0X1
+#define CHEQUING_ACCOUNT 0x2
+
 using namespace std;
 
 class Account
