@@ -17,6 +17,8 @@
 #define CREATE_USER_FAILURE_USER_EXISTS 0x2
 #define DELETE_USER_FAILURE 0x1
 
+#define USER_NOT_EXIST 0X1
+
 namespace User {
 
 
@@ -45,6 +47,11 @@ public:
 	 */
     static long ImbueUser(std::vector<std::string> const& column_names, std::vector<std::string> row, User& user);
 
+    /** @brief Gets a user object without the password
+     *
+     * @param username the username of the user
+     * @param user the out user object
+     */
     static long GetUser(std::string const& username, User& user);
 
     /** @brief Creates a user and adds it to the database

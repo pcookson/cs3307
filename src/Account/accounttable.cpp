@@ -5,12 +5,13 @@
  *      Author: james
  */
 
+#include "account.h"
 #include "accounttable.h"
 #include "../Db/db.h"
 #include "../User/usertable.h"
+#include "../User/user.h"
 #include <typeinfo>
 
-namespace User {
 
 AccountTable::AccountTable() {
 	// TODO Auto-generated constructor stub
@@ -22,11 +23,10 @@ AccountTable::~AccountTable() {
 }
 
 
-long AccountTable::CreateAccount(User& user, Account& account)
+long CreateAccount(User& user, Account& account)
 {
-	User::UserTable::
 
 
+	return SUCCESS;
 }
 
-} /* namespace User */

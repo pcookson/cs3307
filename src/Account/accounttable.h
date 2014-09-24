@@ -11,8 +11,10 @@
 #define CREATE_ACCOUNT_FAILURE 0X1
 #define CREATE_ACOCUNT_FAILURE_INVALID_USER 0X2
 
-
-
+#include "../Db/db.h"
+#include "../User/usertable.h"
+#include "account.h"
+#include "../User/user.h"
 
 class AccountTable {
 public:
