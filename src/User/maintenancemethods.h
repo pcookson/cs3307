@@ -7,9 +7,9 @@ class MaintenanceMethods
 public:
     MaintenanceMethods();
 
-    static void turnOnLogging();
+    static void turnOnLogging(User::User user);
 
-    static void turnOffLogging();
+    static void turnOffLogging(User::User user);
 
     static void maintenanceCommandSelect(User::User &user);
 

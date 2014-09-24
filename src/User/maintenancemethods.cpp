@@ -20,13 +20,14 @@ void MaintenanceMethods::pressEnter(){
     cin.get();
 }
 
-void MaintenanceMethods::turnOffLogging(){
+void MaintenanceMethods::turnOffLogging(User::User& user){
     string confirm;
     cout << "Are you sure you want to turn off logging? (y or n): ";
     cin >> confirm;
     cout << endl;
 
     if(confirm == "y"){
+        Logger::info(user.username + "\tturned off logging");
         Logger::setLoggingOnOff(0);
         cout << "Logging turned off" << endl;
         pressEnter();
@@ -41,7 +42,7 @@ void MaintenanceMethods::turnOffLogging(){
 
 }
 
-void MaintenanceMethods::turnOnLogging(){
+void MaintenanceMethods::turnOnLogging(User::User &user){
     string confirm;
     cout << "Are you sure you want to turn on logging? (y or n): ";
     cin >> confirm;
@@ -50,6 +51,7 @@ void MaintenanceMethods::turnOnLogging(){
     if(confirm == "y"){
         Logger::setLoggingOnOff(1);
         cout << "Logging turned on" << endl;
+        Logger::info(user.username + "\tturned on logging");
         pressEnter();
         return;
     }else if(confirm == "n"){
@@ -87,11 +89,11 @@ void MaintenanceMethods::maintenanceCommandSelect(User::User &user){
         {
 
         case 'i':
-            turnOnLogging();
+            turnOnLogging(user);
             break;
 
         case 'o':
-            turnOffLogging();
+            turnOffLogging(user);
             break;
         case 'q':
             return;

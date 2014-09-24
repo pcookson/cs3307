@@ -4,6 +4,8 @@
 #include "usermethods.h"
 #include "../Account/fundmovementvalidation.h"
 #include "usertable.h"
+#include "../logger.h"
+#include "../Utilities.h"
 #include <stdlib.h>
 
 
@@ -22,7 +24,8 @@ void  UserMethods::pressEnter(){
 }
 
 void UserMethods::balance(User::User &user){
-    string temp;
+    Logger::info(user.username +"\tchecked balance");
+
     cout << "Chequing Balance: ";
     cout << user.cAccount.balance << endl <<endl;
 
@@ -37,6 +40,7 @@ void UserMethods::deposit(User::User &user){
 
     string accountDeposit;
     double amount;
+    string amountString;
 
     do{
         cout << "Which account to depost to?" << endl;
@@ -67,11 +71,14 @@ void UserMethods::deposit(User::User &user){
 
     switch(accountDeposit[0]){
     case 'c':
-
+        amountString = Utilities::double_to_string(amount);
+        Logger::info(user.username + "\tdeposited " + amountString + " to chequing account" );
         FundMovementValidation::deposit(user.cAccount, amount);
         return;
         break;
     case 's':
+        amountString = Utilities::double_to_string(amount);
+        Logger::info(user.username + "\tdeposited " + amountString + " to savings account" );
         FundMovementValidation::deposit(user.sAccount, amount);
         return;
         break;
@@ -82,6 +89,7 @@ void UserMethods::deposit(User::User &user){
 
 void UserMethods::withdraw(User::User &user){
     string accountWithdraw;
+    string amountString;
 
     double amount;
 
@@ -117,11 +125,14 @@ void UserMethods::withdraw(User::User &user){
 
     switch(accountWithdraw[0]){
     case 'c':
-        cout << "in c now" <<endl;
+        amountString = Utilities::double_to_string(amount);
+        Logger::info(user.username + "\twithdrew " + amountString + " from chequing account" );
         FundMovementValidation::withdraw(user.cAccount, amount);
         return;
         break;
     case 's':
+        amountString = Utilities::double_to_string(amount);
+        Logger::info(user.username + "\twithdrew " + amountString + " from savings account" );
         FundMovementValidation::withdraw(user.sAccount, amount);
         return;
         break;
@@ -135,11 +146,7 @@ void UserMethods::withdraw(User::User &user){
 }
 
 void UserMethods::transferFunds(User::User &user){
-    user.cAccountExists = 1;
-    user.sAccountExists = 1;
-    user.cAccount.balance = 100.00;
-    user.sAccount.balance = 0.00;
-
+    string amountString;
     string accountTransfer;
     string otherUserName;
 
@@ -196,16 +203,24 @@ void UserMethods::transferFunds(User::User &user){
     switch(accountTransfer[0]){
     case 'c':
         if(otherAccount == "c"){
+            amountString = Utilities::double_to_string(amount);
+            Logger::info(user.username + "\ttransferred " + amountString + " from chequing account to " + otherUserName + " "+ otherAccount );
             FundMovementValidation::transferFunds(user.cAccount, otherUser.cAccount, amount);
         }else{
+            amountString = Utilities::double_to_string(amount);
+            Logger::info(user.username + "\ttransferred " + amountString + " from chequing account to " + otherUserName + " "+ otherAccount );
             FundMovementValidation::transferFunds(user.cAccount, otherUser.sAccount, amount);
         }
         return;
         break;
     case 's':
         if(otherAccount == "c"){
+            amountString = Utilities::double_to_string(amount);
+            Logger::info(user.username + "\ttransferred " + amountString + " from saving account to " + otherUserName + " "+ otherAccount );
             FundMovementValidation::transferFunds(user.sAccount, otherUser.cAccount, amount);
         }else{
+            amountString = Utilities::double_to_string(amount);
+            Logger::info(user.username + "\ttransferred " + amountString + " from saving account to " + otherUserName + " "+ otherAccount );
             FundMovementValidation::transferFunds(user.sAccount, otherUser.sAccount, amount);
         }
 

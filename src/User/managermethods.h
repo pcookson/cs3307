@@ -20,6 +20,8 @@ public:
 
     static void getUserDetails();
 
+    static void getAllUserDetails();
+
     static void closeAccount();
 
     static void openAccount();

@@ -21,6 +21,12 @@ public:
 		return ss.str();
 	}
 
+    static string double_to_string(double value){
+        stringstream ss;
+        ss << value;
+        return ss.str();
+    }
+
 private:
 
 };

@@ -150,6 +150,10 @@ void ManagerMethods::closeAccount(){
             cout << "Chequing account does not exist" << endl;
             pressEnter();
             return;
+        }else if(user.cAccount.balance!=0){
+            cout << "balance not 0. Cannot close" << endl;
+            pressEnter();
+            return;
         }else{
             user.cAccountExists = 0;
             //db stuff here;
@@ -160,6 +164,11 @@ void ManagerMethods::closeAccount(){
     }else if(accountType == "s"){
         if(user.sAccountExists == 0){
             cout << "Savings account does not exist" << endl;
+            pressEnter();
+            return;
+
+        }else if(user.sAccount.balance!=0){
+            cout << "balance not 0. Cannot close" << endl;
             pressEnter();
             return;
         }else{
@@ -229,6 +238,10 @@ void ManagerMethods::getUserDetails(){
 
 }
 
+void ManagerMethods::getAllUserDetails(){
+
+}
+
 void ManagerMethods::managerCommandList(){
     cout << "Enter a command" <<endl;
     cout << "\tu.   Create User" <<endl;
@@ -236,6 +249,7 @@ void ManagerMethods::managerCommandList(){
     cout << "\to.   Open Account" <<endl;
     cout << "\tc.   Close Account" <<endl;
     cout << "\tg.   Get User Details" <<endl;
+    cout << "\ta.   Get All User Details" << endl;
     cout<<  "\tq.   Exit" <<endl <<endl;
 
     cout<< "> ";
@@ -281,6 +295,11 @@ void ManagerMethods::managerCommandSelect(User::User &user){
         case 'g':
             clearScreen();
             getUserDetails();
+            break;
+
+        case 'a':
+            clearScreen();
+            getAllUserDetails();
             break;
 
         case 'q':
