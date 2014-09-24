@@ -8,8 +8,6 @@
 #ifndef ACCOUNTTABLE_H_
 #define ACCOUNTTABLE_H_
 
-
-
 #include "../error.h"
 #include "../User/user.h"
 #include "account.h"
