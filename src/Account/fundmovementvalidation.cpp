@@ -28,6 +28,8 @@ int FundMovementValidation::withdraw(Account &fromAccount, double amount){
         //pass account to DB
     }
 
+    return 0;
+
 }
 
 int FundMovementValidation::deposit(Account &toAccount, double amount){
@@ -42,4 +44,6 @@ int FundMovementValidation::deposit(Account &toAccount, double amount){
         tAccount.deposit(amount);
         //pass account to DB
     }
+
+    return 0;
 }

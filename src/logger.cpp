@@ -20,9 +20,12 @@ void Logger::error(const string& message){
 void Logger::printToFile(const string& message, const string& logLevel){
     if(logginOnOff){//default is on
         time_t timer = time(NULL);
+        struct tm *tm = localtime(&timer);
+        char date[20];
+        strftime(date, sizeof(date), "%Y-%m-%d", tm);
         ofstream logfile("report.txt", std::ios_base::app | std::ios_base::out);
 
-        logfile << timer << "\t" << logLevel << "\t" << message << endl;
+        logfile << date << "\t" << logLevel << "\t" << message << endl;
     }
 
 }
