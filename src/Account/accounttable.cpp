@@ -87,11 +87,11 @@ long AccountTable::CreateAccount(User::User& user, long const& account_type) {
     values.push_back(Utilities::long_to_string(user.id));
     values.push_back(Utilities::long_to_string(account_type));
 
-    int rows_affected, id;
+    int id;
 
-    Db::Db::Insert(Db::Db::ParamertizedQuery("INSERT INTO account(user_id,account_type) VALUES (?,?)", values), rows_affected);
+    Db::Db::Insert(Db::Db::ParamertizedQuery("INSERT INTO account(user_id,account_type) VALUES (?,?)", values), id);
 
-    if(rows_affected == 0 || id < 1)
+    if(id < 1)
     	throw CREATE_ACCOUNT_FAILURE;
 
     if (account_type == SAVINGS_ACCOUNT)
