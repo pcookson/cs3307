@@ -36,7 +36,7 @@ void UserMethods::balance(User::User &user){
 }
 
 void UserMethods::deposit(User::User &user){
-    //FundMovementValidation::deposit(account, amount);
+
 
     string accountDeposit;
     double amount;
@@ -72,14 +72,25 @@ void UserMethods::deposit(User::User &user){
     switch(accountDeposit[0]){
     case 'c':
         amountString = Utilities::double_to_string(amount);
-        Logger::info(user.username + "\tdeposited " + amountString + " to chequing account" );
+
+        try{
         FundMovementValidation::deposit(user.cAccount, amount);
+    }catch (int e){
+            Logger::log(DEPOSIT_FAILURE, user.username, amount, "chequing");
+        }
+        Logger::log(DEPOSIT_SUCCESS, user.username, amount, "chequing");
         return;
         break;
     case 's':
         amountString = Utilities::double_to_string(amount);
-        Logger::info(user.username + "\tdeposited " + amountString + " to savings account" );
+
+        try{
         FundMovementValidation::deposit(user.sAccount, amount);
+    }catch (int e){
+            Logger::log(DEPOSIT_FAILURE, user.username, amount, "chequing");
+        }
+        Logger::log(DEPOSIT_SUCCESS, user.username, amount, "savings");
+
         return;
         break;
     default:
@@ -126,14 +137,24 @@ void UserMethods::withdraw(User::User &user){
     switch(accountWithdraw[0]){
     case 'c':
         amountString = Utilities::double_to_string(amount);
-        Logger::info(user.username + "\twithdrew " + amountString + " from chequing account" );
+
+        try{
         FundMovementValidation::withdraw(user.cAccount, amount);
+    }catch (int e){
+            Logger::log(WITHDRAW_FAILURE, user.username, amount, "chequing");
+        }
+
+        Logger::log(WITHDRAW_SUCCESSFUL, user.username, amount, "chequing");
         return;
         break;
     case 's':
         amountString = Utilities::double_to_string(amount);
-        Logger::info(user.username + "\twithdrew " + amountString + " from savings account" );
+        try{
         FundMovementValidation::withdraw(user.sAccount, amount);
+    }catch (int e){
+            Logger::log(WITHDRAW_FAILURE, user.username, amount, "savings");
+        }
+        Logger::log(WITHDRAW_SUCCESSFUL, user.username, amount, "savings");
         return;
         break;
     default:
@@ -249,6 +270,7 @@ void UserMethods::userCommandList(){
 }
 
 void UserMethods::userCommandSelect(User::User &user){
+    Logger::info(user.username + " successfully logged in");
     while(true){
         clearScreen();
         userCommandList();
@@ -275,12 +297,18 @@ void UserMethods::userCommandSelect(User::User &user){
             withdraw(user);
             break;
 
+        case 'd':
+            clearScreen();
+            deposit(user);
+            break;
+
         case 't':
             clearScreen();
             transferFunds(user);
             break;
 
         case 'q':
+            clearScreen();
             return;
             break;
         default:
