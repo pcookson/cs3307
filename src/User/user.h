@@ -7,6 +7,11 @@
 #include "../Account/chequingaccount.h"
 #include "../Account/savingsaccount.h"
 
+#define USER_PERMISSION_USER 0X0
+#define USER_PERMISSION_MAINTENANCE 0X1
+#define USER_PERMISSION_ADMIN 0X2
+
+
 
 namespace User {
 
