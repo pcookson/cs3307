@@ -34,6 +34,29 @@ long UserTable::ImbueUser(std::vector<std::string> const& column_names, std::vec
 	user.permissions = atol(Db::Db::GetElementByName("permissions", column_names, row).c_str());
 	user.id = atoi(Db::Db::GetElementByName("id", column_names, row).c_str());
 
+    if (user.id < 0)
+    	throw USER_NOT_EXIST;
+
+    vector<string> values;
+    db_rows rows;
+
+    values.push_back(Utilities::long_to_string(user.id));
+
+    Db::Db::Select(Db::Db::ParamertizedQuery("SELECT * FROM account WHERE user_id=?", values), rows);
+
+    for(vector<vector<string> >::iterator it = rows.rows.begin(); it != rows.rows.end(); ++it)
+    {
+    	long account_type = atol(Db::Db::GetElementByName("account_type", rows.column_names, *it).c_str());
+    	if(account_type == CHEQUING_ACCOUNT)
+    	{
+    		AccountTable::ImbueAccount(rows.column_names, *it, user.cAccount);
+    	}
+    	else if (account_type == SAVINGS_ACCOUNT)
+    	{
+    		AccountTable::ImbueAccount(rows.column_names, *it, user.sAccount);
+    	}
+    }
+
 	return SUCCESS;
 }
 
@@ -113,27 +136,6 @@ long UserTable::GetUser(const std::string &username, User& user){
 
     //Load the User object
     ImbueUser(rows.column_names, rows.rows[0], user);
-
-    if (user.id < 0)
-    	throw USER_NOT_EXIST;
-
-    values.clear();
-    values.push_back(Utilities::long_to_string(user.id));
-
-    Db::Db::Select(Db::Db::ParamertizedQuery("SELECT * FROM account WHERE user_id=?", values), rows);
-
-    for(vector<vector<string> >::iterator it = rows.rows.begin(); it != rows.rows.end(); ++it)
-    {
-    	long account_type = atol(Db::Db::GetElementByName("account_type", rows.column_names, *it).c_str());
-    	if(account_type == CHEQUING_ACCOUNT)
-    	{
-    		AccountTable::ImbueAccount(rows.column_names, *it, user.cAccount);
-    	}
-    	else if (account_type == SAVINGS_ACCOUNT)
-    	{
-    		AccountTable::ImbueAccount(rows.column_names, *it, user.sAccount);
-    	}
-    }
 
     return SUCCESS;
 }

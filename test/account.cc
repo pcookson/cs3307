@@ -23,6 +23,10 @@ TEST(Account, Create)
 	EXPECT_EQ(SUCCESS, AccountTable::CreateAccount(user, SAVINGS_ACCOUNT));
 	AccountTable::DeleteAccount(user.sAccount);
 
+
+
+	cout << user.sAccount.id << endl;
+
 	EXPECT_NO_THROW(UserTable::DeleteUser("notauser"));
 
 	Db::Db::Disconnect();
