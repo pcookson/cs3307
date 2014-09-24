@@ -15,31 +15,20 @@
 
 namespace User {
 
-
 class User
 {
 public:
     User();
-
     std::string username;
     long permissions;
     
     User(std::string username);
-
-
     int id;
 
     ChequingAccount cAccount;
     SavingsAccount sAccount;
 
-
-
-
-
-
 private:
-
-
 
 };
 

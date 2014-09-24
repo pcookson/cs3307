@@ -22,7 +22,7 @@
 
 namespace User {
 
-
+/** @brief A list of static methods that access to the database for the User class */
 class UserTable {
 public:
 	UserTable();
@@ -46,8 +46,17 @@ public:
 	 */
     static long ImbueUser(std::vector<std::string> const& column_names, std::vector<std::string> row, User& user);
 
+    /** @brief Retrieves all users in the database for the admin
+     *
+     * @param users an out param for the users in the database
+     */
     static long GetAllUsers(std::vector<User>& users);
 
+    /** @brief Retrieves a single user's information by username
+     *
+     * @param username the username of the user to retrieve
+     * @param user the out param for the user
+     */
     static long GetUser(std::string const& username, User& user);
 
     /** @brief Creates a user and adds it to the database
