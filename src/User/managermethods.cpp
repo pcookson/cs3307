@@ -145,7 +145,7 @@ void ManagerMethods::openAccount(){
         return;
     }
 
-    if(user.permissions == USER_PERMISSION_USER){
+    if(user.permissions != USER_PERMISSION_USER){
         cout << "This user is not a customer" << endl;
         pressEnter();
         return;
