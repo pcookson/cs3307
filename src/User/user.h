@@ -25,6 +25,7 @@ public:
     long permissions;
     
     User(std::string username);
+
     void logger(int logInt);
 
     int id;
@@ -41,12 +42,7 @@ public:
     void deleteChequingAccount();
 
 
-
-
-
 private:
-
-
 
 };
 

@@ -20,6 +20,9 @@ $ <--- means can be executed as a regular user
 
 $ mysql -u root -p
 > create database group6
+> quit
+
+$ mysql -u root -p group6 < sql/db.sql
 
 Next edit the src/config.h file and enter your database connection information.
 If you uncomment the two lines at the top under the define guard, our program

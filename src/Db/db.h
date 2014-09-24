@@ -131,6 +131,7 @@ public:
 	/** @brief Prints all SQL debug messages if SQL_PRINT_DEBUG is defined */
 	static void PrintSqlDebug(std::string const& message);
 
+	/** @brief Disconnects from the database */
 	static void Disconnect();
 };
 
