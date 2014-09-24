@@ -231,7 +231,14 @@ void UserMethods::transferFunds(User::User &user) {
 
 	User::User otherUser;
 	Db::Db::Connect();
+	try{
 	User::UserTable::GetUser(otherUserName, otherUser);
+	}catch(int e){
+		Db::Db::Disconnect();
+		cout << "user does not exist" << endl;
+		pressEnter();
+		return;
+	}
 	if (otherUser.username != otherUserName) {
 		cout << otherUserName + " does not exist" << endl;
 		pressEnter();
