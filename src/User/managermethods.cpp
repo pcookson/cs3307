@@ -182,7 +182,7 @@ void ManagerMethods::closeAccount(){
             return;
         }
     }else if(accountType == "s"){
-        if(!user.sAccount.account_id){
+        if(!user.sAccount.id){
             cout << "Savings account does not exist" << endl;
             pressEnter();
             return;
@@ -235,13 +235,13 @@ void ManagerMethods::getUserDetails(){
     cout << "username: " + user.username << endl;
 
     if(user.permissions == USER_PERMISSION_USER){
-        if(user.cAccount.account_id){
+        if(user.cAccount.id){
             cout << "Chequing Balance: ";
             cout<< user.cAccount.balance << endl;
         }else{
             cout << "No Chequing Account" << endl;
         }
-        if(user.sAccount.account_id){
+        if(user.sAccount.id){
             cout << "Savings Balance: ";
             cout << user.sAccount.balance << endl;
         }else{
