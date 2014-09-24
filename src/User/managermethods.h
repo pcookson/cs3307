@@ -1,8 +1,8 @@
 #ifndef MANAGERMETHODS_H
 #define MANAGERMETHODS_H
 
-#define CHEQUING_ACCOUNT = 1
-#define SAVINGS_ACCOUNT = 2
+#define C_ACCOUNT = 10
+#define S_ACCOUNT = 11
 
 #include "../User/user.h"
 #include <iostream>
@@ -11,6 +11,7 @@
 #include "usermethods.h"
 #include "../Account/fundmovementvalidation.h"
 #include "usertable.h"
+#include "../Account/accounttable.h"
 #include <stdlib.h>
 
 class ManagerMethods

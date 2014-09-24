@@ -1,4 +1,5 @@
 #include "managermethods.h"
+#include"../logger.h"
 
 ManagerMethods::ManagerMethods()
 {
@@ -74,6 +75,7 @@ void ManagerMethods::deleteUser(){
     //db stuff here
 
     cout << username + " has been deleted" << endl;
+    Logger::info("Bank Manager deleted " + user.username);
     pressEnter();
     return;
 
@@ -107,10 +109,18 @@ void ManagerMethods::openAccount(){
 
     if(accountType == "c"){
         user.cAccountExists=1;
-        //db stuff here
+        Db::Db::Connect();
+        AccountTable::CreateAccount(user, user.cAccount);
+        Db::Db::Disconnect();
+        Logger::info("Bank Manager open chequing account for " +user.username);
+
+
     }else if(accountType == "s"){
         user.sAccountExists == 1;
-        //db stuff here
+        Db::Db::Connect();
+        AccountTable::CreateAccount(user, user.sAccount);
+        Db::Db::Disconnect();
+        Logger::info("Bank Manager open savings account for " +user.username);
     }else {
         cout << "Improper input" << endl;
         return;
@@ -158,6 +168,7 @@ void ManagerMethods::closeAccount(){
             user.cAccountExists = 0;
             //db stuff here;
             cout << "Chequing account closed" << endl;
+            Logger::info("Bank Manager closed chequing account for " + user.username);
             pressEnter();
             return;
         }
@@ -175,6 +186,7 @@ void ManagerMethods::closeAccount(){
             user.sAccountExists = 0;
             //db stuff here;
             cout << "Savings account closed" << endl;
+            Logger::info("Bank Manager closed savings account for " + user.username);
             pressEnter();
             return;
         }
