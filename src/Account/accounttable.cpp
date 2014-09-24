@@ -44,7 +44,7 @@ long AccountTable::Withdraw(Account& account, double amount) {
 
 	string new_balance_string = Utilities::double_to_string(new_balance);
 
-	Db::Db::ExecuteNonQuery("UPDATE account SET balance=" + new_balance_string, rows_affected);
+	Db::Db::ExecuteNonQuery("UPDATE account SET balance=" + new_balance_string + " WHERE id=" + Utilities::long_to_string(account.id), rows_affected);
 
 	if (rows_affected != 1)
 		throw WITHDRAW_ERROR;

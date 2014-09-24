@@ -35,6 +35,11 @@ public:
 	 */
 	static long CreateAccount(User::User& user, long const& account_type);
 
+	/** @brief Subtracts an amount from the account balance
+	 *
+	 * @param account
+	 * @param amount
+	 */
     static long Withdraw(Account& account, double amount);
 
     static long Deposit(Account& account, double amount);
