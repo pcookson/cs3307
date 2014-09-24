@@ -14,7 +14,8 @@
 
 #include "../User/user.h"
 #include "account.h"
-
+#include <vector>
+#include <stdlib.h>
 
 class AccountTable {
 public:

@@ -14,6 +14,7 @@
 #include "../User/usertable.h"
 #include "../Utilities.h"
 #include <typeinfo>
+#include <stdlib.h>
 
 using namespace User;
 
@@ -51,7 +52,7 @@ long AccountTable::DeleteAccount(Account& account) {
 	return SUCCESS;
 }
 
-long AccountTable::CreateAccount(User& user, Account& account) {
+long AccountTable::CreateAccount(User::User& user, Account& account) {
 
 
     if (!user.id)
