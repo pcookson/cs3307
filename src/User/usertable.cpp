@@ -60,6 +60,22 @@ long UserTable::ImbueUser(std::vector<std::string> const& column_names, std::vec
 	return SUCCESS;
 }
 
+long UserTable::GetAllUsers(vector<User>& users)
+{
+	db_rows rows;
+
+	Db::Db::Select("SELECT * FROM users", rows);
+
+	for(vector<vector<string> >::iterator it = rows.rows.begin(); it != rows.rows.end(); ++it)
+	{
+		User user;
+
+		ImbueUser(rows.column_names, *it, user);
+		users.push_back(user);
+	}
+
+	return SUCCESS;
+}
 
 long UserTable::CreateUser(string const& username, string const& password, long permissions, User& user)
 {
