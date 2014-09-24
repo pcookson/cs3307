@@ -26,11 +26,19 @@ void  UserMethods::pressEnter(){
 void UserMethods::balance(User::User &user){
     Logger::info(user.username +"\tchecked balance");
 
-    cout << "Chequing Balance: ";
-    cout << user.cAccount.balance << endl <<endl;
+    if(user.cAccount.id){
+        cout << "Chequing Balance: ";
+        cout << user.cAccount.balance << endl <<endl;
+    }else{
+        cout << "No chequing account." << endl;
+    }
 
+    if(user.sAccount.id){
     cout << "Savings Balance: ";
     cout << user.sAccount.balance << endl << endl;
+    }else{
+        cout << "No savings account" << endl;
+    }
     pressEnter();
 
 }
@@ -51,13 +59,13 @@ void UserMethods::deposit(User::User &user){
     }while(accountDeposit!= "c" && accountDeposit!= "s");
 
     if(accountDeposit == "c"){
-        if (user.cAccountExists == 0){
+        if (!user.cAccount.id){
             cout << "Warning: Chequing account does not exist. Request account from a manager" << endl;
             pressEnter();
             return;
         }
     }else if(accountDeposit == "s"){
-        if(user.sAccountExists == 0){
+        if(!user.sAccount.id){
             cout << "Warning: Savings account does not exist. Request account from manager" << endl;
             pressEnter();
             return;
@@ -113,13 +121,13 @@ void UserMethods::withdraw(User::User &user){
     }while(accountWithdraw != "c" && accountWithdraw != "s");
 
     if(accountWithdraw == "c"){
-        if (user.cAccountExists == 0){
+        if (!user.cAccount.id){
             cout << "Warning: Chequing account does not exist. Request account from a manager" << endl;
             pressEnter();
             return;
         }
     }else if(accountWithdraw == "s"){
-        if(user.sAccountExists == 0){
+        if(!user.sAccount.id){
             cout << "Warning: Savings account does not exist. Request account from manager" << endl;
             pressEnter();
             return;

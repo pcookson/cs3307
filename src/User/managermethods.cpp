@@ -86,6 +86,7 @@ void ManagerMethods::deleteUser(){
             return;
         }
     }
+    Db::Db::Disconnect();
 
     if(user.id == 0){
         cout << "User does not exist" << endl;
@@ -93,16 +94,26 @@ void ManagerMethods::deleteUser(){
         return;
     }
 
-    Db::Db::Disconnect();
+    if(user.cAccount.id && !user.cAccount.balance){
+        cout << "Chequing account balance not 0. Cannot delete user" << endl;
+        pressEnter();
+        return;
+    }else if(user.sAccount.id && !user.sAccount.balance){
+        cout << "Chequing account balance not 0. Cannot delete user" << endl;
+        pressEnter();
+        return;
 
-    Db::Db::Connect();
-    User::UserTable::DeleteUser(username);
-    Db::Db::Disconnect();
+    }else{
 
-    cout << username + " has been deleted" << endl;
-    Logger::info("Bank Manager deleted " + user.username);
-    pressEnter();
-    return;
+        Db::Db::Connect();
+        User::UserTable::DeleteUser(username);
+        Db::Db::Disconnect();
+
+        cout << username + " has been deleted" << endl;
+        Logger::info("Bank Manager deleted " + user.username);
+        pressEnter();
+        return;
+    }
 
 }
 
@@ -294,8 +305,9 @@ void ManagerMethods::getUserDetails(){
     cout << user.id << endl;
     cout << "username: " + user.username << endl;
 
-    if(user.permissions == USER_PERMISSION_USER){
 
+    if(user.permissions == USER_PERMISSION_USER){
+        cout << "bank customer" << endl;
         if(user.cAccount.id){
 
             cout << "Chequing Balance: ";
@@ -324,6 +336,8 @@ void ManagerMethods::getUserDetails(){
 
 void ManagerMethods::getAllUserDetails(){
     cout << "username \t id \t role \t chequing balance \t savings balance" << endl;
+    pressEnter();
+    return;
 
 }
 
@@ -334,7 +348,7 @@ void ManagerMethods::managerCommandList(){
     cout << "\to.   Open Account" <<endl;
     cout << "\tc.   Close Account" <<endl;
     cout << "\tg.   Get User Details" <<endl;
-    cout << "\ta.   Get All User Details" << endl;
+    cout << "\ta.   Get Details Of All Users" << endl;
     cout<<  "\tq.   Exit" <<endl <<endl;
 
     cout<< "> ";
