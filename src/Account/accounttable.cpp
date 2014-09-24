@@ -51,7 +51,7 @@ long AccountTable::GetAccount(Account& account, int& id)
 
 	Db::Db::Select(Db::Db::ParamertizedQuery("SELECT * FROM account WHERE id=?", values), rows);
 
-	if (rows.rows.size() != 0)
+	if (rows.rows.size() == 0)
 		throw INVALID_ACCOUNT_ID;
 
 	ImbueAccount(rows.column_names, rows.rows[0], account);

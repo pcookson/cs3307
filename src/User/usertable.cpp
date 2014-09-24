@@ -169,11 +169,18 @@ long UserTable::DeleteUser(string const& username)
 	int err, rows_affected;
 	values.push_back(username);
 
-	string query = Db::Db::ParamertizedQuery("DELETE FROM user WHERE username=?", values);
 
 	try {
+
+		string query = Db::Db::ParamertizedQuery("DELETE FROM account WHERE user_id=?",values);
+
 		//Exactly one row should be affected or failure
 		err = Db::Db::ExecuteNonQuery(query, rows_affected);
+		if (err != SUCCESS) throw DELETE_USER_FAILURE;
+
+		query = Db::Db::ParamertizedQuery("DELETE FROM user WHERE username=?", values);
+		err = Db::Db::ExecuteNonQuery(query, rows_affected);
+
 		if (rows_affected != 1 || err != SUCCESS) throw DELETE_USER_FAILURE;
 	} catch(int)
 	{
