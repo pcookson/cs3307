@@ -38,6 +38,7 @@ public:
 
     Account(){
         balance = 0;
+        id=0;
     }
 
     Account(double starting_balance){

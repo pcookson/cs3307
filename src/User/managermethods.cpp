@@ -108,10 +108,10 @@ void ManagerMethods::openAccount(){
     cout << endl;
 
     if(accountType == "c"){
-        user.cAccountExists=1;
+
         Db::Db::Connect();
         try{
-        AccountTable::CreateAccount(user, user.cAccount);
+            AccountTable::CreateAccount(user, user.cAccount);
         }catch(int e){
             cout << "An error occurred ";
             cout << e;
@@ -125,9 +125,18 @@ void ManagerMethods::openAccount(){
 
 
     }else if(accountType == "s"){
-        user.sAccountExists == 1;
+
         Db::Db::Connect();
-        AccountTable::CreateAccount(user, user.sAccount);
+        try{
+            AccountTable::CreateAccount(user, user.sAccount);
+        }catch(int e){
+            cout << "An error occurred ";
+            cout << e;
+            pressEnter();
+
+            return;
+        }
+
         Db::Db::Disconnect();
         Logger::info("Bank Manager open savings account for " +user.username);
     }else {
@@ -165,7 +174,7 @@ void ManagerMethods::closeAccount(){
     cout << endl;
 
     if(accountType == "c"){
-        if(user.cAccountExists == 0){
+        if(!user.cAccount.id){
             cout << "Chequing account does not exist" << endl;
             pressEnter();
             return;
@@ -174,8 +183,9 @@ void ManagerMethods::closeAccount(){
             pressEnter();
             return;
         }else{
-            user.cAccountExists = 0;
-            //db stuff here;
+            Db::Db::Connect();
+            AccountTable::DeleteAccount(user.cAccount);
+            Db::Db::Disconnect();
             cout << "Chequing account closed" << endl;
             Logger::info("Bank Manager closed chequing account for " + user.username);
             pressEnter();
@@ -192,8 +202,10 @@ void ManagerMethods::closeAccount(){
             pressEnter();
             return;
         }else{
-            user.sAccountExists = 0;
-            //db stuff here;
+            Db::Db::Connect();
+            AccountTable::DeleteAccount(user.sAccount);
+            Db::Db::Disconnect();
+
             cout << "Savings account closed" << endl;
             Logger::info("Bank Manager closed savings account for " + user.username);
             pressEnter();
@@ -235,13 +247,16 @@ void ManagerMethods::getUserDetails(){
     cout << "username: " + user.username << endl;
 
     if(user.permissions == USER_PERMISSION_USER){
+
         if(user.cAccount.id){
+
             cout << "Chequing Balance: ";
             cout<< user.cAccount.balance << endl;
         }else{
             cout << "No Chequing Account" << endl;
         }
         if(user.sAccount.id){
+
             cout << "Savings Balance: ";
             cout << user.sAccount.balance << endl;
         }else{
