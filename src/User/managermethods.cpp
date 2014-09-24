@@ -1,5 +1,8 @@
 #include "managermethods.h"
 #include"../logger.h"
+#include <vector>
+
+using namespace std;
 
 ManagerMethods::ManagerMethods()
 {
@@ -69,10 +72,32 @@ void ManagerMethods::deleteUser(){
     string username;
     User::User user;
 
-    cout << "Username to delete";
+    cout << "Username to delete: ";
     cin >> username;
+    cout << endl;
 
-    //db stuff here
+    Db::Db::Connect();
+    try{
+        User::UserTable::GetUser(username, user);
+    }catch (int e){
+        if(e == USER_NOT_EXIST){
+            cout << "User does not exist" << endl;
+            pressEnter();
+            return;
+        }
+    }
+
+    if(user.id == 0){
+        cout << "User does not exist" << endl;
+        pressEnter();
+        return;
+    }
+
+    Db::Db::Disconnect();
+
+    Db::Db::Connect();
+    User::UserTable::DeleteUser(username);
+    Db::Db::Disconnect();
 
     cout << username + " has been deleted" << endl;
     Logger::info("Bank Manager deleted " + user.username);
@@ -101,6 +126,12 @@ void ManagerMethods::openAccount(){
         }
     }
 
+    if(user.id == 0){
+        cout << "User does not exist" << endl;
+        pressEnter();
+        return;
+    }
+
     Db::Db::Disconnect();
 
     cout << "Create chequing or savings account? (c or s): ";
@@ -122,7 +153,9 @@ void ManagerMethods::openAccount(){
 
         Db::Db::Disconnect();
         Logger::info("Bank Manager open chequing account for " +user.username);
-
+        cout << "Chequing account created for " << user.username << endl;
+        pressEnter();
+        return;
 
     }else if(accountType == "s"){
 
@@ -139,11 +172,13 @@ void ManagerMethods::openAccount(){
 
         Db::Db::Disconnect();
         Logger::info("Bank Manager open savings account for " +user.username);
+        cout << "Savings account created for " << user.username << endl;
+        pressEnter();
+        return;
     }else {
         cout << "Improper input" << endl;
         return;
     }
-
 
 }
 
@@ -165,6 +200,12 @@ void ManagerMethods::closeAccount(){
             pressEnter();
             return;
         }
+    }
+
+    if(user.id == 0){
+        cout << "User does not exist" << endl;
+        pressEnter();
+        return;
     }
 
     Db::Db::Disconnect();
@@ -240,6 +281,13 @@ void ManagerMethods::getUserDetails(){
         }
     }
 
+
+    if(user.id == 0){
+        cout << "User does not exist" << endl;
+        pressEnter();
+        return;
+    }
+
     Db::Db::Disconnect();
 
     cout << "user id: " ;
@@ -275,6 +323,7 @@ void ManagerMethods::getUserDetails(){
 }
 
 void ManagerMethods::getAllUserDetails(){
+    cout << "username \t id \t role \t chequing balance \t savings balance" << endl;
 
 }
 
