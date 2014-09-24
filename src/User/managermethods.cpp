@@ -110,7 +110,16 @@ void ManagerMethods::openAccount(){
     if(accountType == "c"){
         user.cAccountExists=1;
         Db::Db::Connect();
+        try{
         AccountTable::CreateAccount(user, user.cAccount);
+        }catch(int e){
+            cout << "An error occurred ";
+            cout << e;
+            pressEnter();
+
+            return;
+        }
+
         Db::Db::Disconnect();
         Logger::info("Bank Manager open chequing account for " +user.username);
 
@@ -173,7 +182,7 @@ void ManagerMethods::closeAccount(){
             return;
         }
     }else if(accountType == "s"){
-        if(user.sAccountExists == 0){
+        if(!user.sAccount.account_id){
             cout << "Savings account does not exist" << endl;
             pressEnter();
             return;
@@ -226,13 +235,13 @@ void ManagerMethods::getUserDetails(){
     cout << "username: " + user.username << endl;
 
     if(user.permissions == USER_PERMISSION_USER){
-        if(user.cAccountExists){
+        if(user.cAccount.account_id){
             cout << "Chequing Balance: ";
             cout<< user.cAccount.balance << endl;
         }else{
             cout << "No Chequing Account" << endl;
         }
-        if(user.sAccountExists){
+        if(user.sAccount.account_id){
             cout << "Savings Balance: ";
             cout << user.sAccount.balance << endl;
         }else{

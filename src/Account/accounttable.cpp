@@ -12,6 +12,7 @@
 #include "accounttable.h"
 #include "../Db/db.h"
 #include "../User/usertable.h"
+#include "../Utilities.h"
 #include <typeinfo>
 
 using namespace User;
@@ -25,9 +26,9 @@ AccountTable::~AccountTable() {
 	// TODO Auto-generated destructor stub
 }
 
-long AccountTable::CreateAccount(User& user, Account& account) {
+long AccountTable::CreateAccount(User::User& user, Account& account) {
 
-	if (user.id)
+    if (!user.id)
 		throw USER_NOT_EXIST;
 
 	long account_type = 0;

@@ -2,8 +2,8 @@ SOURCE_DEPS=* User/* Db
 
 all: bank
 
-bank: account.o savingsaccount.o chequingaccount.o user.o usermethods.o managermethods.o dispatchloop.o fundmovementvalidation.o logger.o db.o usertable.o main.o
-	g++ Objects/account.o Objects/savingsaccount.o Objects/chequingaccount.o Objects/usermethods.o Objects/managermethods.o Objects/dispatchloop.o Objects/user.o Objects/fundmovementvalidation.o Objects/logger.o Objects/db.o Objects/usertable.o Objects/main.o -lmysqlclient -o Debug/bank
+bank: account.o savingsaccount.o chequingaccount.o user.o usermethods.o managermethods.o maintenancemethods.o dispatchloop.o fundmovementvalidation.o logger.o db.o usertable.o accounttable.o main.o
+	g++ Objects/account.o Objects/savingsaccount.o Objects/chequingaccount.o Objects/usermethods.o Objects/managermethods.o Objects/maintenancemethods.o Objects/dispatchloop.o Objects/user.o Objects/fundmovementvalidation.o Objects/logger.o Objects/db.o Objects/usertable.o Objects/accounttable.o Objects/main.o -lmysqlclient -o Debug/bank
 
 testAccounts: account.o savingsaccount.o chequingaccount.o user.o usermethods.o dispatchloop.o testAccounts.o fundmovementvalidation.o logger.o db.o usertable.o
 	g++ Object/account.o Object/savingsaccount.o Object/chequingaccount.o Object/usermethods.o Object/dispatchloop.o Object/user.o Object/testAccounts.o Object/fundmovementvalidation.o Object/logger.o Object/db.o Object/usertable.o -lmysqlclient -o Debug/testAccounts
@@ -46,6 +46,12 @@ usermethods.o:User/usermethods.cpp
 
 managermethods.o: User/managermethods.cpp
 	g++ -c User/managermethods.cpp -o Objects/managermethods.o
+
+maintenancemethods.o: User/maintenancemethods.cpp
+	g++ -c User/maintenancemethods.cpp -o Objects/maintenancemethods.o
+
+accounttable.o: Account/accounttable.cpp
+	g++ -c Account/accounttable.cpp -o Objects/accounttable.o
 
 clean:
 	rm Objects/*.o Debug/bank Debug/testAccounts report.txt

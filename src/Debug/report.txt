@@ -1,0 +1,2 @@
+1411524109	INFO	Bank Manager open chequing account for patrick
+1411524157	INFO	patrick	checked balance
