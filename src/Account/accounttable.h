@@ -8,16 +8,9 @@
 #ifndef ACCOUNTTABLE_H_
 #define ACCOUNTTABLE_H_
 
-#define CREATE_ACCOUNT_FAILURE 0X1
-#define CREATE_ACCOUNT_FAILURE_INVALID_USER 0X2
-#define CREATE_ACCOUNT_FAILURE_EXISTS 0X4
-
-#define DELETE_ACCOUNT_FAILURE 0X4
-#define INVALID_ACCOUNT_ID 0X8
-#define WITHDRAW_ERROR 0X1
-#define DEPOSIT_ERROR 0X1
 
 
+#include "../error.h"
 #include "../User/user.h"
 #include "account.h"
 #include <vector>

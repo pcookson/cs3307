@@ -11,14 +11,7 @@
 #include <iostream>
 #include "user.h"
 #include "../Db/db.h"
-
-#define AUTHENTICATION_FAILURE 0x1
-#define CREATE_USER_FAILURE 0x1
-#define CREATE_USER_FAILURE_USER_EXISTS 0x2
-#define DELETE_USER_FAILURE 0x1
-
-
-#define USER_NOT_EXIST 0X5
+#include "../error.h"
 
 namespace User {
 

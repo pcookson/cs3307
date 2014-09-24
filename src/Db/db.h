@@ -7,18 +7,7 @@
 
 #ifndef DB_H_
 #define DB_H_
-
-#define SQL_INSERT_FAILED 0x1
-#define SQL_SELECT_FAILED 0X2
-#define SQL_QUERY_FAILED 0X2
-
-#define INVALID_PARAMERTIZED_QUERY 0X1
-
-#define SQL_SUCCESS 0
-
-
-
-
+#include "../error.h"
 #include <iostream>
 #include <vector>
 #include <string>

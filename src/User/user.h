@@ -1,12 +1,7 @@
 #ifndef USER_H_
 #define USER_H_
 
-
-#define USER_PERMISSION_USER 0X0
-#define USER_PERMISSION_MAINTENANCE 0X1
-#define USER_PERMISSION_ADMIN 0X2
-
-
+#include "../error.h"
 #include <iostream>
 #include "../logger.h"
 #include "../Account/chequingaccount.h"

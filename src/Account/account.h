@@ -2,8 +2,7 @@
 #define ACCOUNT_H
 
 #include "../logger.h"
-
-#define INSUFFICIENT_FUNDS 0x5
+#include "../error.h"
 
 #define ACCEPTS_FEE 10
 #define DECLINES_FEE 11

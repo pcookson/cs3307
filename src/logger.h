@@ -3,9 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-
-#define AUTHENTICATION_FAILURE 0x1
-#define AUTHENTICATION_SUCCESS 0x0
+#include "error.h"
 
 #define ACCEPTS_FEE 10
 #define DECLINES_FEE 11
