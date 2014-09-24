@@ -349,7 +349,16 @@ void ManagerMethods::getUserDetails(){
 }
 
 void ManagerMethods::getAllUserDetails(){
+    vector<User::User> users;
+
+    User::UserTable::GetAllUsers(users);
+
     cout << "username \t id \t role \t chequing balance \t savings balance" << endl;
+
+    for(vector<User::User>::iterator it = users.begin(); it != users.end(); ++it){
+        cout << (*it).id << "\t " +(*it).permissions;
+    }
+
     pressEnter();
     return;
 
