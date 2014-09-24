@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class ChequingAccount : public Account{
+class ChequingAccount: public Account {
 
 public:
 
@@ -13,27 +13,28 @@ public:
 	 *
 	 * @param balance
 	 */
-    ChequingAccount(double balance):Account(balance){
-        ChequingAccount::balance = balance;
-    }
+	ChequingAccount(double balance) :
+			Account(balance) {
+		ChequingAccount::balance = balance;
+	}
 
-    /** @brief default constructor. Balance is 0
-     *
-     */
-    ChequingAccount() : Account(){
-        ChequingAccount::balance = 0;
-    }
+	/** @brief default constructor. Balance is 0
+	 *
+	 */
+	ChequingAccount() :
+			Account() {
+		ChequingAccount::balance = 0;
+	}
 
-    /** @brief virtual method implementation of withdrawl
-     *
-     * @param amount to withdraw
-     * @return int
-     */
-    virtual int withdrawl(double amount);
-
+	/** @brief virtual method implementation of withdrawl
+	 *
+	 * @param amount to withdraw
+	 * @return int
+	 */
+	virtual int withdrawl(double amount);
 
 private:
-    int get_input(double amount);
+	int get_input(double amount);
 
 };
 

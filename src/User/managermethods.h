@@ -11,56 +11,55 @@
 #include "../Account/accounttable.h"
 #include <stdlib.h>
 
-class ManagerMethods
-{
+class ManagerMethods {
 public:
-    ManagerMethods();
+	ManagerMethods();
 
-    /** @brief gets user details
-     *
-     */
-    static void getUserDetails();
+	/** @brief gets user details
+	 *
+	 */
+	static void getUserDetails();
 
-    /** @brief gets details for all users
-     *
-     */
-    static void getAllUserDetails();
+	/** @brief gets details for all users
+	 *
+	 */
+	static void getAllUserDetails();
 
-    /** @brief closes an account
-     *
-     */
-    static void closeAccount();
+	/** @brief closes an account
+	 *
+	 */
+	static void closeAccount();
 
-    /** @brief opens an account
-     *
-     */
-    static void openAccount();
+	/** @brief opens an account
+	 *
+	 */
+	static void openAccount();
 
-    /** @brief creates a user
-     *
-     */
-    static void createUser();
+	/** @brief creates a user
+	 *
+	 */
+	static void createUser();
 
-    /** @brief deletes a user
-     *
-     */
-    static void deleteUser();
+	/** @brief deletes a user
+	 *
+	 */
+	static void deleteUser();
 
-    /** @brief allows manager user to select a list of commands
-     *
-     * @param user
-     */
-    static void managerCommandSelect(User::User &user);
+	/** @brief allows manager user to select a list of commands
+	 *
+	 * @param user
+	 */
+	static void managerCommandSelect(User::User &user);
 
-    /** @brief a list of commands for the manager
-     *
-     */
-    static void managerCommandList();
+	/** @brief a list of commands for the manager
+	 *
+	 */
+	static void managerCommandList();
 
 private:
-   static void pressEnter();
+	static void pressEnter();
 
-    static void clearScreen();
+	static void clearScreen();
 };
 
 #endif // MANAGERMETHODS_H
