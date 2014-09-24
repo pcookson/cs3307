@@ -61,7 +61,13 @@ void ManagerMethods::createUser(){
     }
 
     Db::Db::Connect();
+    try{
     User::UserTable::CreateUser(username, password, permissions, user);
+    }catch(int e){
+    	cout << "User already exists" << endl;
+    	pressEnter();
+    	return;
+    }
     Db::Db::Disconnect();
 
     pressEnter();
@@ -106,7 +112,13 @@ void ManagerMethods::deleteUser(){
     }else{
 
         Db::Db::Connect();
+        try{
         User::UserTable::DeleteUser(username);
+        }catch (int e){
+        	cout << "User likely doesn't exist" << endl;
+        	pressEnter();
+        	return;
+        }
         Db::Db::Disconnect();
 
         cout << username + " has been deleted" << endl;
@@ -250,7 +262,14 @@ void ManagerMethods::closeAccount(){
             return;
         }else{
             Db::Db::Connect();
+            try{
             AccountTable::DeleteAccount(user.cAccount);
+            }catch(int e){
+            	Db::Db::Disconnect();
+            	cout << "cannot delete user" << endl;
+            	pressEnter();
+            	return;
+            }
             Db::Db::Disconnect();
             cout << "Chequing account closed" << endl;
             Logger::info("Bank Manager closed chequing account for " + user.username);
@@ -269,7 +288,14 @@ void ManagerMethods::closeAccount(){
             return;
         }else{
             Db::Db::Connect();
+            try{
             AccountTable::DeleteAccount(user.sAccount);
+            }catch (int e){
+            	Db::Db::Disconnect();
+            	cout << "cannot delete account" << endl;
+            	pressEnter();
+            	return;
+            }
             Db::Db::Disconnect();
 
             cout << "Savings account closed" << endl;
@@ -351,7 +377,13 @@ void ManagerMethods::getUserDetails(){
 void ManagerMethods::getAllUserDetails(){
     vector<User::User> users;
     Db::Db::Connect();
+    try{
     User::UserTable::GetAllUsers(users);
+    }catch(int e){
+    	cout << "database is disconnected. See admin" << endl;
+    	pressEnter();
+    	return;
+    }
     Db::Db::Disconnect();
 
 
