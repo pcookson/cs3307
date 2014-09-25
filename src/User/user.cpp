@@ -6,16 +6,9 @@ using namespace std;
 namespace User {
 
 
-User::User(string username) {
-    User::username = username;
-}
+User::User() {username = ""; permissions = USER_PERMISSION_USER; id = 0;}
 
-long User::Authenticate(string password) {
-    if (password.compare(User::password) != 0) {
-        throw AUTHENTICATION_FAILURE;
-    }
 
-    return AUTHENTICATION_SUCCESS;
-}
+
 
 } /* namespace User */

@@ -11,7 +11,7 @@ int SavingsAccount::withdrawl(double amount){
         throw INSUFFICIENT_FUNDS;
     }else{
 
-        balance = balance - amount;
+
         return WITHDRAW_SUCCESSFUL;
     }
 

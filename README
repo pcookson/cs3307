@@ -1,2 +1,43 @@
-Assignment 1
+Group 6 Bank compilation instructions
+=====================================
 
+Our project uses MySql.  We ran this on a Ubuntu 14.04 server.
+
+Above and beyond a robust GNU implementation (make, g++, stl, etc.), the 
+following packages are required.
+
+mysql
+libmysqlclient
+
+To get these on Ubuntu:
+
+# <--- means you must execute as root
+$ <--- means can be executed as a regular user
+> <--- means a mysql command
+
+# apt-get install mysql
+# apt-get install libmysqlclient
+
+$ mysql -u root -p
+> create database group6
+> quit
+
+$ mysql -u root -p group6 < sql/db.sql
+
+Next edit the src/config.h file and enter your database connection information.
+If you uncomment the two lines at the top under the define guard, our program
+will print verbose sql information.
+
+To compile, change directory to the src folder
+$ make
+
+To run the program type, from inside the src directory type:
+./mainApp/bank
+
+The only thing left is to give us 108%. :)
+
+Please feel free to contact us at any time.  jbaron6@uwo.ca
+I can help you with whatever you need to get things going.
+
+~James and Patrick
+Group 6
