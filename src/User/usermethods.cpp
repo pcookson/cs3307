@@ -43,7 +43,7 @@ void UserMethods::balance(User::User &user) {
 }
 
 void UserMethods::deposit(User::User &user) {
-
+	Logger::info(user.username + " is depositing funds");
 	string accountDeposit;
 	double amount;
 	string amountString;
@@ -58,6 +58,7 @@ void UserMethods::deposit(User::User &user) {
 
 	//checks to see if savings or checking account exists
 	if (accountDeposit == "c") {
+		Logger::info(user.username + " is depositing to chequing account");
 		if (!user.cAccount.id) {
 			cout
 					<< "Warning: Chequing account does not exist. Request account from a manager"
