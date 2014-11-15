@@ -30,9 +30,6 @@ public:
 	static void maintenanceCommandList();
 
 private:
-	static void pressEnter();
-
-	static void clearScreen();
 };
 
 #endif // MAINTENANCEMETHODS_H
