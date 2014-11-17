@@ -33,6 +33,20 @@ public:
         return ss.str();
     }
 
+    static void clearScreen() {
+        {
+            cout << "\033[2J\033[1;1H";
+            //see http://stackoverflow.com/questions/4062045/clearing-terminal-in-linux-with-c-code
+
+        }
+    }
+
+    static void pressEnter() {
+        cout << "Press Enter to Continue";
+        cin.get();
+        cin.get();
+    }
+
 private:
 
 };

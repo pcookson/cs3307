@@ -57,9 +57,6 @@ public:
 	static void managerCommandList();
 
 private:
-	static void pressEnter();
-
-	static void clearScreen();
 };
 
 #endif // MANAGERMETHODS_H

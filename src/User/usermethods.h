@@ -7,9 +7,6 @@ public:
 	UserMethods() {
 	}
 
-	static void pressEnter();
-
-	static void clearScreen();
 
 	/** @brief gets the balance of an account
 	 * @param user

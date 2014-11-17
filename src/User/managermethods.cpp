@@ -1,4 +1,5 @@
 #include "managermethods.h"
+#include "../Utilities.h"
 #include"../logger.h"
 #include <vector>
 
@@ -7,21 +8,6 @@ using namespace std;
 ManagerMethods::ManagerMethods()
 {
 }
-
-void ManagerMethods::clearScreen()
-{
-    cout << "\033[2J\033[1;1H";
-    //see http://stackoverflow.com/questions/4062045/clearing-terminal-in-linux-with-c-code
-
-}
-
-
-void  ManagerMethods::pressEnter(){
-    cout << "Press Enter to Continue";
-    cin.get();
-    cin.get();
-}
-
 
 void ManagerMethods::createUser(){
     string username;
@@ -65,12 +51,12 @@ void ManagerMethods::createUser(){
     User::UserTable::CreateUser(username, password, permissions, user);
     }catch(int e){
     	cout << "User already exists" << endl;
-    	pressEnter();
+    	Utilities::pressEnter();
     	return;
     }
     Db::Db::Disconnect();
 
-    pressEnter();
+    Utilities::pressEnter();
 
 }
 
@@ -88,7 +74,7 @@ void ManagerMethods::deleteUser(){
     }catch (int e){
         if(e == USER_NOT_EXIST){
             cout << "User does not exist" << endl;
-            pressEnter();
+            Utilities::pressEnter();
             return;
         }
     }
@@ -96,17 +82,17 @@ void ManagerMethods::deleteUser(){
 
     if(user.id == 0){
         cout << "User does not exist" << endl;
-        pressEnter();
+        Utilities::pressEnter();
         return;
     }
 
     if(user.cAccount.id && !user.cAccount.balance){
         cout << "Chequing account balance not 0. Cannot delete user" << endl;
-        pressEnter();
+        Utilities::pressEnter();
         return;
     }else if(user.sAccount.id && !user.sAccount.balance){
         cout << "Chequing account balance not 0. Cannot delete user" << endl;
-        pressEnter();
+        Utilities::pressEnter();
         return;
 
     }else{
@@ -116,14 +102,14 @@ void ManagerMethods::deleteUser(){
         User::UserTable::DeleteUser(username);
         }catch (int e){
         	cout << "User likely doesn't exist" << endl;
-        	pressEnter();
+        	Utilities::pressEnter();
         	return;
         }
         Db::Db::Disconnect();
 
         cout << username + " has been deleted" << endl;
         Logger::info("Bank Manager deleted " + user.username);
-        pressEnter();
+        Utilities::pressEnter();
         return;
     }
 
@@ -144,7 +130,7 @@ void ManagerMethods::openAccount(){
     }catch(int e){
         if(e == USER_NOT_EXIST){
             cout << "User does not exist" << endl;
-            pressEnter();
+            Utilities::pressEnter();
             return;
         }else{
             //do nothing all is well
@@ -153,13 +139,13 @@ void ManagerMethods::openAccount(){
 
     if(user.id == 0){
         cout << "User does not exist" << endl;
-        pressEnter();
+        Utilities::pressEnter();
         return;
     }
 
     if(user.permissions != USER_PERMISSION_USER){
         cout << "This user is not a customer" << endl;
-        pressEnter();
+        Utilities::pressEnter();
         return;
     }
 
@@ -177,7 +163,7 @@ void ManagerMethods::openAccount(){
         }catch(int e){
             cout << "An error occurred ";
             cout << e;
-            pressEnter();
+            Utilities::pressEnter();
 
             return;
         }
@@ -185,7 +171,7 @@ void ManagerMethods::openAccount(){
         Db::Db::Disconnect();
         Logger::info("Bank Manager open chequing account for " +user.username);
         cout << "Chequing account created for " << user.username << endl;
-        pressEnter();
+        Utilities::pressEnter();
         return;
 
     }else if(accountType == "s"){
@@ -196,7 +182,7 @@ void ManagerMethods::openAccount(){
         }catch(int e){
             cout << "An error occurred ";
             cout << e;
-            pressEnter();
+            Utilities::pressEnter();
 
             return;
         }
@@ -204,7 +190,7 @@ void ManagerMethods::openAccount(){
         Db::Db::Disconnect();
         Logger::info("Bank Manager open savings account for " +user.username);
         cout << "Savings account created for " << user.username << endl;
-        pressEnter();
+        Utilities::pressEnter();
         return;
     }else {
         cout << "Improper input" << endl;
@@ -228,20 +214,20 @@ void ManagerMethods::closeAccount(){
     }catch (int e){
         if(e == USER_NOT_EXIST){
             cout << "User does not exist" << endl;
-            pressEnter();
+            Utilities::pressEnter();
             return;
         }
     }
 
     if (user.permissions != USER_PERMISSION_USER){
         cout << "This user is not a customer and has no accounts" << endl;
-        pressEnter();
+        Utilities::pressEnter();
         return;
     }
 
     if(user.id == 0){
         cout << "User does not exist" << endl;
-        pressEnter();
+        Utilities::pressEnter();
         return;
     }
 
@@ -254,11 +240,11 @@ void ManagerMethods::closeAccount(){
     if(accountType == "c"){
         if(!user.cAccount.id){
             cout << "Chequing account does not exist" << endl;
-            pressEnter();
+            Utilities::pressEnter();
             return;
         }else if(user.cAccount.balance!=0){
             cout << "balance not 0. Cannot close" << endl;
-            pressEnter();
+            Utilities::pressEnter();
             return;
         }else{
             Db::Db::Connect();
@@ -267,24 +253,24 @@ void ManagerMethods::closeAccount(){
             }catch(int e){
             	Db::Db::Disconnect();
             	cout << "cannot delete user" << endl;
-            	pressEnter();
+            	Utilities::pressEnter();
             	return;
             }
             Db::Db::Disconnect();
             cout << "Chequing account closed" << endl;
             Logger::info("Bank Manager closed chequing account for " + user.username);
-            pressEnter();
+            Utilities::pressEnter();
             return;
         }
     }else if(accountType == "s"){
         if(!user.sAccount.id){
             cout << "Savings account does not exist" << endl;
-            pressEnter();
+            Utilities::pressEnter();
             return;
 
         }else if(user.sAccount.balance!=0){
             cout << "balance not 0. Cannot close" << endl;
-            pressEnter();
+            Utilities::pressEnter();
             return;
         }else{
             Db::Db::Connect();
@@ -293,19 +279,19 @@ void ManagerMethods::closeAccount(){
             }catch (int e){
             	Db::Db::Disconnect();
             	cout << "cannot delete account" << endl;
-            	pressEnter();
+            	Utilities::pressEnter();
             	return;
             }
             Db::Db::Disconnect();
 
             cout << "Savings account closed" << endl;
             Logger::info("Bank Manager closed savings account for " + user.username);
-            pressEnter();
+            Utilities::pressEnter();
             return;
         }
     }else{
         cout << "Improper input" << endl;
-        pressEnter();
+        Utilities::pressEnter();
         return;
     }
 
@@ -327,7 +313,7 @@ void ManagerMethods::getUserDetails(){
     }catch (int e){
         if (e == USER_NOT_EXIST){
             cout << "User does not exist" << endl;
-            pressEnter();
+            Utilities::pressEnter();
             return;
         }
     }
@@ -335,7 +321,7 @@ void ManagerMethods::getUserDetails(){
 
     if(user.id == 0){
         cout << "User does not exist" << endl;
-        pressEnter();
+        Utilities::pressEnter();
         return;
     }
 
@@ -370,7 +356,7 @@ void ManagerMethods::getUserDetails(){
         cout << "No Permissions Set" << endl;
     }
 
-    pressEnter();
+    Utilities::pressEnter();
 
 }
 
@@ -381,7 +367,7 @@ void ManagerMethods::getAllUserDetails(){
     User::UserTable::GetAllUsers(users);
     }catch(int e){
     	cout << "database is disconnected. See admin" << endl;
-    	pressEnter();
+    	Utilities::pressEnter();
     	return;
     }
     Db::Db::Disconnect();
@@ -418,7 +404,7 @@ void ManagerMethods::getAllUserDetails(){
 
     }
 
-    pressEnter();
+    Utilities::pressEnter();
     return;
 
 }
@@ -438,7 +424,7 @@ void ManagerMethods::managerCommandList(){
 
 void ManagerMethods::managerCommandSelect(User::User &user){
     while(true){
-        clearScreen();
+        Utilities::clearScreen();
         managerCommandList();
 
         string command;
@@ -453,33 +439,33 @@ void ManagerMethods::managerCommandSelect(User::User &user){
         switch(command[0])
         {
         case 'u':
-            clearScreen();
+            Utilities::clearScreen();
             createUser();
             break;
 
 
         case 'd':
-            clearScreen();
+            Utilities::clearScreen();
             deleteUser();
             break;
 
         case 'o':
-            clearScreen();
+            Utilities::clearScreen();
             openAccount();
             break;
 
         case 'c':
-            clearScreen();
+            Utilities::clearScreen();
             closeAccount();
             break;
 
         case 'g':
-            clearScreen();
+            Utilities::clearScreen();
             getUserDetails();
             break;
 
         case 'a':
-            clearScreen();
+            Utilities::clearScreen();
             getAllUserDetails();
             break;
 

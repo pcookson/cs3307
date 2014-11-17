@@ -1,4 +1,5 @@
 #include "maintenancemethods.h"
+#include "../Utilities.h"
 #include "../logger.h"
 
 
@@ -6,18 +7,6 @@ MaintenanceMethods::MaintenanceMethods()
 {
 
 
-}
-
-void MaintenanceMethods::clearScreen(){
-    cout << "\033[2J\033[1;1H";
-    //see http://stackoverflow.com/questions/4062045/clearing-terminal-in-linux-with-c-code
-}
-
-void MaintenanceMethods::pressEnter(){
-
-    cout << "Press Enter to Continue";
-    cin.get();
-    cin.get();
 }
 
 void MaintenanceMethods::turnOffLogging(User::User& user){
@@ -30,11 +19,11 @@ void MaintenanceMethods::turnOffLogging(User::User& user){
         Logger::info(user.username + "\tturned off logging");
         Logger::setLoggingOnOff(0);
         cout << "Logging turned off" << endl;
-        pressEnter();
+        Utilities::pressEnter();
         return;
     }else if(confirm == "n"){
         cout << "Logging unaffected" << endl;
-        pressEnter();
+        Utilities::pressEnter();
         return;
     }
 
@@ -52,11 +41,11 @@ void MaintenanceMethods::turnOnLogging(User::User &user){
         Logger::setLoggingOnOff(1);
         cout << "Logging turned on" << endl;
         Logger::info(user.username + "\tturned on logging");
-        pressEnter();
+        Utilities::pressEnter();
         return;
     }else if(confirm == "n"){
         cout << "Logging unaffected" << endl;
-        pressEnter();
+        Utilities::pressEnter();
         return;
     }
 }
@@ -74,7 +63,7 @@ void MaintenanceMethods::maintenanceCommandList(){
 
 void MaintenanceMethods::maintenanceCommandSelect(User::User &user){
     while(true){
-        clearScreen();
+        Utilities::clearScreen();
         maintenanceCommandList();
         string command;
         cin >> command;
