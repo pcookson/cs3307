@@ -1,5 +1,5 @@
-#ifndef CREDIT_ACCOUNT.H
-#define CREDIT_ACCOUNT.H
+#ifndef CREDIT_ACCOUNT_H
+#define CREDIT_ACCOUNT_H
 
 #include "account.h";
 
