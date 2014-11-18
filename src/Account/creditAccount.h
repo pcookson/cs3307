@@ -13,9 +13,16 @@ public:
 		CreditAccount::balance = balance;
 	}
 
+
 	CreditAccount(): Account(){
 		CreditAccount::balance = 0;
 	}
+
+    /** @brief performs end of month balances of credit account.
+    *
+    *
+    */
+    void endOfMonth();
 
 	virtual int withdrawl(double balance);
 };
