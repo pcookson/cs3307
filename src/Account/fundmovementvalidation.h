@@ -42,6 +42,8 @@ public:
 	 */
 	static int deposit(Account &toAccount, double amount);
 
+	static int endOfMonthCreditPayment(Account &creditAccount);
+
 private:
 	static SavingsAccount castToSavings(Account &sAccount);
 

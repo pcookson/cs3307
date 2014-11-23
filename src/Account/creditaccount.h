@@ -1,7 +1,7 @@
 #ifndef CREDIT_ACCOUNT_H
 #define CREDIT_ACCOUNT_H
 
-#include "account.h";
+#include "account.h"
 
 using namespace std;
 
@@ -18,15 +18,20 @@ public:
 		CreditAccount::balance = 0;
 	}
 
+	/** @brief virtual method implementation of withdrawl
+	*
+	* @param amount of money to put onto credit card
+	* @return int
+	*/
+	virtual int withdrawl(double amount);
+
     /** @brief performs end of month balances of credit account.
     *
     *
     */
     void endOfMonth();
-
-	virtual int withdrawl(double balance);
 };
-
+#endif //CREDIT_ACCOUNT_H
 
 
 

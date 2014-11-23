@@ -6,6 +6,7 @@
 #include "../logger.h"
 #include "../Account/chequingaccount.h"
 #include "../Account/savingsaccount.h"
+#include "../Account/creditaccount.h"
 
 #define USER_PERMISSION_USER 0X0
 #define USER_PERMISSION_MAINTENANCE 0X1
@@ -27,6 +28,7 @@ public:
 
     ChequingAccount cAccount;
     SavingsAccount sAccount;
+    CreditAccount credAccount;
 
 private:
 

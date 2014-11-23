@@ -26,6 +26,13 @@ void UserMethods::balance(User::User &user) {
 	} else {
 		cout << "No savings account" << endl;
 	}
+
+	if(user.credAccount.id){
+		cout << "Credit Card Balance: ";
+		cout << user.credAccount.balance << endl << endl;
+	}else{
+		cout << "No credit card account" << endl;
+	}
     Utilities::pressEnter();
 
 }

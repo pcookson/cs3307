@@ -2,8 +2,8 @@ SOURCE_DEPS=* User/* Db
 
 all: bank
 
-bank: account.o savingsaccount.o chequingaccount.o user.o usermethods.o managermethods.o maintenancemethods.o dispatchloop.o fundmovementvalidation.o logger.o db.o usertable.o accounttable.o main.o
-	g++ Objects/account.o Objects/savingsaccount.o Objects/chequingaccount.o Objects/usermethods.o Objects/managermethods.o Objects/maintenancemethods.o Objects/dispatchloop.o Objects/user.o Objects/fundmovementvalidation.o Objects/logger.o Objects/db.o Objects/usertable.o Objects/accounttable.o Objects/main.o -lmysqlclient -o Debug/bank
+bank: account.o savingsaccount.o chequingaccount.o creditaccount.o user.o usermethods.o managermethods.o maintenancemethods.o dispatchloop.o fundmovementvalidation.o logger.o db.o usertable.o accounttable.o main.o
+	g++ Objects/account.o Objects/savingsaccount.o Objects/chequingaccount.o Objects/creditaccount.o Objects/usermethods.o Objects/managermethods.o Objects/maintenancemethods.o Objects/dispatchloop.o Objects/user.o Objects/fundmovementvalidation.o Objects/logger.o Objects/db.o Objects/usertable.o Objects/accounttable.o Objects/main.o -lmysqlclient -o Debug/bank
 
 testAccounts: account.o savingsaccount.o chequingaccount.o user.o usermethods.o dispatchloop.o testAccounts.o fundmovementvalidation.o logger.o db.o usertable.o
 	g++ Object/account.o Object/savingsaccount.o Object/chequingaccount.o Object/usermethods.o Object/dispatchloop.o Object/user.o Object/testAccounts.o Object/fundmovementvalidation.o Object/logger.o Object/db.o Object/usertable.o -lmysqlclient -o Debug/testAccounts
@@ -22,6 +22,9 @@ chequingaccount.o: Account/chequingaccount.cpp
 
 savingsaccount.o: Account/savingsaccount.cpp
 	g++ -c Account/savingsaccount.cpp -o Objects/savingsaccount.o
+
+creditaccount.o: Account/creditaccount.cpp
+	g++ -c Account/creditaccount.cpp -o Objects/creditaccount.o
 
 account.o: Account/account.cpp
 	g++ -c Account/account.cpp -o Objects/account.o
