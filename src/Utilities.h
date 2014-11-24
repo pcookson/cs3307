@@ -15,8 +15,7 @@ public:
 	 * @param value the value to be converted
 	 * @return a new string representing the converted value
 	 */
-	static string int_to_string(int value)
-	{
+	static string int_to_string(int value){
 		stringstream ss;
 		ss << value;
 		return ss.str();
@@ -27,8 +26,7 @@ public:
 	 * @param value the value to be converted
 	 * @return a new string representing the converted value
 	 */
-	static string long_to_string(long value)
-	{
+	static string long_to_string(long value){
 		stringstream ss;
 		ss << value;
 		return ss.str();
