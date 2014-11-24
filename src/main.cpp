@@ -5,9 +5,7 @@ using namespace std;
 //Forward declarations
 void DispatchLoop();
 
-/**
- * Prits the introduction banner
- */
+/** @brief Prints the introduction banner */
 void PrintBanner() {
 	cout << "Assignment 1 by Patrick Cookson and James Baron" << endl << endl;
 }
@@ -33,6 +31,8 @@ int main(int argc, const char* argv[])
 	return 1;		
     }
     
+    //Loop for input and dispatch to the appropriate functions
+    //All main logic here
     DispatchLoop();
 
     return 0;

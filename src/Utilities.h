@@ -10,6 +10,18 @@ class Utilities
 {
 public:
 
+	/** @brief Converts an int to a string
+	 *
+	 * @param value the value to be converted
+	 * @return a new string representing the converted value
+	 */
+	static string int_to_string(int value)
+	{
+		stringstream ss;
+		ss << value;
+		return ss.str();
+	}
+
 	/** @brief Converts a long to a string
 	 *
 	 * @param value the value to be converted

@@ -9,8 +9,40 @@
 #include "../src/config.h"
 #include "../src/Account/account.h"
 #include "../src/Account/accounttable.h"
+#include "../src/Purchase/purchase.h"
+#include "../src/Purchase/purchasetable.h"
 
 using namespace User;
+
+TEST(Account, Purchase)
+{
+	Db::Db::Connect();
+
+	User::User user;
+
+	EXPECT_NO_THROW(UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, user));
+
+	EXPECT_EQ(SUCCESS, AccountTable::CreateAccount(user, SAVINGS_ACCOUNT));
+
+	EXPECT_EQ(SUCCESS, AccountTable::Deposit(user.sAccount, 425.2));
+	EXPECT_EQ((double)425.2, user.sAccount.balance);
+
+	PurchaseTable::MakePurchase(user.sAccount, 100);
+	PurchaseTable::MakePurchase(user.sAccount, 100);
+	PurchaseTable::MakePurchase(user.sAccount, 100);
+	PurchaseTable::MakePurchase(user.sAccount, 100);
+
+	Purchases purchases;
+	PurchaseTable::GetPurchasesByMonth(2014, 11, user.sAccount, purchases);
+
+	for (Purchases::iterator pit = purchases.begin(); pit != purchases.end(); ++pit)
+	{
+		cout << "Amount: " << pit->amount << "  Date: " << pit->date_time << endl;
+	}
+
+	AccountTable::DeleteAccount(user.sAccount);
+
+}
 
 TEST(Account, Create)
 {
