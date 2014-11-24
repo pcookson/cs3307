@@ -11,6 +11,7 @@
 #include "../Db/db.h"
 #include "../Account/account.h"
 #include "purchase.h"
+#include <stdlib.h>
 
 class PurchaseTable {
 public:
@@ -18,10 +19,10 @@ public:
 	virtual ~PurchaseTable();
 
 	static long GetPurchasesByMonth(int const& year, int const& month,
-			Account::Account const& account, Purchases& purchases);
-	static long MakePurchase(Account::Account const& account, int const& amount);
+			Account const& account, Purchases& purchases);
+	static long MakePurchase(Account const& account, int const& amount);
 	static long ImbuePurchase(std::vector<std::string> const& column_names,
-			std::vector<std::string> row, Account::Account const& account, Purchase& purchase);
+			std::vector<std::string> row, Account const& account, Purchase& purchase);
 
 };
 

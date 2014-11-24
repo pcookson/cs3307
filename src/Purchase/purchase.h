@@ -12,6 +12,7 @@
 #include "../Account/account.h"
 #include "../User/user.h"
 #include "../Db/db.h"
+#include "../User/user.h"
 
 
 class Purchase {
@@ -28,7 +29,7 @@ public:
 
 	Account account;
 
-	User user;
+	User::User user;
 
 
 };

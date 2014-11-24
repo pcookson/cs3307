@@ -6,26 +6,22 @@
  */
 
 #include "../User/user.h"
-#include "account.h"
-#include "chequingaccount.h"
-#include "savingsaccount.h"
 #include "purchasetable.h"
 #include "../Db/db.h"
-#include "../User/usertable.h"
 #include "../Utilities.h"
-#include <typeinfo>
-#include <stdlib.h>
 #include "purchase.h"
+#include "../Account/account.h"
+
 
 using namespace User;
 
-AccountTable::AccountTable() {
+PurchaseTable::PurchaseTable() {
 }
 
-AccountTable::~AccountTable() {
+PurchaseTable::~PurchaseTable() {
 }
 
-long PurchaseTable::MakePurchase(Account::Account const& account,
+long PurchaseTable::MakePurchase(Account const& account,
 		int const& amount) {
 	if (!account.id)
 		throw ACCOUNT_NOT_EXIST;
@@ -48,7 +44,7 @@ long PurchaseTable::MakePurchase(Account::Account const& account,
 }
 
 long PurchaseTable::ImbuePurchase(vector<string> const& column_names,
-		vector<string> row, Account::Account const& account,
+		vector<string> row, Account const& account,
 		Purchase& purchase) {
 	//Load the properties needed into the account object
 	purchase.id = atoi(
@@ -63,10 +59,10 @@ long PurchaseTable::ImbuePurchase(vector<string> const& column_names,
 }
 
 long PurchaseTable::GetPurchasesByMonth(int const& year,
-		int const& month, Account::Account const& account,
+		int const& month, Account const& account,
 		Purchases& purchases) {
 	purchases.clear();
-	Db::db_rows& rows;
+	Db::db_rows rows;
 
 	Db::Db::Select(
 			"SELECT * FROM purchase WHERE date_time >= "
