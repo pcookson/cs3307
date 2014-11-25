@@ -39,10 +39,6 @@ private:
     */
     static void transferFunds(User::User &user);
 
-    /**@brief make purchase with credit card
-     * @param user
-     */
-    static void makePurchase(User::User &user);
 
     /** @brief presents a list of commands to user
     *

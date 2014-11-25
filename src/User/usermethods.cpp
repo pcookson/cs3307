@@ -310,17 +310,13 @@ void UserMethods::transferFunds(User::User &user) {
 	}
 }
 
-void UserMethods::makePurchase(User::User &user){
-//either the business logic will go here or it will call the vendor system
-}
-
 void UserMethods::userCommandList() {
 	cout << "Enter a command" << endl;
 	cout << "\tb.   Balances" << endl;
 	cout << "\tw.   Withdraw" << endl;
 	cout << "\td.   Deposit" << endl;
 	cout << "\tt.   Transfer" << endl;
-	cout << "\tp.	Purchase Items" << endl;
+	cout << "\tp.   View Purchases" << endl;
 	cout << "\tq.   Exit" << endl << endl;
 
 	cout << "> ";
@@ -361,11 +357,6 @@ void UserMethods::userCommandSelect(User::User &user) {
 		case 't':
             Utilities::clearScreen();
 			transferFunds(user);
-			break;
-
-		case 'p':
-			Utilities::clearScreen();
-			makePurchase(user);
 			break;
 
 		case 'q':
