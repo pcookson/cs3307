@@ -6,18 +6,10 @@
 #include "User/usermethods.h"
 #include "User/managermethods.h"
 #include "User/maintenancemethods.h"
+#include "Utilities.h"
 #include <stdlib.h>
 
 using namespace std;
-
-void clearScreen(){
-    {
-        cout << "\033[2J\033[1;1H";
-        //see http://stackoverflow.com/questions/4062045/clearing-terminal-in-linux-with-c-code
-
-    }
-}
-
 
 
 /*
@@ -106,7 +98,7 @@ void DispatchLoop() {
         {
 
         case 'l':
-            clearScreen();
+            Utilities::clearScreen();
             login();
             break;
 
