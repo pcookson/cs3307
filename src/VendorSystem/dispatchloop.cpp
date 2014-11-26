@@ -1,4 +1,5 @@
 #include <iostream>
+#include "usermethods.h"
 #include "dispatchloop.h"
 #include "../User/user.h"
 #include "../User/usertable.h"
@@ -33,7 +34,6 @@ void login(){
             User::UserTable::Authenticate(username, password, user);
         }catch(int e){
             if(e == AUTHENTICATION_FAILURE){
-                Logger::warning(username + " attempted to log in. Wrong password or username");
                 cout << "Username or Password incorrect." << endl;
                 return;
             }else{
@@ -45,7 +45,7 @@ void login(){
 
         //see permissions and call correct method for that user
         if(user.permissions == USER_PERMISSION_USER){
-            UserMethods::userCommandSelect(user);
+            usermethods::userCommandSelect(user);
         }else if(user.permissions == USER_PERMISSION_ADMIN){
             return;
         }else if(user.permissions == USER_PERMISSION_MAINTENANCE){

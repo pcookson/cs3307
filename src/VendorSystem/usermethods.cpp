@@ -6,6 +6,7 @@
  */
 
 #include "usermethods.h"
+#include "../Utilities.h"
 #include <stdlib.h>
 #include <time.h>
 
