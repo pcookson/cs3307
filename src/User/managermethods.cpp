@@ -180,7 +180,7 @@ void ManagerMethods::openAccount(){
 
 	Db::Db::Disconnect();
 
-	cout << "Create chequing or savings account? (c or s): ";
+	cout << "Create chequing, savings, or credit account? (c, s, cr): ";
 	cin >> accountType;
 	cout << endl;
 
@@ -219,6 +219,23 @@ void ManagerMethods::openAccount(){
 		Db::Db::Disconnect();
 		Logger::info("Bank Manager open savings account for " +user.username);
 		cout << "Savings account created for " << user.username << endl;
+		Utilities::pressEnter();
+		return;
+	}else if (accountType == "cr"){
+		Db::Db::Connect();
+		try{
+			AccountTable::CreateAccount(user, CREDIT_ACCOUNT);
+		}catch(int e){
+			cout << "An error occurred ";
+			cout << e;
+			Utilities::pressEnter();
+
+			return;
+		}
+
+		Db::Db::Disconnect();
+		Logger::info("Bank Manager open credit account for " +user.username);
+		cout << "credit account created for " << user.username << endl;
 		Utilities::pressEnter();
 		return;
 	}else {
@@ -262,7 +279,7 @@ void ManagerMethods::closeAccount(){
 
 	Db::Db::Disconnect();
 
-	cout << "Close chequing or savings account? (c or s): ";
+	cout << "Close chequing, savings, or credit account? (c, s, cr): ";
 	cin >> accountType;
 	cout << endl;
 
@@ -315,6 +332,33 @@ void ManagerMethods::closeAccount(){
 
 			cout << "Savings account closed" << endl;
 			Logger::info("Bank Manager closed savings account for " + user.username);
+			Utilities::pressEnter();
+			return;
+		}
+	}else if(accountType == "cr"){
+		if(!user.credAccount.id){
+			cout << "Credit account does not exist" << endl;
+			Utilities::pressEnter();
+			return;
+
+		}else if(user.credAccount.balance!=0){
+			cout << "balance not 0. Cannot close" << endl;
+			Utilities::pressEnter();
+			return;
+		}else{
+			Db::Db::Connect();
+			try{
+				AccountTable::DeleteAccount(user.credAccount);
+			}catch (int e){
+				Db::Db::Disconnect();
+				cout << "cannot delete account" << endl;
+				Utilities::pressEnter();
+				return;
+			}
+			Db::Db::Disconnect();
+
+			cout << "Credit account closed" << endl;
+			Logger::info("Bank Manager closed credit account for " + user.username);
 			Utilities::pressEnter();
 			return;
 		}

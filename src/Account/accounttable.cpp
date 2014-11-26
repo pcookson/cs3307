@@ -43,7 +43,7 @@ long AccountTable::Withdraw(Account& account, double amount) {
 
 	Db::Db::ExecuteNonQuery(
 			"UPDATE account SET balance=" + new_balance_string + " WHERE id="
-					+ Utilities::long_to_string(account.id), rows_affected);
+			+ Utilities::long_to_string(account.id), rows_affected);
 
 	if (rows_affected != 1)
 		throw WITHDRAW_ERROR;
@@ -60,7 +60,7 @@ long AccountTable::Deposit(Account& account, double amount) {
 
 	Db::Db::ExecuteNonQuery(
 			"UPDATE account SET balance=" + new_balance_string + " WHERE id="
-					+ Utilities::long_to_string(account.id), rows_affected);
+			+ Utilities::long_to_string(account.id), rows_affected);
 
 	if (rows_affected != 1)
 		throw WITHDRAW_ERROR;
@@ -110,7 +110,8 @@ long AccountTable::CreateAccount(User::User& user, long const& account_type) {
 		throw USER_NOT_EXIST;
 
 	if ((account_type == SAVINGS_ACCOUNT && user.sAccount.id != 0)
-			|| (account_type == CHEQUING_ACCOUNT && user.cAccount.id != 0))
+			|| (account_type == CHEQUING_ACCOUNT && user.cAccount.id != 0)
+			||(account_type == CREDIT_ACCOUNT && user.credAccount.id !=0))
 		throw CREATE_ACCOUNT_FAILURE_EXISTS;
 
 	vector<string> values;
@@ -131,6 +132,8 @@ long AccountTable::CreateAccount(User::User& user, long const& account_type) {
 		GetAccount(user.sAccount, id);
 	} else if (account_type == CHEQUING_ACCOUNT) {
 		GetAccount(user.cAccount, id);
+	}else if (account_type == CREDIT_ACCOUNT){
+		GetAccount(user.credAccount, id);
 	}
 
 	return SUCCESS;

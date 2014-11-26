@@ -24,6 +24,7 @@
 
 #define SAVINGS_ACCOUNT 0X1
 #define CHEQUING_ACCOUNT 0x2
+#define CREDIT_ACCOUNT 0x3
 
 using namespace std;
 

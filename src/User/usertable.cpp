@@ -55,6 +55,8 @@ long UserTable::ImbueUser(std::vector<std::string> const& column_names,
 			AccountTable::ImbueAccount(rows.column_names, *it, user.cAccount);
 		} else if (account_type == SAVINGS_ACCOUNT) {
 			AccountTable::ImbueAccount(rows.column_names, *it, user.sAccount);
+		}else if (account_type == CREDIT_ACCOUNT){
+			AccountTable::ImbueAccount(rows.column_names, *it, user.credAccount);
 		}
 	}
 
