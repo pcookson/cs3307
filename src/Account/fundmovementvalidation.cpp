@@ -81,3 +81,26 @@ int FundMovementValidation::deposit(Account &toAccount, double amount) {
 
 	return 0;
 }
+
+int FundMovementValidation::endOfMonthCreditPayment(Account &cAccount, Account &credAccount, double amount){
+	try{
+		ChequingAccount &chequingAccount = dynamic_cast<ChequingAccount&>(cAccount);
+		chequingAccount.withdrawl(amount);
+		Db::Db::Connect();
+		//AccountTable process purchase
+		Db::Db::Disconnect();
+	}catch (bad_cast& bc){
+		//if this happens, must have passed in wrong account type
+	}
+
+	try{
+		CreditAccount &creditAccount = dynamic_cast<CreditAccount&>(credAccount);
+		creditAccount.deposit(amount);
+		Db::Db::Connect();
+		//AccountTable... maybe have to do something here. Will depend on accounttable implementation
+		Db::Db::Disconnect();
+	}catch (bad_cast& bc){
+		//if this happens, must have passed in wrong account type
+	}
+	return 0;
+}

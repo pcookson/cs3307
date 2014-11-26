@@ -33,6 +33,11 @@ private:
     */
     static void getAllUserDetails();
 
+    /** @brief runs month end credit card payment
+     *
+     */
+    static void monthEndCreditPayment();
+
     /** @brief closes an account
     *
     */
