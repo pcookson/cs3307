@@ -1,17 +1,17 @@
 /*
- * purchase.cpp
+ * payment.cpp
  *
  *  Created on: Nov 23, 2014
  *      Author: james
  */
 
-#include "purchase.h"
+#include "payment.h"
 
-Purchase::Purchase() {
+Payment::Payment() {
 	amount = 0;
 }
 
-Purchase::~Purchase() {
+Payment::~Payment() {
 	// TODO Auto-generated destructor stub
 }
 

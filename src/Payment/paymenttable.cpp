@@ -6,22 +6,24 @@
  */
 
 #include "../User/user.h"
-#include "purchasetable.h"
+#include "paymenttable.h"
 #include "../Db/db.h"
 #include "../Utilities.h"
-#include "purchase.h"
+#include "payment.h"
 #include "../Account/account.h"
-
+#include <vector>
+#include <string>
 
 using namespace User;
+using namespace std;
 
-PurchaseTable::PurchaseTable() {
+PaymentTable::PaymentTable() {
 }
 
-PurchaseTable::~PurchaseTable() {
+PaymentTable::~PaymentTable() {
 }
 
-long PurchaseTable::MakePurchase(Account const& account,
+long PaymentTable::MakePayment(Account const& account,
 		int const& amount) {
 	if (!account.id)
 		throw ACCOUNT_NOT_EXIST;
@@ -34,7 +36,7 @@ long PurchaseTable::MakePurchase(Account const& account,
 
 	Db::Db::Insert(
 			Db::Db::ParamertizedQuery(
-					"INSERT INTO purchase(amount,account_id,date_time) VALUES (?,?,NOW())",
+					"INSERT INTO payment(amount,account_id,date_time) VALUES (?,?,NOW())",
 					values), id);
 
 	if (id < 1)
@@ -43,41 +45,41 @@ long PurchaseTable::MakePurchase(Account const& account,
 	return SUCCESS;
 }
 
-long PurchaseTable::ImbuePurchase(vector<string> const& column_names,
+long PaymentTable::ImbuePayment(vector<string> const& column_names,
 		vector<string> row, Account const& account,
-		Purchase& purchase) {
+		Payment& payment) {
 	//Load the properties needed into the account object
-	purchase.id = atoi(
+	payment.id = atoi(
 			Db::Db::GetElementByName("id", column_names, row).c_str());
-	purchase.amount = atoi(
+	payment.amount = atoi(
 			Db::Db::GetElementByName("amount", column_names, row).c_str());
-	purchase.date_time = Db::Db::GetElementByName("date_time", column_names,
+	payment.date_time = Db::Db::GetElementByName("date_time", column_names,
 			row).c_str();
-	purchase.account = account;
+	payment.account = account;
 
 	return SUCCESS;
 }
 
-long PurchaseTable::GetPurchasesByMonth(int const& year,
+long PaymentTable::GetPaymentsByMonth(int const& year,
 		int const& month, Account const& account,
-		Purchases& purchases) {
-	purchases.clear();
+		Payments& payments) {
+	payments.clear();
 	Db::db_rows rows;
 
 	Db::Db::Select(
-			"SELECT * FROM purchase WHERE date_time >= '"
+			"SELECT * FROM payment WHERE date_time >= '"
 					+ Utilities::int_to_string(year) + "-"
 					+ (month > 9 ? "0" : "") + Utilities::int_to_string(month)
 					+ "-01 00:00:00'", rows);
 
 	for (vector<vector<string> >::iterator rit = rows.rows.begin();
 			rit != rows.rows.end(); ++rit) {
-		Purchase purchase;
+		Payment payment;
 
-		ImbuePurchase(rows.column_names, *rit, account, purchase);
+		ImbuePayment(rows.column_names, *rit, account, payment);
 
 
-		purchases.push_back(purchase);
+		payments.push_back(payment);
 	}
 
 	return SUCCESS;

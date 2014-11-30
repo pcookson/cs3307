@@ -33,6 +33,7 @@ long UserTable::ImbueUser(std::vector<std::string> const& column_names,
 	user.username = Db::Db::GetElementByName("username", column_names, row);
 	user.permissions = atol(
 			Db::Db::GetElementByName("permissions", column_names, row).c_str());
+	user.fullPayment = Db::Db::GetElementByName("full_payment", column_names, row).at(0) == '1' ? true : false;
 	user.id = atoi(Db::Db::GetElementByName("id", column_names, row).c_str());
 
 	if (user.id < 0)
@@ -80,7 +81,7 @@ long UserTable::GetAllUsers(vector<User>& users) {
 }
 
 long UserTable::CreateUser(string const& username, string const& password,
-		long permissions, User& user) {
+		long permissions, bool fullPayment, User& user) {
 	if (username.empty() || password.empty())
 		throw CREATE_USER_FAILURE;
 
@@ -89,6 +90,7 @@ long UserTable::CreateUser(string const& username, string const& password,
 	values.push_back(username);
 	values.push_back(password);
 	values.push_back(Utilities::long_to_string(permissions));
+	values.push_back(fullPayment ? "1" : "0");
 
 	int id;
 	long err;
@@ -110,7 +112,7 @@ long UserTable::CreateUser(string const& username, string const& password,
 
 	query =
 			Db::Db::ParamertizedQuery(
-					"INSERT INTO user(username,password,permissions) VALUES (?,password(?),?)",
+					"INSERT INTO user(username,password,permissions,full_payment) VALUES (?,password(?),?,?)",
 					values);
 
 	try {
@@ -202,6 +204,8 @@ long UserTable::DeleteUser(string const& username) {
 
 		if (rows_affected != 1 || err != SUCCESS)
 			throw DELETE_USER_FAILURE;
+
+
 	} catch (int) {
 		throw DELETE_USER_FAILURE;
 	}

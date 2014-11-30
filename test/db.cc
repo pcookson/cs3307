@@ -17,7 +17,7 @@ TEST(DbTest, CreateUser)
 
 	User::User user;
 
-	EXPECT_NO_THROW(User::UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, user));
+	EXPECT_NO_THROW(User::UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, false, user));
 	EXPECT_NO_THROW(User::UserTable::DeleteUser("notauser"));
 
 	Db::Db::Disconnect();
@@ -44,7 +44,7 @@ TEST(DbTest, Authenticate)
 	Db::Db::Connect();
 	User::User user;
 
-	EXPECT_NO_THROW(User::UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, user));
+	EXPECT_NO_THROW(User::UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, false, user));
 	EXPECT_NO_THROW(User::UserTable::Authenticate("notauser", "notapassword", user));
 	EXPECT_NO_THROW(User::UserTable::DeleteUser("notauser"));
 
@@ -58,7 +58,7 @@ TEST(DbTest, AuthenticateFail)
 
 	User::User user;
 
-	EXPECT_NO_THROW(User::UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, user));
+	EXPECT_NO_THROW(User::UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, false, user));
 
 	try {
 		User::UserTable::Authenticate("notauser", "notacorrectpassword", user);

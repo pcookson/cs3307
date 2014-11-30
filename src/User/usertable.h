@@ -60,7 +60,8 @@ public:
      * @param permissions a bitwise value of the permissions based on the bit joining of permission constants
      * @param user an out parameter to represent the user
      */
-    static long CreateUser(std::string const& username, std::string const& password, long permissions, User& user);
+    static long CreateUser(std::string const& username, std::string const& password, long permissions,
+    		bool fullPayment, User& user);
 
     /** @brief Deletes a user from the database
      *

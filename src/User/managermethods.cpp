@@ -49,7 +49,7 @@ void ManagerMethods::createUser(){
 
 	Db::Db::Connect();
 	try{
-		User::UserTable::CreateUser(username, password, permissions, user);
+		User::UserTable::CreateUser(username, password, permissions, false, user);
 	}catch(int e){
 		cout << "User already exists" << endl;
 		Utilities::pressEnter();

@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define SQL_PRINT_DEBUG
+//#define SQL_PRINT_DEBUG
 #define SQL_PRINT_ERRORS
 
 //Change the values here but do not commit to git

@@ -26,6 +26,8 @@ public:
     User(std::string username);
     int id;
 
+    bool fullPayment;
+
     ChequingAccount cAccount;
     SavingsAccount sAccount;
     CreditAccount credAccount;

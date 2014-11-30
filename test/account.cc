@@ -20,7 +20,7 @@ TEST(Account, Purchase)
 
 	User::User user;
 
-	EXPECT_NO_THROW(UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, user));
+	EXPECT_NO_THROW(UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, true, user));
 
 	EXPECT_EQ(SUCCESS, AccountTable::CreateAccount(user, SAVINGS_ACCOUNT));
 
@@ -41,7 +41,7 @@ TEST(Account, Purchase)
 	}
 
 	AccountTable::DeleteAccount(user.sAccount);
-
+	UserTable::DeleteUser("notauser");
 }
 
 TEST(Account, Create)
@@ -50,14 +50,10 @@ TEST(Account, Create)
 
 	User::User user;
 
-	EXPECT_NO_THROW(UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, user));
+	EXPECT_NO_THROW(UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, true, user));
 
 	EXPECT_EQ(SUCCESS, AccountTable::CreateAccount(user, SAVINGS_ACCOUNT));
 	AccountTable::DeleteAccount(user.sAccount);
-
-
-
-	cout << user.sAccount.id << endl;
 
 	EXPECT_NO_THROW(UserTable::DeleteUser("notauser"));
 
@@ -71,7 +67,7 @@ TEST(Account, DepositWithdrawl)
 
 	User::User user;
 
-	EXPECT_NO_THROW(UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, user));
+	EXPECT_NO_THROW(UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, true, user));
 
 	EXPECT_EQ(SUCCESS, AccountTable::CreateAccount(user, SAVINGS_ACCOUNT));
 
@@ -81,7 +77,7 @@ TEST(Account, DepositWithdrawl)
 	EXPECT_EQ((double)368.78, user.sAccount.balance);
 
 	AccountTable::DeleteAccount(user.sAccount);
-
+	UserTable::DeleteUser("notauser");
 }
 
 TEST(Account, SelectAll)
@@ -96,13 +92,13 @@ TEST(Account, SelectAll)
 	User::User user6;
 	User::User user7;
 
-	EXPECT_NO_THROW(UserTable::CreateUser("notauser1", "notapassword", USER_PERMISSION_USER, user1));
-	EXPECT_NO_THROW(UserTable::CreateUser("notauser2", "notapassword", USER_PERMISSION_USER, user2));
-	EXPECT_NO_THROW(UserTable::CreateUser("notauser3", "notapassword", USER_PERMISSION_USER, user3));
-	EXPECT_NO_THROW(UserTable::CreateUser("notauser4", "notapassword", USER_PERMISSION_USER, user4));
-	EXPECT_NO_THROW(UserTable::CreateUser("notauser5", "notapassword", USER_PERMISSION_USER, user5));
-	EXPECT_NO_THROW(UserTable::CreateUser("notauser6", "notapassword", USER_PERMISSION_USER, user6));
-	EXPECT_NO_THROW(UserTable::CreateUser("notauser7", "notapassword", USER_PERMISSION_USER, user7));
+	EXPECT_NO_THROW(UserTable::CreateUser("notauser1", "notapassword", USER_PERMISSION_USER, true, user1));
+	EXPECT_NO_THROW(UserTable::CreateUser("notauser2", "notapassword", USER_PERMISSION_USER, true, user2));
+	EXPECT_NO_THROW(UserTable::CreateUser("notauser3", "notapassword", USER_PERMISSION_USER, true, user3));
+	EXPECT_NO_THROW(UserTable::CreateUser("notauser4", "notapassword", USER_PERMISSION_USER, true, user4));
+	EXPECT_NO_THROW(UserTable::CreateUser("notauser5", "notapassword", USER_PERMISSION_USER, true, user5));
+	EXPECT_NO_THROW(UserTable::CreateUser("notauser6", "notapassword", USER_PERMISSION_USER, true, user6));
+	EXPECT_NO_THROW(UserTable::CreateUser("notauser7", "notapassword", USER_PERMISSION_USER, true, user7));
 
 	EXPECT_EQ(SUCCESS, AccountTable::CreateAccount(user1, SAVINGS_ACCOUNT));
 	EXPECT_EQ(SUCCESS, AccountTable::CreateAccount(user2, SAVINGS_ACCOUNT));
