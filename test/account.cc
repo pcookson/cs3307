@@ -52,8 +52,6 @@ TEST(Account, Freeze)
 
 	EXPECT_NO_THROW(UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, true, user));
 
-	EXPECT_EQ(SUCCESS, AccountTable::CreateAccount(user, SAVINGS_ACCOUNT));
-
 	UserTable::FreezeCredit(user);
 
 	User::User vUser;
@@ -68,12 +66,33 @@ TEST(Account, Freeze)
 	EXPECT_FALSE(user.frozen);
 	EXPECT_FALSE(vUser.frozen);
 
-	AccountTable::DeleteAccount(user.sAccount);
+	EXPECT_NO_THROW(UserTable::DeleteUser("notauser"));
+
+	Db::Db::Disconnect();
+}
+
+
+TEST(Account, SetCreditLimit)
+{
+	Db::Db::Connect();
+
+	User::User user;
+
+	EXPECT_NO_THROW(UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, true, user));
+
+	UserTable::SetCreditLimit(user, 156);
+
+	User::User vUser;
+	UserTable::GetUser(user.username, vUser);
+
+	EXPECT_EQ(156, user.creditLimit);
+	EXPECT_EQ(156, vUser.creditLimit);
 
 	EXPECT_NO_THROW(UserTable::DeleteUser("notauser"));
 
 	Db::Db::Disconnect();
 }
+
 
 TEST(Account, Create)
 {
