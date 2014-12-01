@@ -31,7 +31,6 @@ long AccountTable::ImbueAccount(std::vector<std::string> const& column_names,
 			Db::Db::GetElementByName("id", column_names, row).c_str());
 	account.balance = atoi(
 			Db::Db::GetElementByName("balance", column_names, row).c_str());
-	account.frozen = Db::Db::GetElementByName("balance", column_names, row).at(0) == '1';
 
 	return SUCCESS;
 }
@@ -50,34 +49,6 @@ long AccountTable::Withdraw(Account& account, double amount) {
 		throw WITHDRAW_ERROR;
 
 	account.balance = new_balance;
-	return SUCCESS;
-}
-
-long AccountTable::UnFreezeAccount(Account& account)
-{
-	int rows_affected;
-	Db::Db::ExecuteNonQuery("UPDATE account SET balance=0 WHERE id=" + Utilities::long_to_string(account.id),
-			rows_affected);
-
-	if (rows_affected != 1)
-		throw FREEZE_ERROR;
-
-	account.frozen = false;
-
-	return SUCCESS;
-}
-
-long AccountTable::FreezeAccount(Account& account)
-{
-	int rows_affected;
-	Db::Db::ExecuteNonQuery("UPDATE account SET balance=1 WHERE id=" + Utilities::long_to_string(account.id),
-			rows_affected);
-
-	if (rows_affected != 1)
-		throw FREEZE_ERROR;
-
-	account.frozen = true;
-
 	return SUCCESS;
 }
 

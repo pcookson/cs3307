@@ -72,8 +72,6 @@ public:
      */
     double getBalance();
 
-    bool frozen;
-
 private:
     int get_input(double amount);
 

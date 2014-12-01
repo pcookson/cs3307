@@ -33,7 +33,9 @@ long UserTable::ImbueUser(std::vector<std::string> const& column_names,
 	user.username = Db::Db::GetElementByName("username", column_names, row);
 	user.permissions = atol(
 			Db::Db::GetElementByName("permissions", column_names, row).c_str());
-	user.fullPayment = Db::Db::GetElementByName("full_payment", column_names, row).at(0) == '1' ? true : false;
+	user.fullPayment = Db::Db::GetElementByName("full_payment", column_names, row).at(0) == '1';
+	user.frozen = Db::Db::GetElementByName("frozen", column_names, row).at(0) == '1';
+	user.creditLimit = atoi(Db::Db::GetElementByName("credit_limit", column_names, row).c_str());
 	user.id = atoi(Db::Db::GetElementByName("id", column_names, row).c_str());
 
 	if (user.id < 0)
@@ -209,6 +211,51 @@ long UserTable::DeleteUser(string const& username) {
 	} catch (int) {
 		throw DELETE_USER_FAILURE;
 	}
+
+	return SUCCESS;
+}
+
+
+long UserTable::UnFreezeCredit(User& user)
+{
+	int rows_affected;
+	Db::Db::ExecuteNonQuery("UPDATE user SET frozen=0 WHERE id=" + Utilities::long_to_string(user.id),
+			rows_affected);
+
+	if (rows_affected != 1)
+		throw FREEZE_ERROR;
+
+	user.frozen = false;
+
+	return SUCCESS;
+}
+
+long UserTable::FreezeCredit(User& user)
+{
+	int rows_affected;
+	Db::Db::ExecuteNonQuery("UPDATE user SET frozen=1 WHERE id=" + Utilities::long_to_string(user.id),
+			rows_affected);
+
+	if (rows_affected != 1)
+		throw FREEZE_ERROR;
+
+	user.frozen = true;
+
+	return SUCCESS;
+}
+
+long UserTable::SetCreditLimit(User& user, int const& credit_limit)
+{
+	int rows_affected;
+
+	Db::Db::ExecuteNonQuery("UPDATE user SET credit_limit=" + Utilities::int_to_string(credit_limit) +
+			" WHERE id=" + Utilities::long_to_string(user.id),
+			rows_affected);
+
+	if (rows_affected != 1)
+		throw FREEZE_ERROR;
+
+	user.creditLimit = credit_limit;
 
 	return SUCCESS;
 }

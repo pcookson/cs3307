@@ -31,7 +31,6 @@ CREATE TABLE IF NOT EXISTS `account` (
   `user_id` int(11) NOT NULL,
   `balance` int(11) NOT NULL DEFAULT '0',
   `account_type` int(11) NOT NULL,
-  `frozen` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -63,6 +62,8 @@ CREATE TABLE IF NOT EXISTS `purchase` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+
+
 -- --------------------------------------------------------
 
 --
@@ -75,6 +76,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) NOT NULL,
   `permissions` int(11) NOT NULL DEFAULT '0',
   `full_payment` int(1) NOT NULL DEFAULT '0',
+  `credit_limit` int(11) NOT NULL DEFAULT '0',
+  `frozen` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

@@ -54,19 +54,19 @@ TEST(Account, Freeze)
 
 	EXPECT_EQ(SUCCESS, AccountTable::CreateAccount(user, SAVINGS_ACCOUNT));
 
-	AccountTable::FreezeAccount(user.sAccount);
+	UserTable::FreezeCredit(user);
 
-	Account vAccount;
-	AccountTable::GetAccount(vAccount, user.sAccount.id);
+	User::User vUser;
+	UserTable::GetUser(user.username, vUser);
 
-	EXPECT_TRUE(user.sAccount.frozen);
-	EXPECT_TRUE(vAccount.frozen);
+	EXPECT_TRUE(user.frozen);
+	EXPECT_TRUE(vUser.frozen);
 
-	AccountTable::UnFreezeAccount(user.sAccount);
-	AccountTable::GetAccount(vAccount, user.sAccount.id);
+	UserTable::UnFreezeCredit(user);
+	UserTable::GetUser(user.username, vUser);
 
-	EXPECT_FALSE(user.sAccount.frozen);
-	EXPECT_FALSE(vAccount.frozen);
+	EXPECT_FALSE(user.frozen);
+	EXPECT_FALSE(vUser.frozen);
 
 	AccountTable::DeleteAccount(user.sAccount);
 

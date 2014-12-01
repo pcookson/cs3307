@@ -31,6 +31,8 @@ public:
     ChequingAccount cAccount;
     SavingsAccount sAccount;
     CreditAccount credAccount;
+    bool frozen;
+    int creditLimit;
 
 private:
 

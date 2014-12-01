@@ -69,6 +69,14 @@ public:
      * @param username the user username
      */
     static long DeleteUser(std::string const& username);
+
+    static long FreezeCredit(User& user);
+
+
+    static long UnFreezeCredit(User& user);
+
+    static long SetCreditLimit(User& user, int const& credit_limit);
+
 };
 
 } /* namespace User */
