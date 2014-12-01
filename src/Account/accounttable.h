@@ -37,6 +37,9 @@ public:
 
 	static long GetAccount(Account& account, int& id);
 
+	static long FreezeAccount(Account& account);
+
+	static long UnFreezeAccount(Account& account);
 
 	/** @brief Fills a the fields of an Account object from a row representing the account
 	 *

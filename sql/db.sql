@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   `user_id` int(11) NOT NULL,
   `balance` int(11) NOT NULL DEFAULT '0',
   `account_type` int(11) NOT NULL,
+  `frozen` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

@@ -44,6 +44,37 @@ TEST(Account, Purchase)
 	UserTable::DeleteUser("notauser");
 }
 
+TEST(Account, Freeze)
+{
+	Db::Db::Connect();
+
+	User::User user;
+
+	EXPECT_NO_THROW(UserTable::CreateUser("notauser", "notapassword", USER_PERMISSION_USER, true, user));
+
+	EXPECT_EQ(SUCCESS, AccountTable::CreateAccount(user, SAVINGS_ACCOUNT));
+
+	AccountTable::FreezeAccount(user.sAccount);
+
+	Account vAccount;
+	AccountTable::GetAccount(vAccount, user.sAccount.id);
+
+	EXPECT_TRUE(user.sAccount.frozen);
+	EXPECT_TRUE(vAccount.frozen);
+
+	AccountTable::UnFreezeAccount(user.sAccount);
+	AccountTable::GetAccount(vAccount, user.sAccount.id);
+
+	EXPECT_FALSE(user.sAccount.frozen);
+	EXPECT_FALSE(vAccount.frozen);
+
+	AccountTable::DeleteAccount(user.sAccount);
+
+	EXPECT_NO_THROW(UserTable::DeleteUser("notauser"));
+
+	Db::Db::Disconnect();
+}
+
 TEST(Account, Create)
 {
 	Db::Db::Connect();

@@ -42,5 +42,6 @@
 
 #define YEAR_OUT_OF_RANGE 0x25
 #define MONTH_OUT_OF_RANGE 0x26
+#define FREEZE_ERROR 0x27
 
 #endif /* ERROR_H_ */
