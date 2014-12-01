@@ -39,6 +39,11 @@ private:
     */
     static void transferFunds(User::User &user);
 
+    /** @brief allows a user to see their purchases in the month
+     *
+     */
+    static void purchasesInMonth(User::User &user);
+
 
     /** @brief presents a list of commands to user
     *

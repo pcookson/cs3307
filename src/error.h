@@ -40,4 +40,7 @@
 
 #define MAKE_PURCHASE_FAILURE 0x24
 
+#define YEAR_OUT_OF_RANGE 0x25
+#define MONTH_OUT_OF_RANGE 0x26
+
 #endif /* ERROR_H_ */

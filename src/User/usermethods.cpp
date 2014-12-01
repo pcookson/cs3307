@@ -6,6 +6,8 @@
 #include "usertable.h"
 #include "../logger.h"
 #include "../Utilities.h"
+#include "../Purchase/purchase.h"
+#include "../Purchase/purchasetable.h"
 #include <stdlib.h>
 
 
@@ -33,7 +35,7 @@ void UserMethods::balance(User::User &user) {
 	}else{
 		cout << "No credit card account" << endl;
 	}
-    Utilities::pressEnter();
+	Utilities::pressEnter();
 
 }
 
@@ -56,17 +58,17 @@ void UserMethods::deposit(User::User &user) {
 		Logger::info(user.username + " is depositing to chequing account");
 		if (!user.cAccount.id) {
 			cout
-					<< "Warning: Chequing account does not exist. Request account from a manager"
-					<< endl;
-            Utilities::pressEnter();
+			<< "Warning: Chequing account does not exist. Request account from a manager"
+			<< endl;
+			Utilities::pressEnter();
 			return;
 		}
 	} else if (accountDeposit == "s") {
 		if (!user.sAccount.id) {
 			cout
-					<< "Warning: Savings account does not exist. Request account from manager"
-					<< endl;
-            Utilities::pressEnter();
+			<< "Warning: Savings account does not exist. Request account from manager"
+			<< endl;
+			Utilities::pressEnter();
 			return;
 		} else if (accountDeposit == "q") {
 			return;
@@ -123,17 +125,17 @@ void UserMethods::withdraw(User::User &user) {
 	if (accountWithdraw == "c") {
 		if (!user.cAccount.id) {
 			cout
-					<< "Warning: Chequing account does not exist. Request account from a manager"
-					<< endl;
-            Utilities::pressEnter();
+			<< "Warning: Chequing account does not exist. Request account from a manager"
+			<< endl;
+			Utilities::pressEnter();
 			return;
 		}
 	} else if (accountWithdraw == "s") {
 		if (!user.sAccount.id) {
 			cout
-					<< "Warning: Savings account does not exist. Request account from manager"
-					<< endl;
-            Utilities::pressEnter();
+			<< "Warning: Savings account does not exist. Request account from manager"
+			<< endl;
+			Utilities::pressEnter();
 			return;
 		} else if (accountWithdraw == "q") {
 			return;
@@ -152,7 +154,7 @@ void UserMethods::withdraw(User::User &user) {
 		} catch (int e) {
 			if (e == INSUFFICIENT_FUNDS) {
 				cout << "Insufficient funds" << endl;
-                Utilities::pressEnter();
+				Utilities::pressEnter();
 				Logger::log(WITHDRAW_FAILURE, user.username, amount,
 						"chequing");
 			}
@@ -168,7 +170,7 @@ void UserMethods::withdraw(User::User &user) {
 		} catch (int e) {
 			if (e == INSUFFICIENT_FUNDS) {
 				cout << "Insufficient funds" << endl;
-                Utilities::pressEnter();
+				Utilities::pressEnter();
 				Logger::log(WITHDRAW_FAILURE, user.username, amount, "savings");
 			}
 		}
@@ -201,17 +203,17 @@ void UserMethods::transferFunds(User::User &user) {
 	if (accountTransfer == "c") {
 		if (!user.cAccount.id) {
 			cout
-					<< "Warning: Chequing account does not exist. Request account from a manager"
-					<< endl;
-            Utilities::pressEnter();
+			<< "Warning: Chequing account does not exist. Request account from a manager"
+			<< endl;
+			Utilities::pressEnter();
 			return;
 		}
 	} else if (accountTransfer == "s") {
 		if (!user.sAccount.id) {
 			cout
-					<< "Warning: Savings account does not exist. Request account from manager"
-					<< endl;
-            Utilities::pressEnter();
+			<< "Warning: Savings account does not exist. Request account from manager"
+			<< endl;
+			Utilities::pressEnter();
 			return;
 		} else if (accountTransfer == "q") {
 			return;
@@ -228,16 +230,16 @@ void UserMethods::transferFunds(User::User &user) {
 	User::User otherUser;
 	Db::Db::Connect();
 	try{
-	User::UserTable::GetUser(otherUserName, otherUser);
+		User::UserTable::GetUser(otherUserName, otherUser);
 	}catch(int e){
 		Db::Db::Disconnect();
 		cout << "user does not exist" << endl;
-        Utilities::pressEnter();
+		Utilities::pressEnter();
 		return;
 	}
 	if (otherUser.username != otherUserName) {
 		cout << otherUserName + " does not exist" << endl;
-        Utilities::pressEnter();
+		Utilities::pressEnter();
 		return;
 	}
 	Db::Db::Disconnect();
@@ -249,14 +251,14 @@ void UserMethods::transferFunds(User::User &user) {
 		if (!otherUser.cAccount.id) {
 			cout << otherUser.username << " does not have a chequing account"
 					<< endl;
-            Utilities::pressEnter();
+			Utilities::pressEnter();
 			return;
 		}
 	} else {
 		if (!otherUser.sAccount.id) {
 			cout << otherUser.username << " does not have a savings account:"
 					<< endl;
-            Utilities::pressEnter();
+			Utilities::pressEnter();
 			return;
 		}
 	}
@@ -267,16 +269,16 @@ void UserMethods::transferFunds(User::User &user) {
 			amountString = Utilities::double_to_string(amount);
 			Logger::info(
 					user.username + "\ttransferred " + amountString
-							+ " from chequing account to " + otherUserName + " "
-							+ otherAccount);
+					+ " from chequing account to " + otherUserName + " "
+					+ otherAccount);
 			FundMovementValidation::transferFunds(user.cAccount,
 					otherUser.cAccount, amount);
 		} else {
 			amountString = Utilities::double_to_string(amount);
 			Logger::info(
 					user.username + "\ttransferred " + amountString
-							+ " from chequing account to " + otherUserName + " "
-							+ otherAccount);
+					+ " from chequing account to " + otherUserName + " "
+					+ otherAccount);
 			FundMovementValidation::transferFunds(user.cAccount,
 					otherUser.sAccount, amount);
 		}
@@ -287,16 +289,16 @@ void UserMethods::transferFunds(User::User &user) {
 			amountString = Utilities::double_to_string(amount);
 			Logger::info(
 					user.username + "\ttransferred " + amountString
-							+ " from saving account to " + otherUserName + " "
-							+ otherAccount);
+					+ " from saving account to " + otherUserName + " "
+					+ otherAccount);
 			FundMovementValidation::transferFunds(user.sAccount,
 					otherUser.cAccount, amount);
 		} else {
 			amountString = Utilities::double_to_string(amount);
 			Logger::info(
 					user.username + "\ttransferred " + amountString
-							+ " from saving account to " + otherUserName + " "
-							+ otherAccount);
+					+ " from saving account to " + otherUserName + " "
+					+ otherAccount);
 			FundMovementValidation::transferFunds(user.sAccount,
 					otherUser.sAccount, amount);
 		}
@@ -305,9 +307,48 @@ void UserMethods::transferFunds(User::User &user) {
 		break;
 	default:
 		cout << "Unknown command" << endl;
-            Utilities::pressEnter();
+		Utilities::pressEnter();
 		return;
 	}
+}
+
+void UserMethods::purchasesInMonth(User::User &user){
+	int year; //yyyy
+	int month; //mm
+	std::vector<Purchase> purchases;
+
+	cout << "Year to view purchases: " << endl;;
+	cout << "> ";
+	cin >> year;
+
+	if(year < 0){
+		throw YEAR_OUT_OF_RANGE;
+	}
+
+	cout << endl;
+
+	cout << "Month to view purchases: " << endl;
+	cout << "> ";
+	cin >> month;
+
+	if(month < 1 || month > 12){
+		throw MONTH_OUT_OF_RANGE;
+	}
+
+	cout << endl;
+
+	PurchaseTable::GetPurchasesByMonth(year,month, user.credAccount,purchases);
+	int total = 0;
+	cout << "\tAmount Purchased" << endl;
+	for(vector<Purchase>::iterator it = purchases.begin(); it != purchases.end(); ++it){
+		total = total + (*it).amount;
+		cout << "\t" << (*it).amount << endl;
+
+	}
+	cout << "Total: " << total << endl;
+
+
+
 }
 
 void UserMethods::userCommandList() {
@@ -326,7 +367,7 @@ void UserMethods::userCommandList() {
 void UserMethods::userCommandSelect(User::User &user) {
 	Logger::info(user.username + " successfully logged in");
 	while (true) {
-        Utilities::clearScreen();
+		Utilities::clearScreen();
 		userCommandList();
 
 		string command;
@@ -340,27 +381,31 @@ void UserMethods::userCommandSelect(User::User &user) {
 
 		switch (command[0]) {
 		case 'b':
-            Utilities::clearScreen();
+			Utilities::clearScreen();
 			balance(user);
 			break;
 
 		case 'w':
-            Utilities::clearScreen();
+			Utilities::clearScreen();
 			withdraw(user);
 			break;
 
 		case 'd':
-            Utilities::clearScreen();
+			Utilities::clearScreen();
 			deposit(user);
 			break;
 
 		case 't':
-            Utilities::clearScreen();
+			Utilities::clearScreen();
 			transferFunds(user);
 			break;
 
+		case 'p':
+			Utilities::clearScreen();
+			purchasesInMonth(user);
+
 		case 'q':
-            Utilities::clearScreen();
+			Utilities::clearScreen();
 			return;
 			break;
 		default:

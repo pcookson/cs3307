@@ -498,7 +498,7 @@ void ManagerMethods::managerCommandList(){
 	cout << "\to.   Open Account" <<endl;
 	cout << "\tc.   Close Account" <<endl;
 	cout << "\tg.   Get User Details" <<endl;
-	cout << "\ta.   Get Details Of All Users" << endl;
+	cout << "\ta.   Get Details of All Users" << endl;
 	cout<<  "\tq.   Exit" <<endl <<endl;
 
 	cout<< "> ";
