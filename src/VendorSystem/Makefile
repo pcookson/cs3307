@@ -2,8 +2,8 @@ SOURCE_DEPS=* User/* Db
 
 all: vendor
 
-vendor: account.o chequingaccount.o savingsaccount.o creditaccount.o user.o usermethods.o dispatchloop.o db.o accounttable.o usertable.o main.o
-	g++ Objects/account.o Objects/chequingaccount.o Objects/savingsaccount.o Objects/creditaccount.o Objects/usermethods.o Objects/dispatchloop.o Objects/user.o Objects/db.o Objects/accounttable.o Objects/usertable.o Objects/main.o -lmysqlclient -o vendor
+vendor: account.o chequingaccount.o savingsaccount.o creditaccount.o user.o usermethods.o dispatchloop.o db.o purchase.o purchasetable.o accounttable.o usertable.o main.o
+	g++ Objects/account.o Objects/chequingaccount.o Objects/savingsaccount.o Objects/creditaccount.o Objects/usermethods.o Objects/dispatchloop.o Objects/user.o Objects/db.o Objects/purchase.o Objects/purchasetable.o Objects/accounttable.o Objects/usertable.o Objects/main.o -lmysqlclient -o vendor
 
 testAccounts: account.o savingsaccount.o chequingaccount.o user.o usermethods.o dispatchloop.o testAccounts.o fundmovementvalidation.o logger.o db.o usertable.o
 	g++ Object/account.o Object/savingsaccount.o Object/chequingaccount.o Object/usermethods.o Object/dispatchloop.o Object/user.o Object/testAccounts.o Object/fundmovementvalidation.o Object/logger.o Object/db.o Object/usertable.o -lmysqlclient -o Debug/testAccounts
@@ -50,8 +50,14 @@ db.o: ../Db/db.cpp
 usermethods.o: usermethods.cpp
 	g++ -c usermethods.cpp -o Objects/usermethods.o
 
-managermethods.o: User/managermethods.cpp
-	g++ -c User/managermethods.cpp -o Objects/managermethods.o
+managermethods.o: ../User/managermethods.cpp
+	g++ -c ../User/managermethods.cpp -o Objects/managermethods.o
+
+purchase.o: ../Purchase/purchase.cpp
+	g++ -c ../Purchase/purchase.cpp -o Objects/purchase.o
+
+purchasetable.o: ../Purchase/purchasetable.cpp
+	g++ -c ../Purchase/purchasetable.cpp -o Objects/purchasetable.o
 
 clean:
 	rm Objects/*.o vendor report.txt

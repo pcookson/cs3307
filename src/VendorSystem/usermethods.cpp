@@ -7,6 +7,9 @@
 
 #include "usermethods.h"
 #include "../Utilities.h"
+#include "../Purchase/purchase.h"
+#include "../Purchase/purchasetable.h"
+#include "../Account/accounttable.h"
 #include <stdlib.h>
 #include <time.h>
 
@@ -17,7 +20,9 @@ usermethods::usermethods() {
 
 }
 
-void usermethods::processPurchase(User::User &user){
+void usermethods::processPurchase(User::User &user, int amount){
+	PurchaseTable::MakePurchase(user.credAccount, amount);
+	AccountTable::Deposit(user.credAccount, double(amount));
 
 }
 
@@ -45,7 +50,7 @@ void usermethods::makePurchase(User::User &user){
 
 		switch(decision[0]){
 		case 'y':
-			processPurchase(user);
+			processPurchase(user, randNumPurchase);
 			break;
 		case 'n':
 			Utilities::clearScreen();

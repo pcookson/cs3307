@@ -86,8 +86,13 @@ int FundMovementValidation::endOfMonthCreditPayment(Account &cAccount, Account &
 	try{
 		ChequingAccount &chequingAccount = dynamic_cast<ChequingAccount&>(cAccount);
 		chequingAccount.withdrawl(amount);
+
+		if(chequingAccount.balance < amount){
+			throw INSUFFICIENT_FUNDS;
+		}
+
 		Db::Db::Connect();
-		//AccountTable process purchase
+		AccountTable::Withdraw(chequingAccount, amount);
 		Db::Db::Disconnect();
 	}catch (bad_cast& bc){
 		//if this happens, must have passed in wrong account type
@@ -97,7 +102,8 @@ int FundMovementValidation::endOfMonthCreditPayment(Account &cAccount, Account &
 		CreditAccount &creditAccount = dynamic_cast<CreditAccount&>(credAccount);
 		creditAccount.deposit(amount);
 		Db::Db::Connect();
-		//AccountTable... maybe have to do something here. Will depend on accounttable implementation
+		//reducing credit card is the same as withdrawing funds
+		AccountTable::Withdraw(creditAccount, amount);
 		Db::Db::Disconnect();
 	}catch (bad_cast& bc){
 		//if this happens, must have passed in wrong account type

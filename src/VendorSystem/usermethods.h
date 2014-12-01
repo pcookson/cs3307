@@ -18,7 +18,7 @@ public:
 	static void userCommandSelect(User::User &user);
 
 private:
-	static void processPurchase(User::User &user);
+	static void processPurchase(User::User &user, int amount);
 
 	static void makePurchase(User::User &user);
 

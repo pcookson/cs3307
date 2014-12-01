@@ -133,9 +133,12 @@ void ManagerMethods::monthEndCreditPayment(){
 		double amount;
 
 		Db::Db::Connect();
-		//get user information from usertable about how much to pay at month end
-		//if 10% amount = (0.1)*user.credAccount.balance
-		//else if full amount, amount = user.credAccount.balance
+		if((*it).fullPayment){
+			amount = (*it).credAccount.balance;
+		}else{
+			amount = (0.1) * (*it).credAccount.balance;
+		}
+
 		Db::Db::Disconnect();
 
 		FundMovementValidation::endOfMonthCreditPayment((*it).cAccount, (*it).credAccount, amount);
