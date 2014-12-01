@@ -88,7 +88,7 @@ int FundMovementValidation::endOfMonthCreditPayment(Account &cAccount, Account &
 		chequingAccount.withdrawl(amount);
 
 		if(chequingAccount.balance < amount){
-			throw INSUFFICIENT_FUNDS;
+			//put user name in report. Freeze card
 		}
 
 		Db::Db::Connect();
@@ -104,6 +104,12 @@ int FundMovementValidation::endOfMonthCreditPayment(Account &cAccount, Account &
 		Db::Db::Connect();
 		//reducing credit card is the same as withdrawing funds
 		AccountTable::Withdraw(creditAccount, amount);
+
+		// add interest to card if there is a remaining balance
+		if(creditAccount.balance != 0){
+			AccountTable::Withdraw(creditAccount, 0.02 * creditAccount.balance);
+		}
+
 		Db::Db::Disconnect();
 	}catch (bad_cast& bc){
 		//if this happens, must have passed in wrong account type

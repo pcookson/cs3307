@@ -21,9 +21,10 @@ usermethods::usermethods() {
 }
 
 void usermethods::processPurchase(User::User &user, int amount){
+	Db::Db::Connect();
 	PurchaseTable::MakePurchase(user.credAccount, amount);
 	AccountTable::Deposit(user.credAccount, double(amount));
-
+	Db::Db::Disconnect();
 }
 
 void usermethods::makePurchase(User::User &user){
@@ -91,6 +92,7 @@ void usermethods::userCommandSelect(User::User &user){
 		case 'p':
 			Utilities::clearScreen();
 			makePurchase(user);
+			return;
 			break;
 
 		case 'q':

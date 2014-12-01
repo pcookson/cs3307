@@ -336,8 +336,9 @@ void UserMethods::purchasesInMonth(User::User &user){
 	}
 
 	cout << endl;
-
+	Db::Db::Connect();
 	PurchaseTable::GetPurchasesByMonth(year,month, user.credAccount,purchases);
+	Db::Db::Disconnect();
 	int total = 0;
 	cout << "\tAmount Purchased" << endl;
 	for(vector<Purchase>::iterator it = purchases.begin(); it != purchases.end(); ++it){
@@ -345,8 +346,19 @@ void UserMethods::purchasesInMonth(User::User &user){
 		cout << "\t" << (*it).amount << endl;
 
 	}
-	cout << "Total: " << total << endl;
 
+	cout << "Total: ";
+	cout << total << endl;
+
+	cout << "Credit Balance ";
+	cout << user.credAccount.balance << endl;
+
+	if(user.credAccount.balance > 0.75 * user.cAccount.balance){
+		cout << endl << endl;
+		cout << "WARNING: CREDIT BALANCE IS MORE THAN 75% OF CHEQUING ACCOUNT BALANCE";
+	}
+
+	Utilities::pressEnter();
 
 
 }
