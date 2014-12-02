@@ -130,18 +130,25 @@ void ManagerMethods::monthEndCreditPayment(){
 
 	for(vector<User::User>::iterator it = users.begin(); it != users.end(); ++it){
 		//logic for making payment from users chequing account to credit account
-		double amount;
+		if((*it).permissions == USER_PERMISSION_USER){
 
-		Db::Db::Connect();
-		if((*it).fullPayment){
-			amount = (*it).credAccount.balance;
+
+			double amount;
+
+			if((*it).fullPayment){
+				amount = (*it).credAccount.balance;
+			}else{
+				amount = (0.1) * (*it).credAccount.balance;
+			}
+
+			cout << "credit balance is " << amount;
+			cout << "chequing account id is " << (*it).cAccount.id;
+			cout << "cred account is id " << (*it).credAccount.id;
+			cout << "name is " << (*it).username;
+			FundMovementValidation::endOfMonthCreditPayment((*it), (*it).cAccount, (*it).credAccount, amount);
 		}else{
-			amount = (0.1) * (*it).credAccount.balance;
+
 		}
-
-		Db::Db::Disconnect();
-
-		FundMovementValidation::endOfMonthCreditPayment((*it).cAccount, (*it).credAccount, amount);
 
 	}
 }
@@ -225,6 +232,12 @@ void ManagerMethods::openAccount(){
 		Utilities::pressEnter();
 		return;
 	}else if (accountType == "cr"){
+		int creditLimit = 0;
+
+		cout << "Set credit limit for this account:" << endl;
+		cout << "> ";
+		cin >> creditLimit;
+
 		Db::Db::Connect();
 		try{
 			AccountTable::CreateAccount(user, CREDIT_ACCOUNT);
@@ -236,6 +249,7 @@ void ManagerMethods::openAccount(){
 			return;
 		}
 
+		User::UserTable::SetCreditLimit(user, creditLimit);
 		Db::Db::Disconnect();
 		Logger::info("Bank Manager open credit account for " +user.username);
 		cout << "credit account created for " << user.username << endl;
@@ -488,7 +502,29 @@ void ManagerMethods::getAllUserDetails(){
 
 	Utilities::pressEnter();
 	return;
+}
 
+void ManagerMethods::getFrozenCards(){
+	vector<User::User> users;
+	Db::Db::Connect();
+	try{
+		User::UserTable::GetAllUsers(users);
+	}catch(int e){
+		cout << "database is disconnected. See admin" << endl;
+		Utilities::pressEnter();
+		return;
+	}
+	Db::Db::Disconnect();
+
+	cout << "List of users with frozen accounts" << endl;
+	cout << "User \tCredit Balance " << endl;
+	for(vector<User::User>::iterator it = users.begin(); it != users.end(); ++it){
+		if((*it).frozen){
+			cout << (*it).username << "\t" << (*it).credAccount.balance	<< endl;
+		}
+	}
+
+	Utilities::pressEnter();
 }
 
 void ManagerMethods::managerCommandList(){
@@ -499,6 +535,8 @@ void ManagerMethods::managerCommandList(){
 	cout << "\tc.   Close Account" <<endl;
 	cout << "\tg.   Get User Details" <<endl;
 	cout << "\ta.   Get Details of All Users" << endl;
+	cout << "\tm.   Run Month End Payments" << endl;
+	cout << "\tf.   Get List of Users With Frozen Cards" << endl;
 	cout<<  "\tq.   Exit" <<endl <<endl;
 
 	cout<< "> ";
@@ -549,6 +587,16 @@ void ManagerMethods::managerCommandSelect(User::User &user){
 		case 'a':
 			Utilities::clearScreen();
 			getAllUserDetails();
+			break;
+
+		case 'm':
+			Utilities::clearScreen();
+			monthEndCreditPayment();
+			break;
+
+		case 'f':
+			Utilities::clearScreen();
+			getFrozenCards();
 			break;
 
 		case 'q':

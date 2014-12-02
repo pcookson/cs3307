@@ -415,6 +415,7 @@ void UserMethods::userCommandSelect(User::User &user) {
 		case 'p':
 			Utilities::clearScreen();
 			purchasesInMonth(user);
+			break;
 
 		case 'q':
 			Utilities::clearScreen();

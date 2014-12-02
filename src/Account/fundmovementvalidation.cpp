@@ -82,13 +82,18 @@ int FundMovementValidation::deposit(Account &toAccount, double amount) {
 	return 0;
 }
 
-int FundMovementValidation::endOfMonthCreditPayment(Account &cAccount, Account &credAccount, double amount){
+int FundMovementValidation::endOfMonthCreditPayment(User::User &user, Account &cAccount, Account &credAccount, double amount){
 	try{
 		ChequingAccount &chequingAccount = dynamic_cast<ChequingAccount&>(cAccount);
-		chequingAccount.withdrawl(amount);
+		//chequingAccount.withdrawl(amount);
 
 		if(chequingAccount.balance < amount){
-			//put user name in report. Freeze card
+			if(!user.frozen){
+				Db::Db::Connect();
+				User::UserTable::FreezeCredit(user);
+				Db::Db::Disconnect();
+			}
+			return 0;
 		}
 
 		Db::Db::Connect();

@@ -21,6 +21,11 @@ usermethods::usermethods() {
 }
 
 void usermethods::processPurchase(User::User &user, int amount){
+	if((amount + user.credAccount.balance) > user.creditLimit){
+		cout << "Cannot process transaction. Purchase would go above credit limit." << endl;
+		Utilities::pressEnter();
+		return;
+	}
 	Db::Db::Connect();
 	PurchaseTable::MakePurchase(user.credAccount, amount);
 	AccountTable::Deposit(user.credAccount, double(amount));
@@ -51,7 +56,14 @@ void usermethods::makePurchase(User::User &user){
 
 		switch(decision[0]){
 		case 'y':
-			processPurchase(user, randNumPurchase);
+			if(!user.frozen){
+				processPurchase(user, randNumPurchase);
+			}else{
+				cout << "Your credit card is frozen. Please reduce balance to $0" << endl;
+				Utilities::pressEnter();
+
+			}
+			return;
 			break;
 		case 'n':
 			Utilities::clearScreen();

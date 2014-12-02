@@ -33,6 +33,11 @@ private:
     */
     static void getAllUserDetails();
 
+    /** @brief gets list of all users with frozen cards
+     *
+     */
+    static void getFrozenCards();
+
     /** @brief runs month end credit card payment
      *
      */
