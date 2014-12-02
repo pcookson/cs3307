@@ -125,7 +125,7 @@ int FundMovementValidation::endOfMonthCreditPayment(User::User &user, Account &c
 
 		// add interest to card if there is a remaining balance
 		if(creditAccount.balance != 0){
-			AccountTable::Withdraw(creditAccount, 0.02 * creditAccount.balance);
+			AccountTable::Deposit(creditAccount, 0.02 * creditAccount.balance);
 		}
 
 		Db::Db::Disconnect();
