@@ -39,6 +39,11 @@ private:
     */
     static void transferFunds(User::User &user);
 
+    /** @brief allows a user to make a payment from chequing to credit
+     *
+     * @param user
+     */
+    static void makeCreditPayment(User::User &user);
     /** @brief allows a user to see their purchases in the month
      *
      */

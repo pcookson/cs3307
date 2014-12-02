@@ -363,6 +363,30 @@ void UserMethods::purchasesInMonth(User::User &user){
 
 }
 
+void UserMethods::makeCreditPayment(User::User &user){
+	double amount =0;
+	cout << "Amount to make payment: " << endl;
+	cout << ">";
+	cin >> amount;
+
+	if(user.cAccount.balance < amount){
+		cout << "Not enough money to make payment" << endl;
+		Utilities::pressEnter();
+		return;
+	}
+
+	FundMovementValidation::withdraw(user.cAccount, amount);
+	FundMovementValidation::withdraw(user.credAccount, amount);
+
+	if(user.credAccount.balance == 0){
+		Db::Db::Connect();
+		User::UserTable::UnFreezeCredit(user);
+		Db::Db::Disconnect();
+	}
+	cout << "payment made" << endl;
+	Utilities::pressEnter();
+}
+
 void UserMethods::userCommandList() {
 	cout << "Enter a command" << endl;
 	cout << "\tb.   Balances" << endl;
@@ -370,6 +394,7 @@ void UserMethods::userCommandList() {
 	cout << "\td.   Deposit" << endl;
 	cout << "\tt.   Transfer" << endl;
 	cout << "\tp.   View Purchases" << endl;
+	cout << "\tm.   Make Credit Payment" << endl;
 	cout << "\tq.   Exit" << endl << endl;
 
 	cout << "> ";
@@ -410,6 +435,11 @@ void UserMethods::userCommandSelect(User::User &user) {
 		case 't':
 			Utilities::clearScreen();
 			transferFunds(user);
+			break;
+
+		case 'm':
+			Utilities::clearScreen();
+			makeCreditPayment(user);
 			break;
 
 		case 'p':

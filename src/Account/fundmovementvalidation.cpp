@@ -45,18 +45,31 @@ int FundMovementValidation::withdraw(Account &fromAccount, double amount) {
 		}
 
 	} catch (bad_cast& bc1) {
-
-		SavingsAccount &fAccount = dynamic_cast<SavingsAccount&>(fromAccount);
-		try {
-			fAccount.withdrawl(amount);
-		} catch (int e) {
-			if (e == INSUFFICIENT_FUNDS) {
-				throw INSUFFICIENT_FUNDS;
+		try{
+			SavingsAccount &fAccount = dynamic_cast<SavingsAccount&>(fromAccount);
+			try {
+				fAccount.withdrawl(amount);
+			} catch (int e) {
+				if (e == INSUFFICIENT_FUNDS) {
+					throw INSUFFICIENT_FUNDS;
+				}
 			}
+			Db::Db::Connect();
+			AccountTable::Withdraw(fAccount, amount);
+			Db::Db::Disconnect();
+		}catch (bad_cast& bc2){
+			CreditAccount &fAccount = dynamic_cast<CreditAccount&>(fromAccount);
+			try {
+				fAccount.withdrawl(amount);
+			} catch (int e) {
+				if (e == INSUFFICIENT_FUNDS) {
+					throw INSUFFICIENT_FUNDS;
+				}
+			}
+			Db::Db::Connect();
+			AccountTable::Withdraw(fAccount, amount);
+			Db::Db::Disconnect();
 		}
-		Db::Db::Connect();
-		AccountTable::Withdraw(fAccount, amount);
-		Db::Db::Disconnect();
 
 	}
 
