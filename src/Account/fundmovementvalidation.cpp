@@ -99,11 +99,12 @@ int FundMovementValidation::endOfMonthCreditPayment(User::User &user, Account &c
 	try{
 		ChequingAccount &chequingAccount = dynamic_cast<ChequingAccount&>(cAccount);
 		//chequingAccount.withdrawl(amount);
-
+		CreditAccount &creditAccount = dynamic_cast<CreditAccount&>(credAccount);
 		if(chequingAccount.balance < amount){
 			if(!user.frozen){
 				Db::Db::Connect();
 				User::UserTable::FreezeCredit(user);
+				AccountTable::Deposit(creditAccount, 0.02 * creditAccount.balance);
 				Db::Db::Disconnect();
 			}
 			return 0;
