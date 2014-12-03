@@ -421,6 +421,7 @@ void ManagerMethods::getUserDetails(){
 	cout << user.id << endl;
 	cout << "username: " + user.username << endl;
 
+	//if user is a client, check to see if they have a chequing/savings/credit account to list
 
 	if(user.permissions == USER_PERMISSION_USER){
 		cout << "bank customer" << endl;
@@ -450,6 +451,7 @@ void ManagerMethods::getUserDetails(){
 
 }
 
+//get permissions and if a customer, check to see what accounts they have to list
 void ManagerMethods::getAllUserDetails(){
 	vector<User::User> users;
 	Db::Db::Connect();
