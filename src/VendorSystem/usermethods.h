@@ -15,13 +15,29 @@ public:
 	usermethods();
 	virtual ~usermethods();
 
+	/** @brief presents user with methods to run
+	 *
+	 * @param user object
+	 */
 	static void userCommandSelect(User::User &user);
 
 private:
+	/** @brief processes the purchase
+	 *
+	 * @param user
+	 * @param amount
+	 */
 	static void processPurchase(User::User &user, int amount);
 
+	/** @brief gives user random number to purchase
+	 *
+	 * @param user
+	 */
 	static void makePurchase(User::User &user);
 
+	/** @brief holds list of commands
+	 *
+	 */
 	static void userCommandList();
 
 
