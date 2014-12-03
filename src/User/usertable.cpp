@@ -253,7 +253,7 @@ long UserTable::SetCreditLimit(User& user, int const& credit_limit)
 			rows_affected);
 
 	if (rows_affected != 1)
-		throw FREEZE_ERROR;
+		throw SET_CREDIT_LIMIT_ERROR;
 
 	user.creditLimit = credit_limit;
 

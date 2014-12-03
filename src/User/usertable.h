@@ -70,11 +70,26 @@ public:
      */
     static long DeleteUser(std::string const& username);
 
+    /** @brief Freezes the credit of a user
+     * \thorws FREEZE_ERROR
+     *
+     *	@param user the user object of the user to freeze
+     */
     static long FreezeCredit(User& user);
 
-
+    /** @brief Unfreezes the credit of a user
+     * \throws UNFREEZE_ERROR
+     *
+     *	@param user the user object of the user to unfreeze
+     */
     static long UnFreezeCredit(User& user);
 
+    /** @brief Sets the credit limit for a user
+     * \throws SET_CREDIT_LIMIT_ERROR
+     *
+     *	@param user the user object of the user to set the credit limit
+     *	@param credit_limit the credit limit in dollars
+     */
     static long SetCreditLimit(User& user, int const& credit_limit);
 
 };
